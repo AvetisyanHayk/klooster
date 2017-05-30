@@ -30,7 +30,7 @@ class Persoonlijkheid {
     static Persoonlijkheid createRandomPersoonlijkheid() {
         Random random = new Random();
         Persoonlijkheid instance = new Persoonlijkheid();
-        instance.goedheid = Tools.getRandomInt(MIN_GOEDHEID, MAX_GOEDHEID);
+        instance.goedheid = Tools.getRandomInt(MIN_GOEDHEID, MAX_GOEDHEID, random);
         instance.creativiteit = Tools.getRandomInt(MIN_CREATIVITEIT,
                 MAX_CREATIVITEIT, random);
         return instance;
