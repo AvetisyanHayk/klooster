@@ -18,13 +18,11 @@ class Persoonlijkheid {
     private static final int MAX_GOEDHEID = 99;
     private static final int MAX_GOEDHEID_EVIL = MAX_GOEDHEID / 3;
     private static final int MAX_GOEDHEID_NEUTRAL = 2 * (MAX_GOEDHEID / 3);
-    private static final int MAX_GOEDHEID_GOED = MAX_GOEDHEID - 1;
 
     private static final int MIN_CREATIVITEIT = 0;
     private static final int MAX_CREATIVITEIT = 99;
     private static final int MAX_CREATIVITEIT_LAWFUL = MAX_CREATIVITEIT / 3;
     private static final int MAX_CREATIVITEIT_NEUTRAAL = 2 * (MAX_CREATIVITEIT / 3);
-    private static final int MAX_CREATIVITEIT_CHAOTIC = MAX_CREATIVITEIT - 1;
 
     private int goedheid = MIN_GOEDHEID;
     private int creativiteit = MIN_CREATIVITEIT;
@@ -76,7 +74,7 @@ class Persoonlijkheid {
         if (goedheid > MAX_GOEDHEID_EVIL && goedheid <= MAX_GOEDHEID_NEUTRAL) {
             return "neutraal";
         }
-        if (goedheid > MAX_GOEDHEID_NEUTRAL && goedheid <= MAX_GOEDHEID_GOED) {
+        if (goedheid > MAX_GOEDHEID_NEUTRAL && goedheid < MAX_GOEDHEID) {
             return "goed";
         }
         if (goedheid == MAX_GOEDHEID) {
