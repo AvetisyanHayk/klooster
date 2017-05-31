@@ -5,8 +5,8 @@
  */
 package be.howest.main;
 
-import be.howest.util.Tools;
-import java.util.Random;
+import be.howest.klooster.Pater;
+import be.howest.klooster.Program;
 
 /**
  *
@@ -18,11 +18,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            Random random = new Random();
-            System.out.println(Tools.getRandomInt(-55, -33, random));
-        }
-
+        Pater pater = new Pater("John Smith");
+        Program program = new Program(pater);
+        pater.addObserver(program);
     }
 
 }
