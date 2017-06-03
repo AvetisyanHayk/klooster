@@ -48,7 +48,7 @@ public class PersoonlijkheidTest {
     public void twee_persoonlijkheden_met_dezelfde_goedheids_en_creativiteitswaarden_zijn_gelijk() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(25, 35);
         Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(25, 35);
-        assertTrue(Objects.equals(persoonlijkheid1, persoonlijkheid2));
+        assertTrue(persoonlijkheid1.equals(persoonlijkheid2));
     }
 
     @Test
@@ -68,14 +68,14 @@ public class PersoonlijkheidTest {
     public void twee_persoonlijkheden_met_verschillende_goedheidswaarden_zijn_niet_gelijk() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(24, 35);
         Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(25, 35);
-        assertFalse(Objects.equals(persoonlijkheid1, persoonlijkheid2));
+        assertFalse(persoonlijkheid1.equals(persoonlijkheid2));
     }
 
     @Test
     public void twee_persoonlijkheden_met_verschillende_creativiteitswaarden_zijn_niet_gelijk() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(25, 34);
         Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(25, 35);
-        assertFalse(Objects.equals(persoonlijkheid1, persoonlijkheid2));
+        assertFalse(persoonlijkheid1.equals(persoonlijkheid2));
     }
 
     @Test
