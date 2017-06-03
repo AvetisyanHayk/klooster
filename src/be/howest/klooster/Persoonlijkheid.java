@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.howest.klooster;
 
 import be.howest.util.Tools;
@@ -12,7 +7,7 @@ import java.util.Random;
  *
  * @author Hayk
  */
-class Persoonlijkheid {
+public class Persoonlijkheid {
 
     private static final int MIN_GOEDHEID = 0;
     private static final int MAX_GOEDHEID = 99;
@@ -98,14 +93,6 @@ class Persoonlijkheid {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        String goedheidString = goedheidToString();
-        String creativiteitString = creativiteitToString();
-        sb.append(goedheidString);
-        if (!"".equals(goedheidString) && !"".equals(creativiteitString)) {
-            sb.append(' ');
-        }
-        sb.append(creativiteitString);
-        return sb.toString();
+        return Tools.toZin(goedheidToString(), creativiteitToString());
     }
 }

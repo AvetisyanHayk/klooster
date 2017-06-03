@@ -7,6 +7,7 @@ package be.howest.main;
 
 import be.howest.klooster.Pater;
 import be.howest.klooster.Program;
+import java.util.Arrays;
 
 /**
  *
@@ -18,8 +19,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Pater pater = new Pater("John Smith");
         Program program = new Program();
+        Pater pater = new Pater("John Smith");
         pater.addObserver(program);
     }
 

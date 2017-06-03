@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.howest.klooster.toestand;
 
 import be.howest.klooster.Pater;
+import be.howest.util.Tools;
 
 /**
  *
  * @author Hayk
  */
-public class BasisToestand implements Toestand {
-    private final Pater pater;
+public final class BasisToestand extends AbstracteToestand {
     
     public BasisToestand(Pater pater) {
-        this.pater = pater;
+        super(pater);
+        info = Tools.toZinMetCommas(pater.getVolledigeNaam(),
+                pater.getPersoonlijkheid().toString(),
+                getInfoOverAantalGedachten());
     }
 
     @Override
@@ -37,4 +35,5 @@ public class BasisToestand implements Toestand {
     public void denkNa() {
         throw new UnsupportedOperationException();
     }
+    
 }

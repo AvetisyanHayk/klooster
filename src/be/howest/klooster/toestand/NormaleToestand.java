@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.howest.klooster.toestand;
 
 import be.howest.klooster.Pater;
@@ -11,11 +6,10 @@ import be.howest.klooster.Pater;
  *
  * @author Hayk
  */
-public class NormaleToestand implements Toestand {
-    private final Pater pater;
+public final class NormaleToestand extends AbstracteToestand {
     
     public NormaleToestand(Pater pater) {
-        this.pater = pater;
+        super(pater);
     }
 
     @Override

@@ -4,7 +4,7 @@ package be.howest.klooster;
  *
  * @author Hayk
  */
-class Woord {
+public class Woord {
     private final Persoonlijkheid begeestering;
     
     
