@@ -24,11 +24,11 @@ public abstract class AbstracteToestand implements Toestand {
         int aantalGedachten = pater.getAantalGedachten();
         StringBuilder sb = new StringBuilder();
         sb.append(aantalGedachten);
-        String gedacht = " gedacht";
+        String gedachte = " gedachte";
         if (aantalGedachten != 1) {
-            gedacht += "en";
+            gedachte += "n";
         }
-        return sb.append(gedacht).append(" in zijn hoofd").toString();
+        return sb.append(gedachte).append(" in zijn hoofd").toString();
     }
 
     @Override
