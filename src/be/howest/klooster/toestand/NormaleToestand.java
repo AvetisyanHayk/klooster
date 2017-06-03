@@ -22,17 +22,9 @@ public final class NormaleToestand extends AbstracteToestand {
     }
 
     @Override
-    public void spreek() {
-        super.spreek();
-        if (!pater.hasGedachten()) {
-            pater.setToestand(pater.getBasisToestand());
-        }
-    }
-
-    @Override
     public void luister(Woord woord) {
         super.luister(woord);
-        if (pater.hoofdZitVol()) {
+        if (woord != null && pater.hoofdZitVol()) {
             pater.setToestand(pater.getHoofdZitVolMetGedachtenToestand());
         }
     }

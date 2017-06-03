@@ -8,6 +8,6 @@ import be.howest.klooster.core.Woord;
  */
 public interface Toestand {
     void bid();
-    void spreek();
+    Woord spreek();
     void luister(Woord woord);
 }

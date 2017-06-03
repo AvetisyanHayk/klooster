@@ -22,11 +22,14 @@ public abstract class AbstracteToestand implements Toestand {
     
     @Override
     public void luister(Woord woord) {
+        if (woord != null) {
+            // TODO hier komt de code anders gebeurt er niks
+        }
         throw new UnsupportedOperationException();
     }
     
     @Override
-    public void spreek() {
+    public Woord spreek() {
         throw new UnsupportedOperationException();
     }
 

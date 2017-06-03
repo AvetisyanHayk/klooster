@@ -19,11 +19,6 @@ public final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
     }
 
     @Override
-    public void spreek() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void luister(Woord woord) {
         throw new UnsupportedOperationException();
     }

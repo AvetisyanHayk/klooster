@@ -24,10 +24,11 @@ public final class BasisToestand extends AbstracteToestand {
     }
 
     @Override
-    public void spreek() {
+    public Woord spreek() {
         pater.setInfo(Tools.toZin(pater.getNaam(), " heeft geen gedachten.",
                 "Eerst moet hij bidden of luisteren naar een woord."))
                 .triggerChange();
+        return null;
     }
 
     @Override
