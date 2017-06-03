@@ -1,5 +1,7 @@
 package be.howest.klooster.toestand;
 
+import be.howest.klooster.core.Berichten;
+import be.howest.klooster.core.Gedachte;
 import be.howest.klooster.core.Inspiratie;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Persoonlijkheid;
@@ -21,8 +23,10 @@ public abstract class AbstracteToestand implements Toestand {
     public void bid() {
         int concept = Inspiratie.getInstance().inspireerMij();
         Persoonlijkheid mening = pater.getPersoonlijkheid();
-        
-        throw new UnsupportedOperationException();
+        Gedachte gedachte = new Gedachte(concept, mening);
+        pater.addGedachte(gedachte);
+        pater.setInfo(String.format(Berichten.BID, pater.getNaam(), gedachte))
+                .triggerChange();
     }
     
     @Override
@@ -36,16 +40,5 @@ public abstract class AbstracteToestand implements Toestand {
     @Override
     public Woord spreek() {
         throw new UnsupportedOperationException();
-    }
-
-    protected String getInfoOverAantalGedachten() {
-        int aantalGedachten = pater.getAantalGedachten();
-        StringBuilder sb = new StringBuilder();
-        sb.append(aantalGedachten);
-        String gedachte = " gedachte";
-        if (aantalGedachten != 1) {
-            gedachte += "n";
-        }
-        return sb.append(gedachte).append(" in zijn hoofd").toString();
     }
 }

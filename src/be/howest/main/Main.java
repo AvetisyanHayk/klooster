@@ -19,8 +19,10 @@ public class Main {
      */
     public static void main(String[] args) {
         Program program = new Program();
-        Pater pater = new Pater("John Smith");
-        pater.addObserver(program);
+        Pater roger = new Pater("Roger");
+        roger.addObserver(program);
+        roger.spreek();
+        roger.bid();
     }
 
 }

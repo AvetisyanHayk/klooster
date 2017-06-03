@@ -17,4 +17,9 @@ public class Gedachte {
     public Woord verwoord(Persoonlijkheid begeestering) {
         return new Woord(this, begeestering);
     }
+    
+    @Override
+    public String toString() {
+        return String.format(Berichten.GEDACHTE, mening, concept);
+    }
 }

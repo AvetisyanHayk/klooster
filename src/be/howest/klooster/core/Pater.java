@@ -72,13 +72,25 @@ public class Pater extends Observable {
         this.toestand = toestand;
     }
     
+    public Persoonlijkheid getPersoonlijkheid() {
+        return persoonlijkheid;
+    }
+    
     public Pater setInfo(String info) {
         this.info = info;
         return this;
     }
     
-    public Persoonlijkheid getPersoonlijkheid() {
-        return persoonlijkheid;
+    public boolean addGedachte(Gedachte gedachte) {
+        if (!hoofdZitVol()) {
+            for (int i = 0; i < gedachten.length; i++) {
+                if (gedachten[i] == null) {
+                    gedachten[i] = gedachte;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     public String getVolledigeNaam() {

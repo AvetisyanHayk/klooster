@@ -61,32 +61,32 @@ public class Persoonlijkheid {
 
     private String goedheidToString() {
         if (goedheid == MIN_GOEDHEID) {
-            return "puur kwaad";
+            return Berichten.PUUR_KWAAD;
         }
         if (goedheid > MIN_GOEDHEID && goedheid <= MAX_GOEDHEID_EVIL) {
-            return "kwaad";
+            return Berichten.KWAAD;
         }
         if (goedheid > MAX_GOEDHEID_EVIL && goedheid <= MAX_GOEDHEID_NEUTRAL) {
-            return "neutraal";
+            return Berichten.NEUTRAAL;
         }
         if (goedheid > MAX_GOEDHEID_NEUTRAL && goedheid < MAX_GOEDHEID) {
-            return "goed";
+            return Berichten.GOED;
         }
         if (goedheid == MAX_GOEDHEID) {
-            return "absoluut goed";
+            return Berichten.ABSOLUUT_GOED;
         }
         return "";
     }
     
     private String creativiteitToString() {
         if (creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT_LAWFUL) {
-            return "rechtmatig";
+            return Berichten.RECHTMATIG;
         }
         if (creativiteit > MAX_CREATIVITEIT_LAWFUL && creativiteit <= MAX_CREATIVITEIT_NEUTRAAL) {
-            return "neutraal";
+            return Berichten.NEUTRAAL;
         }
         if (creativiteit > MAX_CREATIVITEIT_NEUTRAAL && creativiteit <= MAX_CREATIVITEIT) {
-            return "chaotisch";
+            return Berichten.CHAOTISCH;
         }
         return "";
     }
