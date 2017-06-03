@@ -15,16 +15,25 @@ public final class NormaleToestand extends AbstracteToestand {
 
     @Override
     public void bid() {
-        throw new UnsupportedOperationException();
+        super.bid();
+        if (pater.hoofdZitVol()) {
+            pater.setToestand(pater.getHoofdZitVolMetGedachtenToestand());
+        }
     }
 
     @Override
     public void spreek() {
-        throw new UnsupportedOperationException();
+        super.spreek();
+        if (!pater.hasGedachten()) {
+            pater.setToestand(pater.getBasisToestand());
+        }
     }
 
     @Override
     public void luister(Woord woord) {
-        throw new UnsupportedOperationException();
+        super.luister(woord);
+        if (pater.hoofdZitVol()) {
+            pater.setToestand(pater.getHoofdZitVolMetGedachtenToestand());
+        }
     }
 }

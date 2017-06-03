@@ -110,8 +110,8 @@ public class Pater extends Observable {
     public void luister(Woord woord) {
         toestand.luister(woord);
     }
-    
-    private boolean hasGedachten() {
+
+    public boolean hasGedachten() {
         for (Gedachte gedachte : gedachten) {
             if (gedachte != null) {
                 return true;
@@ -120,7 +120,7 @@ public class Pater extends Observable {
         return false;
     }
     
-    private boolean hoofdZitVol() {
+    public boolean hoofdZitVol() {
         for (Gedachte gedachte : gedachten) {
             if (gedachte == null) {
                 return false;

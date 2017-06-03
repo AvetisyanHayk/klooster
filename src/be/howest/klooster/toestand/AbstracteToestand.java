@@ -24,6 +24,11 @@ public abstract class AbstracteToestand implements Toestand {
     public void luister(Woord woord) {
         throw new UnsupportedOperationException();
     }
+    
+    @Override
+    public void spreek() {
+        throw new UnsupportedOperationException();
+    }
 
     protected String getInfoOverAantalGedachten() {
         int aantalGedachten = pater.getAantalGedachten();
