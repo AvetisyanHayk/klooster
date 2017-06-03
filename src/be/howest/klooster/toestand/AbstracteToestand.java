@@ -6,6 +6,8 @@ import be.howest.klooster.core.Inspiratie;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Persoonlijkheid;
 import be.howest.klooster.core.Woord;
+import be.howest.klooster.core.GedachtenOptimizer;
+import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGoedheidScore;
 
 /**
  *
@@ -43,6 +45,47 @@ abstract class AbstracteToestand implements Toestand {
     
     @Override
     public void denkNa() {
+        denkNa(GedachtenOptimizerOpBasisVanGoedheidScore.getInstance());
+    }
+    
+    @Override
+    public void denkNa(GedachtenOptimizer optimizer) {
+        setInfoVoorHetNadenken();
+        int aantalGeoptimaliseerdeGedachten = optimaliseerGedachten(optimizer);
+        setInfoNaHetNadenken();
+        if (aantalGeoptimaliseerdeGedachten > 0) {
+            setInfoNadenkenGelukt();
+            veranderPersoonlijkheid();
+        } else {
+            setInfoNadenkenMislukt();
+        }
+    }
+    
+    private void setInfoVoorHetNadenken() {
+        pater.setInfo(String.format(Berichten.DENK_NA_VOORAF, pater.getNaam(),
+                pater.getPersoonlijkheid()));
+    }
+    
+    private void setInfoNaHetNadenken() {
+        pater.setInfo(String.format(Berichten.DENK_NA_ACHTERAF, pater.getNaam(),
+                pater.getPersoonlijkheid()));
+    }
+    
+    private void setInfoNadenkenGelukt() {
+        pater.setInfo(String.format(Berichten.DENK_NA_GELUKT, pater.getNaam(),
+                pater.getAantalGedachten()));
+    }
+    
+    private void setInfoNadenkenMislukt() {
+        pater.setInfo(String.format(Berichten.DENK_NA_MISLUKT,
+                pater.getNaam()));
+    }
+    
+    private int optimaliseerGedachten(GedachtenOptimizer optimizer) {
+        throw new UnsupportedOperationException();
+    }
+    
+    private void veranderPersoonlijkheid() {
         throw new UnsupportedOperationException();
     }
 }

@@ -1,5 +1,6 @@
 package be.howest.klooster.toestand;
 
+import be.howest.klooster.core.Berichten;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Woord;
 
@@ -27,5 +28,12 @@ public final class NormaleToestand extends AbstracteToestand {
         if (woord != null && pater.hoofdZitVol()) {
             pater.setToestand(pater.getHoofdZitVolMetGedachtenToestand());
         }
+    }
+    
+    @Override
+    public void denkNa() {
+        pater.setInfo(String.format(Berichten.DENK_NA, pater.getNaam(),
+                pater.getAantalGedachten()));
+        super.denkNa();
     }
 }

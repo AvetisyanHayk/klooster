@@ -32,4 +32,11 @@ public final class BasisToestand extends AbstracteToestand {
         super.luister(woord);
         pater.setToestand(pater.getNormaleToestand());
     }
+    
+    @Override
+    public void denkNa() {
+        pater.setInfo(String.format(Berichten.DENK_NA, pater.getNaam(),
+                pater.getAantalGedachten()));
+        super.denkNa();
+    }
 }

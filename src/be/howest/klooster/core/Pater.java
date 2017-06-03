@@ -56,6 +56,10 @@ public class Pater extends Observable {
         return naam;
     }
     
+    public Toestand getToestand() {
+        return toestand;
+    }
+    
     public Toestand getBasisToestand() {
         return basisToestand;
     }

@@ -1,6 +1,7 @@
 package be.howest.klooster.toestand;
 
 import be.howest.klooster.core.Woord;
+import be.howest.klooster.core.GedachtenOptimizer;
 
 /**
  *
@@ -11,4 +12,5 @@ public interface Toestand {
     Woord spreek();
     void luister(Woord woord);
     void denkNa();
+    void denkNa(GedachtenOptimizer optimizer);
 }

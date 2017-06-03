@@ -31,4 +31,13 @@ public final class Berichten {
     public static final String SPREEK_BASISTOESTAND = "%s heeft geen gedachten. Eerst moet hij bidden of luisteren naar een woord.";
     public static final String BID = "%s bidt en komt tot een gedachte: %s";
     
+    public static final String DENK_NA = "%s gaat alles even overdenken: %d gedachten aan zijn hoofd momenteel.";
+    public static final String DENK_NA_HOOFD_ZIT_VOL = "%s hoofd zit vol, gedacht is niet opgeslagen. Hij gaat even nadenken.";
+    
+    public static final String DENK_NA_VOORAF = "%s heeft voor het nadenken deze persoonlijkheid: %s";
+    public static final String DENK_NA_ACHTERAF = "%s heeft na nadenken deze persoonlijkheid: %s";
+    public static final String DENK_NA_GELUKT = "%s heeft de gedachten op een rijtje gezet: %d resterende gedachten.";
+    public static final String DENK_NA_MISLUKT = "Hoofd van %s zit vol en nadenken brengt geen soelaas.";
+    
+    
 }
