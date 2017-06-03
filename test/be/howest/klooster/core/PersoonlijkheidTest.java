@@ -1,10 +1,6 @@
 package be.howest.klooster.core;
 
 import java.util.Objects;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -74,11 +70,25 @@ public class PersoonlijkheidTest {
         Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(25, 35);
         assertFalse(Objects.equals(persoonlijkheid1, persoonlijkheid2));
     }
-    
+
     @Test
     public void twee_persoonlijkheden_met_verschillende_creativiteitswaarden_zijn_niet_gelijk() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(25, 34);
         Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(25, 35);
         assertFalse(Objects.equals(persoonlijkheid1, persoonlijkheid2));
+    }
+
+    @Test
+    public void createRandomPersoonlijkheid_geeft_correcte_persoonlijkheid_terug() {
+        for (int i = 0; i < 1000; i++) {
+            Persoonlijkheid persoonlijkheid = Persoonlijkheid.createRandomPersoonlijkheid();
+            int goedheid = persoonlijkheid.getGoedheid();
+            int creativiteit = persoonlijkheid.getGoedheid();
+            assertTrue(goedheid >= Persoonlijkheid.MIN_GOEDHEID
+                    && goedheid <= Persoonlijkheid.MAX_GOEDHEID);
+            assertTrue(creativiteit >= Persoonlijkheid.MIN_CREATIVITEIT
+                    && creativiteit <= Persoonlijkheid.MAX_CREATIVITEIT);
+        }
+
     }
 }
