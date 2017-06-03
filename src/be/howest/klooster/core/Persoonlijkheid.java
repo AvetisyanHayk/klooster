@@ -101,6 +101,6 @@ public final class Persoonlijkheid {
 
     @Override
     public String toString() {
-        return Tools.toZin(goedheidToString(), creativiteitToString());
+        return goedheidToString() + " " + creativiteitToString();
     }
 }

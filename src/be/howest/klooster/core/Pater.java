@@ -130,7 +130,7 @@ public class Pater extends Observable {
         if (naam.equals(classNaam)) {
             return naam;
         }
-        return Tools.toZin(classNaam, naam);
+        return classNaam + " " + naam;
     }
 
     public int getAantalGedachten() {

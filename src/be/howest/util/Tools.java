@@ -1,6 +1,5 @@
 package be.howest.util;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -37,27 +36,4 @@ public final class Tools {
         }
         return random.nextInt(Math.abs(max - min) + 1) + min;
     }
-    
-    public static String toZin(String... woorden) {
-        return toZin(woorden, "");
-    }
-    
-    public static String toZinMetCommas(String... woorden) {
-        return toZin(woorden, ",");
-    }
-    
-    private static String toZin(String[] woorden, String delimiter) {
-        if (woorden == null || woorden.length == 0) {
-            return "";
-        }
-        if (woorden.length == 1) {
-            return woorden[0];
-        }
-        return Arrays.<String>asList(woorden).stream()
-                .reduce("", (previous, current)
-                        -> (!"".equals(previous))
-                ? previous + delimiter + " " + current
-                : current);
-    }
-
 }
