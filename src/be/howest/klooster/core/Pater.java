@@ -56,6 +56,10 @@ public class Pater extends Observable {
         return naam;
     }
     
+    Gedachte[] getMutableGedachten() {
+        return gedachten;
+    }
+    
     public Toestand getToestand() {
         return toestand;
     }

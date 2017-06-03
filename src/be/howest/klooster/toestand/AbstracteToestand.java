@@ -82,7 +82,7 @@ abstract class AbstracteToestand implements Toestand {
     }
     
     private int optimaliseerGedachten(GedachtenOptimizer optimizer) {
-        throw new UnsupportedOperationException();
+        return optimizer.optimizeGedachten(pater);
     }
     
     private void veranderPersoonlijkheid() {

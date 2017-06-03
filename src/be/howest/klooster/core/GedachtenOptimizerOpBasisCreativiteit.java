@@ -17,7 +17,7 @@ public class GedachtenOptimizerOpBasisCreativiteit
     }
 
     @Override
-    public int optimizeGedachten(Gedachte[] gedachten) {
+    public int optimizeGedachten(Pater pater) {
         throw new UnsupportedOperationException();
     }
 
