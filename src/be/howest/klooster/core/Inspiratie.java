@@ -5,10 +5,13 @@ package be.howest.klooster.core;
  * @author Hayk
  */
 public class Inspiratie {
+    
+    public static final int MIN = 1;
+    public static final int MAX = 9;
 
     private static Inspiratie uniqueInstance;
 
-    private int concept = 1;
+    private int concept = MIN;
 
     private Inspiratie() {
     }
@@ -22,8 +25,8 @@ public class Inspiratie {
 
     public int inspireerMij() {
         int result = concept++;
-        if (concept > 9) {
-            concept = 0;
+        if (concept > MAX) {
+            concept = MIN;
         }
         return result;
     }

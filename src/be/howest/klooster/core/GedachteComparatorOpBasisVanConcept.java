@@ -1,5 +1,6 @@
 package be.howest.klooster.core;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Comparator;
  * @author Hayk
  */
 public class GedachteComparatorOpBasisVanConcept
-        implements Comparator<Gedachte> {
+        implements Comparator<Gedachte>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Override
     public int compare(Gedachte gedachte1, Gedachte gedachte2) {

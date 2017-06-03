@@ -11,4 +11,8 @@ public class Woord {
     public Woord(Gedachte gedachte, Persoonlijkheid begeestering) {
         this.begeestering = begeestering;
     }
+    
+    public Persoonlijkheid getBegeestering() {
+        return begeestering;
+    }
 }

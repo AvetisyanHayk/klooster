@@ -12,6 +12,10 @@ public class Gedachte {
     private final Persoonlijkheid mening;
 
     public Gedachte(int concept, Persoonlijkheid mening) {
+        if (mening == null || concept < Inspiratie.MIN
+                || concept > Inspiratie.MAX) {
+            throw new IllegalArgumentException();
+        }
         this.concept = concept;
         this.mening = mening;
     }
@@ -33,6 +37,9 @@ public class Gedachte {
     }
 
     public Woord verwoord(Persoonlijkheid begeestering) {
+        if (begeestering == null) {
+            throw new IllegalArgumentException();
+        }
         return new Woord(this, begeestering);
     }
 

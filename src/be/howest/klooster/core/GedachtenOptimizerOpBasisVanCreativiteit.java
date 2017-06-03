@@ -35,8 +35,8 @@ public class GedachtenOptimizerOpBasisVanCreativiteit
     private Set<Gedachte> getGeoptimaliseerdeGedachten(
             Map<Integer, Set<Gedachte>> gedachtenMap, int goedheid) {
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
-        for (Integer concept : gedachtenMap.keySet()) {
-            Set<Gedachte> gedachtenSet = gedachtenMap.get(concept);
+        for (Map.Entry<Integer, Set<Gedachte>> entry : gedachtenMap.entrySet()) {
+            Set<Gedachte> gedachtenSet = entry.getValue();
             Gedachte gedachteMetHoogsteCreativiteit
                     = getGedachteMetHoogsteCreativiteit(gedachtenSet);
             geoptimaliseerdeGedachten.add(gedachteMetHoogsteCreativiteit);

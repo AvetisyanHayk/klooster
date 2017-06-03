@@ -34,6 +34,7 @@ abstract class AbstracteToestand implements Toestand {
     public void luister(Woord woord) {
         if (woord != null) {
             // TODO hier komt de code anders gebeurt er niks
+            throw new UnsupportedOperationException();
         }
         throw new UnsupportedOperationException();
     }
