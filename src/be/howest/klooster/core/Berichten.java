@@ -38,6 +38,4 @@ public final class Berichten {
     public static final String DENK_NA_ACHTERAF = "%s heeft na nadenken deze persoonlijkheid: %s";
     public static final String DENK_NA_GELUKT = "%s heeft de gedachten op een rijtje gezet: %d resterende gedachten.";
     public static final String DENK_NA_MISLUKT = "Hoofd van %s zit vol en nadenken brengt geen soelaas.";
-    
-    
 }
