@@ -12,10 +12,6 @@ public final class BasisToestand extends AbstracteToestand {
 
     public BasisToestand(Pater pater) {
         super(pater);
-        int aantalGedachten = pater.getAantalGedachten();
-        pater.setInfo(String.format(Berichten.OVERZICHT,
-                pater.getVolledigeNaam(), pater.getPersoonlijkheid(),
-                aantalGedachten, (aantalGedachten != 1) ? "n" : ""));
     }
 
     @Override
@@ -27,7 +23,7 @@ public final class BasisToestand extends AbstracteToestand {
     @Override
     public Woord spreek() {
         pater.setInfo(String.format(Berichten.SPREEK_BASISTOESTAND,
-                pater.getNaam())).triggerChange();
+                pater.getNaam()));
         return null;
     }
 

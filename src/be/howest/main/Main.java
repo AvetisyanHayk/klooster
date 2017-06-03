@@ -23,6 +23,7 @@ public class Main {
         roger.addObserver(program);
         roger.spreek();
         roger.bid();
+        roger.info();
     }
 
 }

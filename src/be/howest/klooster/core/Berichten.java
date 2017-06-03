@@ -23,8 +23,11 @@ public final class Berichten {
     /* Gedachte */
     public static final String GEDACHTE = "%s gedachte over concept %d";
     
+    /* Pater */
+    public static final String PATER = "%s, %s, %d gedachte%s aan zijn hoofd";
+    public static final String NIEUWE_PATER = "NIEUWE PATER: %s";
+    
     /* Acties */
-    public static final String OVERZICHT = "%s, %s, %d gedachte%s aan zijn hoofd";
     public static final String SPREEK_BASISTOESTAND = "%s heeft geen gedachten. Eerst moet hij bidden of luisteren naar een woord.";
     public static final String BID = "%s bidt en komt tot een gedachte: %s";
     

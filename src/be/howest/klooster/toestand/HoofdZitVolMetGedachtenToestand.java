@@ -15,15 +15,11 @@ public final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
 
     @Override
     public void bid() {
-        throw new UnsupportedOperationException();
+        super.denkNa();
     }
 
     @Override
     public void luister(Woord woord) {
-        throw new UnsupportedOperationException();
-    }
-
-    private void denkNa() {
-        throw new UnsupportedOperationException();
+        super.denkNa();
     }
 }

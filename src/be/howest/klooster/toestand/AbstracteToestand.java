@@ -11,7 +11,7 @@ import be.howest.klooster.core.Woord;
  *
  * @author Hayk
  */
-public abstract class AbstracteToestand implements Toestand {
+abstract class AbstracteToestand implements Toestand {
 
     protected final Pater pater;
 
@@ -25,8 +25,7 @@ public abstract class AbstracteToestand implements Toestand {
         Persoonlijkheid mening = pater.getPersoonlijkheid();
         Gedachte gedachte = new Gedachte(concept, mening);
         pater.addGedachte(gedachte);
-        pater.setInfo(String.format(Berichten.BID, pater.getNaam(), gedachte))
-                .triggerChange();
+        pater.setInfo(String.format(Berichten.BID, pater.getNaam(), gedachte));
     }
     
     @Override
@@ -39,6 +38,11 @@ public abstract class AbstracteToestand implements Toestand {
     
     @Override
     public Woord spreek() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    public void denkNa() {
         throw new UnsupportedOperationException();
     }
 }

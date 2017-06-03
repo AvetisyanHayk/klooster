@@ -76,9 +76,9 @@ public class Pater extends Observable {
         return persoonlijkheid;
     }
     
-    public Pater setInfo(String info) {
+    public void setInfo(String info) {
         this.info = info;
-        return this;
+        triggerChange();
     }
     
     public boolean addGedachte(Gedachte gedachte) {
@@ -122,6 +122,10 @@ public class Pater extends Observable {
     public void luister(Woord woord) {
         toestand.luister(woord);
     }
+    
+    public void info() {
+        triggerChange();
+    }
 
     public boolean hasGedachten() {
         for (Gedachte gedachte : gedachten) {
@@ -150,6 +154,7 @@ public class Pater extends Observable {
     @Override
     public void addObserver(Observer observer) {
         super.addObserver(observer);
+        info = String.format(Berichten.NIEUWE_PATER, this);
         triggerChange();
     }
 
@@ -172,14 +177,17 @@ public class Pater extends Observable {
             return false;
         }
         final Pater other = (Pater) obj;
-        if (!Objects.equals(this.naam, other.naam)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.naam, other.naam);
     }
     
     @Override
     public String toString() {
-        return info;
+        if (info != null) {
+            return info;
+        }
+        int aantalGedachten = getAantalGedachten();
+        return String.format(Berichten.PATER,
+                getVolledigeNaam(), getPersoonlijkheid(),
+                aantalGedachten, (aantalGedachten != 1) ? "n" : "");
     }
 }

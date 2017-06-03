@@ -10,4 +10,5 @@ public interface Toestand {
     void bid();
     Woord spreek();
     void luister(Woord woord);
+    void denkNa();
 }
