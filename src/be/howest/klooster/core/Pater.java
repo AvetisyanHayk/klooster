@@ -5,33 +5,37 @@ import be.howest.klooster.toestand.HoofdZitVolMetGedachtenToestand;
 import be.howest.klooster.toestand.NormaleToestand;
 import be.howest.klooster.toestand.Toestand;
 import be.howest.util.Tools;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 /**
  *
  * @author Hayk
  */
 public class Pater extends Observable {
-    private static final int MAX_GEDACHTEN = 20;
-    
+
+    public static final int MAX_GEDACHTEN = 20;
+
     private final String naam;
     private Persoonlijkheid persoonlijkheid;
-    private final Gedachte[] gedachten;
-    
+    private Gedachte[] gedachten;
+
     private Toestand basisToestand;
     private Toestand normaleToestand;
     private Toestand hoofdZitVolMetGedachtenToestand;
-    
+
     private Toestand toestand;
-    
+
     private String info = null;
-    
+
     public Pater(String naam) {
         this(naam, Persoonlijkheid.createRandomPersoonlijkheid());
     }
-    
+
     public Pater(String naam, Persoonlijkheid persoonlijkheid) {
         if (naam == null || "".equals(naam)) {
             naam = getClass().getSimpleName();
@@ -44,51 +48,71 @@ public class Pater extends Observable {
         gedachten = new Gedachte[MAX_GEDACHTEN];
         initToestanden();
     }
-    
+
     private void initToestanden() {
         basisToestand = new BasisToestand(this);
         normaleToestand = new NormaleToestand(this);
         hoofdZitVolMetGedachtenToestand = new HoofdZitVolMetGedachtenToestand(this);
         toestand = basisToestand;
     }
-    
+
     public String getNaam() {
         return naam;
     }
-    
-    Gedachte[] getMutableGedachten() {
-        return gedachten;
+
+    Set<Gedachte> getGedachten() {
+        Set<Gedachte> gedachtenSet = new LinkedHashSet<>();
+        for (Gedachte gedachte : gedachten) {
+            if (gedachte != null) {
+                gedachtenSet.add(gedachte);
+            }
+        }
+        return gedachtenSet;
     }
-    
+
+    void setGedachten(Gedachte[] gedachten) {
+        if (gedachten != null && gedachten.length < MAX_GEDACHTEN) {
+            this.gedachten = gedachten;
+        }
+    }
+
     public Toestand getToestand() {
         return toestand;
     }
-    
+
     public Toestand getBasisToestand() {
         return basisToestand;
     }
-    
+
     public Toestand getNormaleToestand() {
         return normaleToestand;
     }
-    
+
     public Toestand getHoofdZitVolMetGedachtenToestand() {
         return hoofdZitVolMetGedachtenToestand;
     }
-    
+
     public void setToestand(Toestand toestand) {
         this.toestand = toestand;
     }
-    
+
     public Persoonlijkheid getPersoonlijkheid() {
         return persoonlijkheid;
     }
-    
+
+    public int getGoedheid() {
+        return persoonlijkheid.getGoedheid();
+    }
+
+    public int getCreativiteit() {
+        return persoonlijkheid.getCreativiteit();
+    }
+
     public void setInfo(String info) {
         this.info = info;
         triggerChange();
     }
-    
+
     public boolean addGedachte(Gedachte gedachte) {
         if (!hoofdZitVol()) {
             for (int i = 0; i < gedachten.length; i++) {
@@ -100,7 +124,7 @@ public class Pater extends Observable {
         }
         return false;
     }
-    
+
     public String getVolledigeNaam() {
         String classNaam = getClass().getSimpleName();
         if (naam.equals(classNaam)) {
@@ -108,7 +132,7 @@ public class Pater extends Observable {
         }
         return Tools.toZin(classNaam, naam);
     }
-    
+
     public int getAantalGedachten() {
         int aantalGedachten = 0;
         for (Gedachte gedachte : gedachten) {
@@ -118,19 +142,27 @@ public class Pater extends Observable {
         }
         return aantalGedachten;
     }
-    
+
     public void bid() {
         toestand.bid();
     }
-    
+
     public void spreek() {
         toestand.spreek();
     }
-    
+
     public void luister(Woord woord) {
         toestand.luister(woord);
     }
-    
+
+    public void denkNa() {
+        toestand.denkNa();
+    }
+
+    public void denkNa(GedachtenOptimizer optimizer) {
+        toestand.denkNa(optimizer);
+    }
+
     public void info() {
         triggerChange();
     }
@@ -143,7 +175,7 @@ public class Pater extends Observable {
         }
         return false;
     }
-    
+
     public boolean hoofdZitVol() {
         for (Gedachte gedachte : gedachten) {
             if (gedachte == null) {
@@ -152,13 +184,13 @@ public class Pater extends Observable {
         }
         return true;
     }
-    
+
     public void triggerChange() {
         setChanged();
         notifyObservers();
         info = null;
     }
-    
+
     @Override
     public void addObserver(Observer observer) {
         super.addObserver(observer);
@@ -187,7 +219,7 @@ public class Pater extends Observable {
         final Pater other = (Pater) obj;
         return Objects.equals(this.naam, other.naam);
     }
-    
+
     @Override
     public String toString() {
         if (info != null) {

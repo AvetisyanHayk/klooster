@@ -7,7 +7,7 @@ import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Persoonlijkheid;
 import be.howest.klooster.core.Woord;
 import be.howest.klooster.core.GedachtenOptimizer;
-import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGoedheidScore;
+import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGoedheid;
 
 /**
  *
@@ -45,7 +45,7 @@ abstract class AbstracteToestand implements Toestand {
     
     @Override
     public void denkNa() {
-        denkNa(GedachtenOptimizerOpBasisVanGoedheidScore.getInstance());
+        denkNa(GedachtenOptimizerOpBasisVanGoedheid.getInstance());
     }
     
     @Override
@@ -53,9 +53,10 @@ abstract class AbstracteToestand implements Toestand {
         setInfoVoorHetNadenken();
         int aantalGeoptimaliseerdeGedachten = optimaliseerGedachten(optimizer);
         setInfoNaHetNadenken();
-        if (aantalGeoptimaliseerdeGedachten > 0) {
-            setInfoNadenkenGelukt();
+        if (aantalGeoptimaliseerdeGedachten > 0 || !pater.hoofdZitVol()) {
             veranderPersoonlijkheid();
+            setInfoNadenkenGelukt();
+
         } else {
             setInfoNadenkenMislukt();
         }
