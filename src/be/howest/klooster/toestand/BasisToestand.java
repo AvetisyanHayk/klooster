@@ -1,8 +1,8 @@
 package be.howest.klooster.toestand;
 
+import be.howest.klooster.core.Berichten;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Woord;
-import be.howest.util.Tools;
 
 /**
  *
@@ -12,9 +12,10 @@ public final class BasisToestand extends AbstracteToestand {
 
     public BasisToestand(Pater pater) {
         super(pater);
-        pater.setInfo(Tools.toZinMetCommas(pater.getVolledigeNaam(),
-                pater.getPersoonlijkheid().toString(),
-                getInfoOverAantalGedachten()));
+        int aantalGedachten = pater.getAantalGedachten();
+        pater.setInfo(String.format(Berichten.OVERZICHT,
+                pater.getVolledigeNaam(), pater.getPersoonlijkheid(),
+                aantalGedachten, (aantalGedachten != 1) ? "n" : ""));
     }
 
     @Override
@@ -25,9 +26,8 @@ public final class BasisToestand extends AbstracteToestand {
 
     @Override
     public Woord spreek() {
-        pater.setInfo(Tools.toZin(pater.getNaam(), " heeft geen gedachten.",
-                "Eerst moet hij bidden of luisteren naar een woord."))
-                .triggerChange();
+        pater.setInfo(String.format(Berichten.SPREEK_BASISTOESTAND,
+                pater.getNaam())).triggerChange();
         return null;
     }
 

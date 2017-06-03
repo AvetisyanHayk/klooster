@@ -13,11 +13,11 @@ public class Inspiratie {
     private Inspiratie() {
     }
     
-    static Inspiratie getInstance() {
+    public static Inspiratie getInstance() {
         return INSTANCE;
     }
    
-    int inspireerMij() {
+    public int inspireerMij() {
         int result = concept++;
         if (concept > 9) {
             concept = 0;

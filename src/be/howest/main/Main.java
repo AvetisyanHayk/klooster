@@ -7,7 +7,6 @@ package be.howest.main;
 
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Program;
-import java.util.Arrays;
 
 /**
  *

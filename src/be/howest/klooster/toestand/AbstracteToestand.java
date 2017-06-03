@@ -1,6 +1,8 @@
 package be.howest.klooster.toestand;
 
+import be.howest.klooster.core.Inspiratie;
 import be.howest.klooster.core.Pater;
+import be.howest.klooster.core.Persoonlijkheid;
 import be.howest.klooster.core.Woord;
 
 /**
@@ -17,6 +19,9 @@ public abstract class AbstracteToestand implements Toestand {
     
     @Override
     public void bid() {
+        int concept = Inspiratie.getInstance().inspireerMij();
+        Persoonlijkheid mening = pater.getPersoonlijkheid();
+        
         throw new UnsupportedOperationException();
     }
     
