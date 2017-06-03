@@ -15,11 +15,19 @@ public class Gedachte {
         this.concept = concept;
         this.mening = mening;
     }
-    
+
     public int getConcept() {
         return concept;
     }
-    
+
+    public int getGoedheid() {
+        return mening.getGoedheid();
+    }
+
+    public int getCreativiteit() {
+        return mening.getCreativiteit();
+    }
+
     public Persoonlijkheid getMening() {
         return mening;
     }
@@ -27,7 +35,7 @@ public class Gedachte {
     public Woord verwoord(Persoonlijkheid begeestering) {
         return new Woord(this, begeestering);
     }
-    
+
     @Override
     public String toString() {
         return String.format(Berichten.GEDACHTE, mening, concept);
@@ -59,5 +67,4 @@ public class Gedachte {
         return Objects.equals(this.mening, other.mening);
     }
 
-    
 }

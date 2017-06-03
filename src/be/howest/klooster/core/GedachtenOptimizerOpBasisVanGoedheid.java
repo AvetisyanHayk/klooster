@@ -37,14 +37,14 @@ public class GedachtenOptimizerOpBasisVanGoedheid
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
         for (Integer concept : gedachtenMap.keySet()) {
             Set<Gedachte> gedachtenSet = gedachtenMap.get(concept);
-            Gedachte gedachteDichtsBijGoedheid = getGedachteDichtsBijGoedheidScore(
+            Gedachte gedachteDichtsBijGoedheid = getGedachteDichtsBijGoedheid(
                     gedachtenSet, goedheid);
             geoptimaliseerdeGedachten.add(gedachteDichtsBijGoedheid);
         }
         return geoptimaliseerdeGedachten;
     }
     
-    private Gedachte getGedachteDichtsBijGoedheidScore(
+    private Gedachte getGedachteDichtsBijGoedheid(
             Set<Gedachte> gedachtenSet, int goedheid) {
         Gedachte[] gedachten = gedachtenSet
                 .toArray(new Gedachte[gedachtenSet.size()]);

@@ -23,10 +23,9 @@ public class GedachteComparatorOpBasisVanGoedheid
     public int compare(Gedachte gedachte1, Gedachte gedachte2) {
         if (tenOpzichteVanGoedheidScore >= 0) {
             return Math.abs(tenOpzichteVanGoedheidScore -
-                    Math.abs(gedachte1.getConcept() - gedachte2.getConcept()));
+                    Math.abs(gedachte1.getGoedheid() - gedachte2.getGoedheid()));
         }
-        return gedachte1.getMening().getGoedheid() -
-                gedachte2.getMening().getGoedheid();
+        return gedachte1.getGoedheid() - gedachte2.getGoedheid();
     }
     
     
