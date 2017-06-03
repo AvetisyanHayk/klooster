@@ -9,13 +9,13 @@ import java.util.Random;
  */
 public final class Persoonlijkheid {
 
-    private static final int MIN_GOEDHEID = 0;
-    private static final int MAX_GOEDHEID = 99;
+    public static final int MIN_GOEDHEID = 0;
+    public static final int MAX_GOEDHEID = 99;
     private static final int MAX_GOEDHEID_EVIL = MAX_GOEDHEID / 3;
     private static final int MAX_GOEDHEID_NEUTRAL = 2 * (MAX_GOEDHEID / 3);
 
-    private static final int MIN_CREATIVITEIT = 0;
-    private static final int MAX_CREATIVITEIT = 99;
+    public static final int MIN_CREATIVITEIT = 0;
+    public static final int MAX_CREATIVITEIT = 99;
     private static final int MAX_CREATIVITEIT_LAWFUL = MAX_CREATIVITEIT / 3;
     private static final int MAX_CREATIVITEIT_NEUTRAAL = 2 * (MAX_CREATIVITEIT / 3);
 
@@ -60,8 +60,8 @@ public final class Persoonlijkheid {
     void setCreativiteit(int creativiteit) {
         if (creativiteit < MIN_CREATIVITEIT) {
             this.creativiteit = MIN_CREATIVITEIT;
-        } else if (creativiteit > MIN_CREATIVITEIT) {
-            this.creativiteit = MIN_CREATIVITEIT;
+        } else if (creativiteit > MAX_CREATIVITEIT) {
+            this.creativiteit = MAX_CREATIVITEIT;
         } else {
             this.creativiteit = creativiteit;
         }
@@ -102,5 +102,31 @@ public final class Persoonlijkheid {
     @Override
     public String toString() {
         return goedheidToString() + " " + creativiteitToString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.goedheid;
+        hash = 29 * hash + this.creativiteit;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Persoonlijkheid other = (Persoonlijkheid) obj;
+        if (this.goedheid != other.goedheid) {
+            return false;
+        }
+        return this.creativiteit == other.creativiteit;
     }
 }
