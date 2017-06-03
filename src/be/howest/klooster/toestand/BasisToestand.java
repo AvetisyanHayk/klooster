@@ -11,9 +11,9 @@ public final class BasisToestand extends AbstracteToestand {
     
     public BasisToestand(Pater pater) {
         super(pater);
-        info = Tools.toZinMetCommas(pater.getVolledigeNaam(),
+        pater.setInfo(Tools.toZinMetCommas(pater.getVolledigeNaam(),
                 pater.getPersoonlijkheid().toString(),
-                getInfoOverAantalGedachten());
+                getInfoOverAantalGedachten()));
     }
 
     @Override
@@ -30,10 +30,4 @@ public final class BasisToestand extends AbstracteToestand {
     public void luister() {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public void denkNa() {
-        throw new UnsupportedOperationException();
-    }
-    
 }

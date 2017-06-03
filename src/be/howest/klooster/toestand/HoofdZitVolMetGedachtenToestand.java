@@ -27,8 +27,7 @@ public final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public void denkNa() {
+    private void denkNa() {
         throw new UnsupportedOperationException();
     }
 }

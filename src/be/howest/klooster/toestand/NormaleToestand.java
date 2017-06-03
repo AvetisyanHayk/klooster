@@ -26,9 +26,4 @@ public final class NormaleToestand extends AbstracteToestand {
     public void luister() {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public void denkNa() {
-        throw new UnsupportedOperationException();
-    }
 }

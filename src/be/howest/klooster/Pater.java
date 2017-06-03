@@ -26,6 +26,7 @@ public class Pater extends Observable {
     
     private Toestand toestand;
     
+    private String info = null;
     
     public Pater(String naam) {
         this(naam, Persoonlijkheid.createRandomPersoonlijkheid());
@@ -51,14 +52,28 @@ public class Pater extends Observable {
         toestand = basisToestand;
     }
     
-    @Override
-    public void addObserver(Observer observer) {
-        super.addObserver(observer);
-        triggerChange();
-    }
-    
     public String getNaam() {
         return naam;
+    }
+    
+    public Toestand getBasisToestand() {
+        return basisToestand;
+    }
+    
+    public Toestand getNormaleToestand() {
+        return normaleToestand;
+    }
+    
+    public Toestand getHoofdZitVolMetGedachtenToestand() {
+        return hoofdZitVolMetGedachtenToestand;
+    }
+    
+    public void setToestand(Toestand toestand) {
+        this.toestand = toestand;
+    }
+    
+    public void setInfo(String info) {
+        this.info = info;
     }
     
     public Persoonlijkheid getPersoonlijkheid() {
@@ -116,6 +131,13 @@ public class Pater extends Observable {
     public void triggerChange() {
         setChanged();
         notifyObservers();
+        info = null;
+    }
+    
+    @Override
+    public void addObserver(Observer observer) {
+        super.addObserver(observer);
+        triggerChange();
     }
 
     @Override
@@ -145,6 +167,6 @@ public class Pater extends Observable {
     
     @Override
     public String toString() {
-        return toestand.toString();
+        return info;
     }
 }

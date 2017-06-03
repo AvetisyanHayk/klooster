@@ -8,5 +8,4 @@ public interface Toestand {
     void bid();
     void spreek();
     void luister();
-    void denkNa();
 }

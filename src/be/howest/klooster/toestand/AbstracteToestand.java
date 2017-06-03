@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.howest.klooster.toestand;
 
 import be.howest.klooster.Pater;
@@ -14,7 +9,6 @@ import be.howest.klooster.Pater;
 public abstract class AbstracteToestand implements Toestand {
 
     protected final Pater pater;
-    protected String info = "";
 
     AbstracteToestand(Pater pater) {
         this.pater = pater;
@@ -29,10 +23,5 @@ public abstract class AbstracteToestand implements Toestand {
             gedachte += "n";
         }
         return sb.append(gedachte).append(" in zijn hoofd").toString();
-    }
-
-    @Override
-    public String toString() {
-        return info;
     }
 }
