@@ -26,8 +26,12 @@ public class Inspiratie {
     public int inspireerMij() {
         int result = concept++;
         if (concept > MAX) {
-            concept = MIN;
+            reset();
         }
         return result;
+    }
+    
+    void reset() {
+        concept = MIN;
     }
 }
