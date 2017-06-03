@@ -4,15 +4,17 @@ package be.howest.klooster.core;
  *
  * @author Hayk
  */
-class Gedachte {
-    private Persoonlijkheid persoonlijkheid;
-    
-    Gedachte(Woord woord) {
-        // TODO Not finished yet
-        throw new UnsupportedOperationException();
+public class Gedachte {
+
+    private final int concept;
+    private final Persoonlijkheid mening;
+
+    public Gedachte(int concept, Persoonlijkheid mening) {
+        this.concept = concept;
+        this.mening = mening;
     }
-    
-    Woord verwoord(Persoonlijkheid persoonlijkheid) {
-        throw new UnsupportedOperationException();
+
+    public Woord verwoord(Persoonlijkheid begeestering) {
+        return new Woord(this, begeestering);
     }
 }
