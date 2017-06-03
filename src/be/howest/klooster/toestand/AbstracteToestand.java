@@ -1,6 +1,7 @@
 package be.howest.klooster.toestand;
 
 import be.howest.klooster.core.Pater;
+import be.howest.klooster.core.Woord;
 
 /**
  *
@@ -12,6 +13,16 @@ public abstract class AbstracteToestand implements Toestand {
 
     AbstracteToestand(Pater pater) {
         this.pater = pater;
+    }
+    
+    @Override
+    public void bid() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    public void luister(Woord woord) {
+        throw new UnsupportedOperationException();
     }
 
     protected String getInfoOverAantalGedachten() {

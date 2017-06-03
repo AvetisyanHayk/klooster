@@ -19,7 +19,8 @@ public final class BasisToestand extends AbstracteToestand {
 
     @Override
     public void bid() {
-        throw new UnsupportedOperationException();
+        super.bid();
+        pater.setToestand(pater.getNormaleToestand());
     }
 
     @Override
@@ -31,6 +32,7 @@ public final class BasisToestand extends AbstracteToestand {
 
     @Override
     public void luister(Woord woord) {
-        throw new UnsupportedOperationException();
+        super.luister(woord);
+        pater.setToestand(pater.getNormaleToestand());
     }
 }
