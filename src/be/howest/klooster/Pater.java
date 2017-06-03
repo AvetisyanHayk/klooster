@@ -2,6 +2,10 @@ package be.howest.klooster;
 
 import be.howest.klooster.ex.HoofdZitVolMetGedachtenException;
 import be.howest.klooster.ex.GeenGedachtenException;
+import be.howest.klooster.toestand.BasisToestand;
+import be.howest.klooster.toestand.HoofdZitVolMetGedachtenToestand;
+import be.howest.klooster.toestand.NormaleToestand;
+import be.howest.klooster.toestand.Toestand;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +21,13 @@ public class Pater extends Observable {
     private Persoonlijkheid persoonlijkheid;
     private final Gedachte[] gedachten;
     
+    private Toestand basisToestand;
+    private Toestand normaleToestand;
+    private Toestand hoofdZitVolMetGedachtenToestand;
+    
+    private Toestand toestand;
+    
+    
     public Pater(String naam) {
         this(naam, Persoonlijkheid.createRandomPersoonlijkheid());
     }
@@ -31,6 +42,14 @@ public class Pater extends Observable {
         }
         this.persoonlijkheid = persoonlijkheid;
         gedachten = new Gedachte[MAX_GEDACHTEN];
+        initToestanden();
+    }
+    
+    private void initToestanden() {
+        basisToestand = new BasisToestand(this);
+        normaleToestand = new NormaleToestand(this);
+        hoofdZitVolMetGedachtenToestand = new HoofdZitVolMetGedachtenToestand(this);
+        toestand = basisToestand;
     }
     
     @Override
