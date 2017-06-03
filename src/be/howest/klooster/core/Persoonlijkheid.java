@@ -7,7 +7,7 @@ import java.util.Random;
  *
  * @author Hayk
  */
-public class Persoonlijkheid {
+public final class Persoonlijkheid {
 
     private static final int MIN_GOEDHEID = 0;
     private static final int MAX_GOEDHEID = 99;
@@ -22,6 +22,14 @@ public class Persoonlijkheid {
     private int goedheid = MIN_GOEDHEID;
     private int creativiteit = MIN_CREATIVITEIT;
 
+    private Persoonlijkheid() {
+    }
+    
+    Persoonlijkheid(int goedheid, int creativiteit) {
+        setGoedheid(goedheid);
+        setCreativiteit(creativiteit);
+    }
+    
     static Persoonlijkheid createRandomPersoonlijkheid() {
         Random random = new Random();
         Persoonlijkheid instance = new Persoonlijkheid();

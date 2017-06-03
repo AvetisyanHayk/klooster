@@ -5,6 +5,8 @@
  */
 package be.howest.main;
 
+import be.howest.klooster.core.GedachtenOptimizerOpBasisVanCreativiteit;
+import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Program;
 
@@ -30,6 +32,8 @@ public class Main {
         roger.bid();
         roger.info();
         roger.denkNa();
+        roger.denkNa(GedachtenOptimizerOpBasisVanCreativiteit.getInstance());
+        roger.denkNa(GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid.getInstance());
     }
 
 }
