@@ -1,6 +1,6 @@
 package be.howest.klooster.toestand;
 
-import be.howest.klooster.Pater;
+import be.howest.klooster.core.Pater;
 
 /**
  *

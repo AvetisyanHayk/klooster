@@ -1,5 +1,7 @@
 package be.howest.klooster.toestand;
 
+import be.howest.klooster.core.Woord;
+
 /**
  *
  * @author Hayk
@@ -7,5 +9,5 @@ package be.howest.klooster.toestand;
 public interface Toestand {
     void bid();
     void spreek();
-    void luister();
+    void luister(Woord woord);
 }

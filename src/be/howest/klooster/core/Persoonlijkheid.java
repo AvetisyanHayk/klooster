@@ -1,4 +1,4 @@
-package be.howest.klooster;
+package be.howest.klooster.core;
 
 import be.howest.util.Tools;
 import java.util.Random;

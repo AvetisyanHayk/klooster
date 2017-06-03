@@ -1,4 +1,4 @@
-package be.howest.klooster;
+package be.howest.klooster.core;
 
 import be.howest.klooster.toestand.BasisToestand;
 import be.howest.klooster.toestand.HoofdZitVolMetGedachtenToestand;
@@ -72,8 +72,9 @@ public class Pater extends Observable {
         this.toestand = toestand;
     }
     
-    public void setInfo(String info) {
+    public Pater setInfo(String info) {
         this.info = info;
+        return this;
     }
     
     public Persoonlijkheid getPersoonlijkheid() {
@@ -107,7 +108,7 @@ public class Pater extends Observable {
     }
     
     public void luister(Woord woord) {
-        toestand.luister();
+        toestand.luister(woord);
     }
     
     private boolean hasGedachten() {

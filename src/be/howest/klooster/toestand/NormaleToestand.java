@@ -1,6 +1,7 @@
 package be.howest.klooster.toestand;
 
-import be.howest.klooster.Pater;
+import be.howest.klooster.core.Pater;
+import be.howest.klooster.core.Woord;
 
 /**
  *
@@ -23,7 +24,7 @@ public final class NormaleToestand extends AbstracteToestand {
     }
 
     @Override
-    public void luister() {
+    public void luister(Woord woord) {
         throw new UnsupportedOperationException();
     }
 }

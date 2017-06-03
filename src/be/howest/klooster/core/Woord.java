@@ -1,4 +1,4 @@
-package be.howest.klooster;
+package be.howest.klooster.core;
 
 /**
  *

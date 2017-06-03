@@ -1,6 +1,7 @@
 package be.howest.klooster.toestand;
 
-import be.howest.klooster.Pater;
+import be.howest.klooster.core.Pater;
+import be.howest.klooster.core.Woord;
 import be.howest.util.Tools;
 
 /**
@@ -8,7 +9,7 @@ import be.howest.util.Tools;
  * @author Hayk
  */
 public final class BasisToestand extends AbstracteToestand {
-    
+
     public BasisToestand(Pater pater) {
         super(pater);
         pater.setInfo(Tools.toZinMetCommas(pater.getVolledigeNaam(),
@@ -23,11 +24,13 @@ public final class BasisToestand extends AbstracteToestand {
 
     @Override
     public void spreek() {
-        throw new UnsupportedOperationException();
+        pater.setInfo(Tools.toZin(pater.getNaam(), " heeft geen gedachten.",
+                "Eerst moet hij bidden of luisteren naar een woord."))
+                .triggerChange();
     }
 
     @Override
-    public void luister() {
+    public void luister(Woord woord) {
         throw new UnsupportedOperationException();
     }
 }

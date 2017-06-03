@@ -1,4 +1,4 @@
-package be.howest.klooster;
+package be.howest.klooster.core;
 
 import java.util.Observable;
 import java.util.Observer;

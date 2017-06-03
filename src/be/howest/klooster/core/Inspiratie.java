@@ -1,10 +1,10 @@
-package be.howest.klooster;
+package be.howest.klooster.core;
 
 /**
  *
  * @author Hayk
  */
-class Inspiratie {
+public class Inspiratie {
     
     private static final Inspiratie INSTANCE = new Inspiratie();
     
