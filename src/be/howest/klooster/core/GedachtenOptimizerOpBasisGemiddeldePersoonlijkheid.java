@@ -18,7 +18,7 @@ public class GedachtenOptimizerOpBasisGemiddeldePersoonlijkheid
     }
 
     @Override
-    public void optimizeGedachten(Gedachte[] gedachten) {
+    public int optimizeGedachten(Gedachte[] gedachten) {
         throw new UnsupportedOperationException();
     }
 
