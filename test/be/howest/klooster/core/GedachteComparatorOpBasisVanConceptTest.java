@@ -88,7 +88,7 @@ public class GedachteComparatorOpBasisVanConceptTest {
     }
 
     @Test
-    public void array_van_gedachten_wordt_correct_gesorteerd_op_basis_van_de_comparator() {
+    public void array_van_gedachten_wordt_correct_gesorteerd_op_basis_van_concept() {
         int max = Inspiratie.MAX + 1;
         int size = max * max;
         Gedachte[] gedachten = getGedachtenArray();
@@ -103,7 +103,7 @@ public class GedachteComparatorOpBasisVanConceptTest {
     }
 
     @Test
-    public void ArrayList_van_gedachten_wordt_correct_gesorteerd_op_basis_van_de_comparator() {
+    public void ArrayList_van_gedachten_wordt_correct_gesorteerd_op_basis_van_concept() {
         int max = Inspiratie.MAX + 1;
         int size = max * max;
         List<Gedachte> gedachten = getGedachtenList();
@@ -117,7 +117,7 @@ public class GedachteComparatorOpBasisVanConceptTest {
     }
 
     @Test
-    public void TreeSet_van_gedachten_wordt_correct_gesorteerd_op_basis_van_de_comparator() {
+    public void TreeSet_van_gedachten_wordt_correct_gesorteerd_op_basis_van_concept() {
         int max = Inspiratie.MAX + 1;
         Set<Gedachte> gedachtenSet = new TreeSet<>(comparator);
         gedachtenSet.addAll(getGedachtenList());
