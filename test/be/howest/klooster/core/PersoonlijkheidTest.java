@@ -281,9 +281,9 @@ public class PersoonlijkheidTest {
         Set<Persoonlijkheid> persoonlijkhedenSet = null;
         Persoonlijkheid[] persoonlijkhedenArray = null;
         assertNull(Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(persoonlijkhedenSet));
+                .combineer(persoonlijkhedenSet));
         assertNull(Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(persoonlijkhedenArray));
+                .combineer(persoonlijkhedenArray));
     }
     
     @Test
@@ -293,8 +293,8 @@ public class PersoonlijkheidTest {
                 .toArray(new Persoonlijkheid[persoonlijkhedenSet.size()]);
         Persoonlijkheid gemiddelde = new Persoonlijkheid(39, 49);
         assertTrue(Objects.equals(gemiddelde, Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(persoonlijkhedenSet)));
+                .combineer(persoonlijkhedenSet)));
         assertTrue(Objects.equals(gemiddelde, Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(persoonlijkhedenArray)));
+                .combineer(persoonlijkhedenArray)));
     }
 }

@@ -47,7 +47,7 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
         Set<Persoonlijkheid> persoonlijkheden
                 = Gedachte.mapMeningenUitGedachten(new LinkedHashSet<>(gedachten));
         Persoonlijkheid gemiddeldePersoonlijkheid = Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(persoonlijkheden);
+                .combineer(persoonlijkheden);
         return new Gedachte(concept, gemiddeldePersoonlijkheid);
     }
 }

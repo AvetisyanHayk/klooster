@@ -92,7 +92,7 @@ abstract class AbstracteToestand implements Toestand {
         Set<Gedachte> gedachten = pater.getSetVanGedachten();
         Set<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid
-                .getGemiddeldePersoonlijkheid(meningen);
+                .combineer(meningen);
         Persoonlijkheid persoonlijkheid = pater.getPersoonlijkheid();
         persoonlijkheid.subtract(gemiddeldeMening).divide(10);
         pater.setPersoonlijkheid(persoonlijkheid);

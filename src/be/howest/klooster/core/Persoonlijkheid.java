@@ -110,7 +110,7 @@ public final class Persoonlijkheid {
         return creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT;
     }
 
-    public static Persoonlijkheid getGemiddeldePersoonlijkheid(Set<Persoonlijkheid> persoonlijkheden) {
+    public static Persoonlijkheid combineer(Set<Persoonlijkheid> persoonlijkheden) {
         if (persoonlijkheden == null) {
             return null;
         }
@@ -126,11 +126,11 @@ public final class Persoonlijkheid {
         return new Persoonlijkheid(gemiddeldeGoedheid, gemiddeldeCreativiteit);
     }
     
-    public static Persoonlijkheid getGemiddeldePersoonlijkheid(Persoonlijkheid... persoonlijkheden) {
+    public static Persoonlijkheid combineer(Persoonlijkheid... persoonlijkheden) {
         if (persoonlijkheden == null) {
             return null;
         }
-        return getGemiddeldePersoonlijkheid(new LinkedHashSet<>(Arrays
+        return Persoonlijkheid.combineer(new LinkedHashSet<>(Arrays
                 .asList(persoonlijkheden)));
     }
 
