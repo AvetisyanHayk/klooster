@@ -1,5 +1,6 @@
 package be.howest.klooster.core;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +42,31 @@ public class GedachteComparatorOpBasisVanCreativiteitTest {
         return Arrays.asList(getGedachtenArray());
     }
 
+    private Gedachte[] getSpecifiekeGedachtenArray() {
+        int minGoedheid = Persoonlijkheid.MIN_GOEDHEID;
+        Inspiratie inspiratie = Inspiratie.getInstance();
+        Persoonlijkheid specMening1 = new Persoonlijkheid(minGoedheid, 2);
+        Persoonlijkheid specMening2 = new Persoonlijkheid(minGoedheid, 4);
+        Persoonlijkheid specMening3 = new Persoonlijkheid(minGoedheid, 44);
+        Persoonlijkheid specMening4 = new Persoonlijkheid(minGoedheid, 41);
+        Persoonlijkheid specMening6 = new Persoonlijkheid(minGoedheid, 39);
+        Persoonlijkheid specMening7 = new Persoonlijkheid(minGoedheid, 41);
+        Persoonlijkheid specMening9 = new Persoonlijkheid(minGoedheid, 0);
+        Gedachte[] gedachten = new Gedachte[10];
+        gedachten[1] = new Gedachte(inspiratie.inspireerMij(), specMening1);
+        gedachten[2] = new Gedachte(inspiratie.inspireerMij(), specMening2);
+        gedachten[3] = new Gedachte(inspiratie.inspireerMij(), specMening3);
+        gedachten[4] = new Gedachte(inspiratie.inspireerMij(), specMening4);
+        gedachten[6] = new Gedachte(inspiratie.inspireerMij(), specMening6);
+        gedachten[7] = new Gedachte(inspiratie.inspireerMij(), specMening7);
+        gedachten[9] = new Gedachte(inspiratie.inspireerMij(), specMening9);
+        return gedachten;
+    }
+
+    private List<Gedachte> getSpecifiekeGedachtenList() {
+        return Arrays.asList(getSpecifiekeGedachtenArray());
+    }
+
     @Before
     public void before() {
         mening1 = new Persoonlijkheid(Persoonlijkheid.MIN_GOEDHEID, 5);
@@ -50,7 +76,36 @@ public class GedachteComparatorOpBasisVanCreativiteitTest {
 
     @Test
     public void class_implements_comparator() {
-        assertTrue(Comparator.class.isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+        assertTrue(Comparator.class
+                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+    }
+
+    @Test
+    public void class_implements_serializable() {
+        assertTrue(Serializable.class
+                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_met_creativiteitswaarde_als_argument_die_lager_ligt_dan_min_werpt_exception() {
+        assertNotNull(new GedachteComparatorOpBasisVanCreativiteit(
+                Persoonlijkheid.MIN_CREATIVITEIT - 1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void constructor_met_creativiteitswaarde_als_argument_die_hoger_ligt_dan_max_werpt_exception() {
+        assertNotNull(new GedachteComparatorOpBasisVanCreativiteit(
+                Persoonlijkheid.MAX_CREATIVITEIT + 1));
+    }
+
+    @Test
+    public void constructor_met_creativiteitswaarde_als_argument_binnen_de_scope_van_max_en_min_is_toegelaten() {
+        for (int creativiteit = Persoonlijkheid.MIN_CREATIVITEIT;
+                creativiteit <= Persoonlijkheid.MAX_CREATIVITEIT;
+                creativiteit++) {
+            assertNotNull(new GedachteComparatorOpBasisVanCreativiteit(
+                    creativiteit));
+        }
     }
 
     @Test
@@ -59,8 +114,8 @@ public class GedachteComparatorOpBasisVanCreativiteitTest {
     }
 
     @Test
-    public void compare_geeft_de_negatieve_waarde_van_de_creativiteit_van_de_eerste_gedachte_als_alleen_de_tweede_gedachte_null_is() {
-        assertEquals(0 - gedachte.getCreativiteit(), comparator.compare(gedachte, null));
+    public void compare_geeft_een_lager_dan_de_negatieve_waarde_van_de_creativiteit_van_de_eerste_gedachte_als_alleen_de_tweede_gedachte_null_is() {
+        assertEquals(0 - gedachte.getCreativiteit() - 1, comparator.compare(gedachte, null));
     }
 
     @Test
@@ -149,5 +204,83 @@ public class GedachteComparatorOpBasisVanCreativiteitTest {
         for (int i = 1; i < gedachten.length; i++) {
             assertEquals(max - i, gedachten[i].getCreativiteit());
         }
+    }
+
+    @Test
+    public void array_van_gedachten_wordt_correct_gesorteerd_op_basis_van_creativiteit_ten_opzichte_van_een_specifieke_creativiteitswaarde() {
+        int specCreativiteit = 44;
+        Gedachte[] gedachten = getSpecifiekeGedachtenArray();
+        GedachteComparatorOpBasisVanCreativiteit specComparator
+                = new GedachteComparatorOpBasisVanCreativiteit(specCreativiteit);
+
+        Arrays.sort(gedachten, specComparator);
+        assertEquals(44, gedachten[0].getCreativiteit());
+        assertEquals(41, gedachten[1].getCreativiteit());
+        assertEquals(41, gedachten[2].getCreativiteit());
+        assertEquals(39, gedachten[3].getCreativiteit());
+        assertEquals(4, gedachten[4].getCreativiteit());
+        assertEquals(2, gedachten[5].getCreativiteit());
+        assertEquals(0, gedachten[6].getCreativiteit());
+        assertNull(gedachten[7]);
+        assertNull(gedachten[8]);
+        assertNull(gedachten[9]);
+    }
+
+    @Test
+    public void ArrayList_van_gedachten_wordt_correct_gesorteerd_op_basis_van_creativiteit_ten_opzichte_van_een_specifieke_creativiteitswaarde() {
+        int specCreativiteit = 44;
+        List<Gedachte> gedachten = getSpecifiekeGedachtenList();
+        GedachteComparatorOpBasisVanCreativiteit specComparator
+                = new GedachteComparatorOpBasisVanCreativiteit(specCreativiteit);
+
+        Collections.sort(gedachten, specComparator);
+        assertEquals(44, gedachten.get(0).getCreativiteit());
+        assertEquals(41, gedachten.get(1).getCreativiteit());
+        assertEquals(41, gedachten.get(2).getCreativiteit());
+        assertEquals(39, gedachten.get(3).getCreativiteit());
+        assertEquals(4, gedachten.get(4).getCreativiteit());
+        assertEquals(2, gedachten.get(5).getCreativiteit());
+        assertEquals(0, gedachten.get(6).getCreativiteit());
+        assertNull(gedachten.get(7));
+        assertNull(gedachten.get(8));
+        assertNull(gedachten.get(9));
+    }
+
+    @Test
+    public void TreeSet_van_gedachten_wordt_correct_gesorteerd_op_basis_van_creativiteit_ten_opzichte_van_een_specifieke_creativiteitswaarde() {
+        int specCreativiteit = 44;
+        GedachteComparatorOpBasisVanCreativiteit specComparator
+                = new GedachteComparatorOpBasisVanCreativiteit(specCreativiteit);
+        Set<Gedachte> gedachtenSet = new TreeSet<>(specComparator);
+        gedachtenSet.addAll(getSpecifiekeGedachtenList());
+        Gedachte[] gedachten
+                = gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
+
+        assertEquals(44, gedachten[0].getCreativiteit());
+        assertEquals(41, gedachten[1].getCreativiteit());
+        assertEquals(39, gedachten[2].getCreativiteit());
+        assertEquals(4, gedachten[3].getCreativiteit());
+        assertEquals(2, gedachten[4].getCreativiteit());
+        assertEquals(0, gedachten[5].getCreativiteit());
+        assertNull(gedachten[6]);
+    }
+
+    @Test
+    public void TreeSet_van_gedachten_wordt_correct_reversed_gesorteerd_op_basis_van_creativiteit_ten_opzichte_van_een_specifieke_creativiteitswaarde() {
+        int specCreativiteit = 44;
+        GedachteComparatorOpBasisVanCreativiteit specComparator
+                = new GedachteComparatorOpBasisVanCreativiteit(specCreativiteit);
+        Set<Gedachte> gedachtenSet = new TreeSet<>(specComparator.reversed());
+        gedachtenSet.addAll(getSpecifiekeGedachtenList());
+        Gedachte[] gedachten
+                = gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
+
+        assertNull(gedachten[0]);
+        assertEquals(0, gedachten[1].getCreativiteit());
+        assertEquals(2, gedachten[2].getCreativiteit());
+        assertEquals(4, gedachten[3].getCreativiteit());
+        assertEquals(39, gedachten[4].getCreativiteit());
+        assertEquals(41, gedachten[5].getCreativiteit());
+        assertEquals(44, gedachten[6].getCreativiteit());
     }
 }
