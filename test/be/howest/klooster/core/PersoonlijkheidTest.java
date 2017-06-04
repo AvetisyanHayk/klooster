@@ -91,4 +91,44 @@ public class PersoonlijkheidTest {
         }
 
     }
+    
+    @Test
+    public void goedheid_is_niet_geldig_als_het_lagere_waarde_heeft_dan_min() {
+        assertFalse(Persoonlijkheid
+                .isValidGoedheid(Persoonlijkheid.MIN_GOEDHEID - 1));
+    }
+    
+    @Test
+    public void goedheid_is_niet_geldig_als_het_hogere_waarde_heeft_dan_max() {
+        assertFalse(Persoonlijkheid
+                .isValidGoedheid(Persoonlijkheid.MAX_GOEDHEID + 1));
+    }
+    
+    @Test
+    public void goedheid_is_geldig_als_het_binnen_de_scope_van_min_en_max_valt() {
+        for (int goedheid = Persoonlijkheid.MIN_GOEDHEID;
+                goedheid <= Persoonlijkheid.MAX_GOEDHEID; goedheid++) {
+            assertTrue(Persoonlijkheid.isValidGoedheid(goedheid));
+        }
+    }
+    
+    @Test
+    public void creativiteit_is_niet_geldig_als_het_lagere_waarde_heeft_dan_min() {
+        assertFalse(Persoonlijkheid
+                .isValidCreativiteit(Persoonlijkheid.MIN_CREATIVITEIT - 1));
+    }
+    
+    @Test
+    public void creativiteit_is_niet_geldig_als_het_hogere_waarde_heeft_dan_max() {
+        assertFalse(Persoonlijkheid
+                .isValidCreativiteit(Persoonlijkheid.MAX_CREATIVITEIT + 1));
+    }
+    
+    @Test
+    public void creativiteit_is_geldig_als_het_binnen_de_scope_van_min_en_max_valt() {
+        for (int creativiteit = Persoonlijkheid.MIN_CREATIVITEIT;
+                creativiteit <= Persoonlijkheid.MAX_CREATIVITEIT; creativiteit++) {
+            assertTrue(Persoonlijkheid.isValidCreativiteit(creativiteit));
+        }
+    }
 }

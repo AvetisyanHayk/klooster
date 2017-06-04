@@ -98,6 +98,14 @@ public final class Persoonlijkheid {
         }
         return "";
     }
+    
+    public static boolean isValidGoedheid(int goedheid) {
+        return goedheid >= MIN_GOEDHEID && goedheid <= MAX_GOEDHEID;
+    }
+    
+    public static boolean isValidCreativiteit(int creativiteit) {
+        return creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT;
+    }
 
     @Override
     public String toString() {
