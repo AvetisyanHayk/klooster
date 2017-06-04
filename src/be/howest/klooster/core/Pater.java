@@ -63,7 +63,7 @@ public class Pater extends Observable {
     }
 
     void setGedachten(Gedachte[] gedachten) {
-        if (gedachten != null && gedachten.length < MAX_GEDACHTEN) {
+        if (gedachten != null && gedachten.length == MAX_GEDACHTEN) {
             this.gedachten = gedachten;
         }
     }

@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
     GedachteComparatorOpBasisVanConceptTest.class,
     GedachteComparatorOpBasisVanCreativiteitTest.class,
     GedachteComparatorOpBasisVanGoedheidTest.class,
-    GedachtenOptimizerTest.class
+    GedachtenOptimizerTest.class,
+    GedachtenOptimizerOpBasisVanCreativiteitTest.class
 })
 public class TestSuite_Core {
     

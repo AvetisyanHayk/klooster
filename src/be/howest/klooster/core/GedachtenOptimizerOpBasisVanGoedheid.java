@@ -23,7 +23,7 @@ public class GedachtenOptimizerOpBasisVanGoedheid
     }
 
     @Override
-    public int optimalizeerGedachten(Pater pater) {
+    public int optimaliseerGedachten(Pater pater) {
         int aantalGedachten = pater.getAantalGedachten();
         Map<Integer, List<Gedachte>> gedachtenMap
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());

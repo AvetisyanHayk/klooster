@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface GedachtenOptimizer {
 
-    int optimalizeerGedachten(Pater pater);
+    int optimaliseerGedachten(Pater pater);
 
     public static Map<Integer, List<Gedachte>> getGedachtenMap(Gedachte[] gedachten) {
         Arrays.sort(gedachten, new GedachteComparatorOpBasisVanConcept());
