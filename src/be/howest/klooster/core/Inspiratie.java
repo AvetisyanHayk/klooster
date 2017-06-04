@@ -5,7 +5,7 @@ package be.howest.klooster.core;
  * @author Hayk
  */
 public class Inspiratie {
-    
+
     public static final int MIN = 1;
     public static final int MAX = 9;
 
@@ -30,9 +30,13 @@ public class Inspiratie {
         }
         return result;
     }
-    
+
     Inspiratie reset() {
         concept = MIN;
         return this;
+    }
+
+    public static boolean isValidConcept(int concept) {
+        return concept >= MIN && concept <= MAX;
     }
 }

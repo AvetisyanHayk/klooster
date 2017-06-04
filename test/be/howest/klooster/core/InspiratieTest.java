@@ -30,4 +30,20 @@ public class InspiratieTest {
         assertEquals(Inspiratie.MIN, inspiratie.inspireerMij());
     }
 
+    @Test
+    public void concept_is_niet_geldig_als_het_lagere_waarde_heeft_dan_min() {
+        assertFalse(Inspiratie.isValidConcept(Inspiratie.MIN - 1));
+    }
+    
+    @Test
+    public void concept_is_niet_geldig_als_het_hogere_waarde_heeft_dan_max() {
+        assertFalse(Inspiratie.isValidConcept(Inspiratie.MAX + 1));
+    }
+    
+    @Test
+    public void concept_is_geldig_als_het_binnen_de_scope_van_min_en_max_valt() {
+        for (int concept = Inspiratie.MIN; concept <= Inspiratie.MAX; concept++) {
+            assertTrue(Inspiratie.isValidConcept(concept));
+        }
+    }
 }

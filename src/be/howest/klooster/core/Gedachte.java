@@ -12,8 +12,7 @@ public class Gedachte {
     private final Persoonlijkheid mening;
 
     public Gedachte(int concept, Persoonlijkheid mening) {
-        if (mening == null || concept < Inspiratie.MIN
-                || concept > Inspiratie.MAX) {
+        if (mening == null || !Inspiratie.isValidConcept(concept)) {
             throw new IllegalArgumentException();
         }
         this.concept = concept;
