@@ -12,23 +12,35 @@ public class GedachteComparatorOpBasisVanGoedheid
 
     private static final long serialVersionUID = 1L;
 
-    private final int tenOpzichteVanGoedheidScore;
+    private final int tenOpzichteVan;
 
     public GedachteComparatorOpBasisVanGoedheid() {
-        this(-1);
+        tenOpzichteVan = -1;
     }
 
-    public GedachteComparatorOpBasisVanGoedheid(int tenOpzichteVanGoedheidScore) {
-        this.tenOpzichteVanGoedheidScore = tenOpzichteVanGoedheidScore;
+    public GedachteComparatorOpBasisVanGoedheid(int tenOpzichteVan) {
+        if (!Persoonlijkheid.isValidGoedheid(tenOpzichteVan)) {
+            throw new IllegalArgumentException();
+        }
+        this.tenOpzichteVan = tenOpzichteVan;
     }
 
     @Override
     public int compare(Gedachte gedachte1, Gedachte gedachte2) {
-        if (tenOpzichteVanGoedheidScore >= 0) {
-            return Math.abs(tenOpzichteVanGoedheidScore
-                    - Math.abs(gedachte1.getGoedheid() - gedachte2.getGoedheid()));
+        if (gedachte1 == null && gedachte2 == null) {
+            return 0;
         }
-        return gedachte1.getGoedheid() - gedachte2.getGoedheid();
+        if (gedachte1 == null) {
+            return Persoonlijkheid.MAX_GOEDHEID + 1;
+        }
+        if (gedachte2 == null) {
+            return 0 - gedachte1.getGoedheid() - 1;
+        }
+        if (tenOpzichteVan == -1) {
+            return gedachte1.getGoedheid()- gedachte2.getGoedheid();
+        }
+        return Math.abs(tenOpzichteVan - gedachte1.getGoedheid()) -
+                Math.abs(tenOpzichteVan - gedachte2.getGoedheid());
     }
 
 }
