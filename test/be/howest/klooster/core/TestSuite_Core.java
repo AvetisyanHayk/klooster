@@ -10,17 +10,18 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     BerichtenTest.class,
-    PersoonlijkheidTest.class,
-    WoordTest.class,
-    GedachteTest.class,
-    InspiratieTest.class,
     GedachteComparatorOpBasisVanConceptTest.class,
     GedachteComparatorOpBasisVanCreativiteitTest.class,
     GedachteComparatorOpBasisVanGoedheidTest.class,
-    GedachtenOptimizerTest.class,
+    GedachteTest.class,
     GedachtenOptimizerOpBasisVanCreativiteitTest.class,
-    GedachteComparatorOpBasisVanGoedheidTest.class
+    GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheidTest.class,
+    GedachtenOptimizerOpBasisVanGoedheidTest.class,
+    GedachtenOptimizerTest.class,
+    InspiratieTest.class,
+    PersoonlijkheidTest.class,
+    WoordTest.class
 })
 public class TestSuite_Core {
-    
+
 }

@@ -27,31 +27,28 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
         int aantalGedachten = pater.getAantalGedachten();
         Map<Integer, List<Gedachte>> gedachtenMap
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());
-        Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap,
-                pater.getGoedheid());
+        Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap);
         pater.setGedachten(gedachtenSet.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
         return aantalGedachten - gedachtenSet.size();
     }
 
-    private Set<Gedachte> getGeoptimaliseerdeGedachten(
-            Map<Integer, List<Gedachte>> gedachtenMap, int goedheid) {
+    private Set<Gedachte> getGeoptimaliseerdeGedachten(Map<Integer, List<Gedachte>> gedachtenMap) {
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
         for (Map.Entry<Integer, List<Gedachte>> entry : gedachtenMap.entrySet()) {
             List<Gedachte> gedachtenList = entry.getValue();
-            Gedachte gedachteMetHoogsteCreativiteit
-                    = getGedachteMetHoogsteCreativiteit(gedachtenList, entry.getKey());
-            geoptimaliseerdeGedachten.add(gedachteMetHoogsteCreativiteit);
+            Gedachte gedachteVanGemiddeldeMening
+                    = getGedachteVanGemiddeldeMening(gedachtenList, entry.getKey());
+            geoptimaliseerdeGedachten.add(gedachteVanGemiddeldeMening);
         }
         return geoptimaliseerdeGedachten;
     }
 
-    private Gedachte getGedachteMetHoogsteCreativiteit(
-            List<Gedachte> gedachtenSet, int concept) {
+    private Gedachte getGedachteVanGemiddeldeMening(List<Gedachte> gedachtenSet, int concept) {
         int gemiddeldeGoedheid = 0;
         int gemiddeldeCreativiteit = 0;
         for (Gedachte gedachte : gedachtenSet) {
             gemiddeldeGoedheid += gedachte.getGoedheid();
-            gemiddeldeCreativiteit = gedachte.getCreativiteit();
+            gemiddeldeCreativiteit += gedachte.getCreativiteit();
         }
         gemiddeldeGoedheid /= gedachtenSet.size();
         gemiddeldeCreativiteit /= gedachtenSet.size();
