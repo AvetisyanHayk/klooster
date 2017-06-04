@@ -31,7 +31,8 @@ public class Inspiratie {
         return result;
     }
     
-    void reset() {
+    Inspiratie reset() {
         concept = MIN;
+        return this;
     }
 }
