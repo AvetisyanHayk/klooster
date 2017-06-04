@@ -1,9 +1,10 @@
 package be.howest.klooster.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  *
@@ -13,19 +14,19 @@ public interface GedachtenOptimizer {
 
     int optimizeGedachten(Pater pater);
 
-    public static Map<Integer, Set<Gedachte>> getGedachtenMap(Set<Gedachte> gedachten) {
-        Map<Integer, Set<Gedachte>> gedachtenMap = new LinkedHashMap<>();
+    public static Map<Integer, List<Gedachte>> getGedachtenMap(Gedachte[] gedachten) {
+        Arrays.sort(gedachten, new GedachteComparatorOpBasisVanConcept());
+        Map<Integer, List<Gedachte>> gedachtenMap = new LinkedHashMap<>();
         for (Gedachte gedachte : gedachten) {
-            if (gedachte == null) {
-                throw new UnsupportedOperationException("kjsdhfksjdhfs");
+            if (gedachte != null) {
+                int concept = gedachte.getConcept();
+                List<Gedachte> gedachtenList = gedachtenMap.get(concept);
+                if (gedachtenList == null) {
+                    gedachtenList = new ArrayList<>();
+                }
+                gedachtenList.add(gedachte);
+                gedachtenMap.put(concept, gedachtenList);
             }
-            int concept = gedachte.getConcept();
-            Set<Gedachte> gedachtenSet = gedachtenMap.get(concept);
-            if (gedachtenSet == null) {
-                gedachtenSet = new TreeSet<>(new GedachteComparatorOpBasisVanConcept());
-                gedachtenSet.add(gedachte);
-            }
-            gedachtenMap.put(concept, gedachtenSet);
         }
         return gedachtenMap;
     }

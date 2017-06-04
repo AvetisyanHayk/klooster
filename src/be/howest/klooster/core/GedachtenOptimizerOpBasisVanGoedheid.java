@@ -2,6 +2,7 @@ package be.howest.klooster.core;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,19 +25,19 @@ public class GedachtenOptimizerOpBasisVanGoedheid
     @Override
     public int optimizeGedachten(Pater pater) {
         int aantalGedachten = pater.getAantalGedachten();
-        Map<Integer, Set<Gedachte>> gedachtenMap
+        Map<Integer, List<Gedachte>> gedachtenMap
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());
-        Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap,
+        Set<Gedachte> gedachtenList = getGeoptimaliseerdeGedachten(gedachtenMap,
                 pater.getGoedheid());
-        pater.setGedachten(gedachtenSet.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
-        return aantalGedachten - gedachtenSet.size();
+        pater.setGedachten(gedachtenList.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
+        return aantalGedachten - gedachtenList.size();
     }
     
     private Set<Gedachte> getGeoptimaliseerdeGedachten(
-            Map<Integer, Set<Gedachte>> gedachtenMap, int goedheid) {
+            Map<Integer, List<Gedachte>> gedachtenMap, int goedheid) {
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
-        for (Map.Entry<Integer, Set<Gedachte>> entry : gedachtenMap.entrySet()) {
-            Set<Gedachte> gedachtenSet = entry.getValue();
+        for (Map.Entry<Integer, List<Gedachte>> entry : gedachtenMap.entrySet()) {
+            List<Gedachte> gedachtenSet = entry.getValue();
             Gedachte gedachteDichtsBijGoedheid = getGedachteDichtsBijGoedheid(
                     gedachtenSet, goedheid);
             geoptimaliseerdeGedachten.add(gedachteDichtsBijGoedheid);
@@ -45,7 +46,7 @@ public class GedachtenOptimizerOpBasisVanGoedheid
     }
     
     private Gedachte getGedachteDichtsBijGoedheid(
-            Set<Gedachte> gedachtenSet, int goedheid) {
+            List<Gedachte> gedachtenSet, int goedheid) {
         Gedachte[] gedachten = gedachtenSet
                 .toArray(new Gedachte[gedachtenSet.size()]);
         Arrays.sort(gedachten, new GedachteComparatorOpBasisVanGoedheid(goedheid));

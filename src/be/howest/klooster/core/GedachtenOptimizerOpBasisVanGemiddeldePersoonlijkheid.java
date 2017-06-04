@@ -1,7 +1,7 @@
 package be.howest.klooster.core;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +25,7 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
     @Override
     public int optimizeGedachten(Pater pater) {
         int aantalGedachten = pater.getAantalGedachten();
-        Map<Integer, Set<Gedachte>> gedachtenMap
+        Map<Integer, List<Gedachte>> gedachtenMap
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());
         Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap,
                 pater.getGoedheid());
@@ -34,19 +34,19 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
     }
 
     private Set<Gedachte> getGeoptimaliseerdeGedachten(
-            Map<Integer, Set<Gedachte>> gedachtenMap, int goedheid) {
+            Map<Integer, List<Gedachte>> gedachtenMap, int goedheid) {
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
-        for (Map.Entry<Integer, Set<Gedachte>> entry : gedachtenMap.entrySet()) {
-            Set<Gedachte> gedachtenSet = entry.getValue();
+        for (Map.Entry<Integer, List<Gedachte>> entry : gedachtenMap.entrySet()) {
+            List<Gedachte> gedachtenList = entry.getValue();
             Gedachte gedachteMetHoogsteCreativiteit
-                    = getGedachteMetHoogsteCreativiteit(gedachtenSet, entry.getKey());
+                    = getGedachteMetHoogsteCreativiteit(gedachtenList, entry.getKey());
             geoptimaliseerdeGedachten.add(gedachteMetHoogsteCreativiteit);
         }
         return geoptimaliseerdeGedachten;
     }
 
     private Gedachte getGedachteMetHoogsteCreativiteit(
-            Set<Gedachte> gedachtenSet, int concept) {
+            List<Gedachte> gedachtenSet, int concept) {
         int gemiddeldeGoedheid = 0;
         int gemiddeldeCreativiteit = 0;
         for (Gedachte gedachte : gedachtenSet) {
