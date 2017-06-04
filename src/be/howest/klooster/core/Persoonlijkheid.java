@@ -1,6 +1,8 @@
 package be.howest.klooster.core;
 
 import be.howest.util.Tools;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -109,18 +111,40 @@ public final class Persoonlijkheid {
     }
 
     public static Persoonlijkheid getGemiddeldePersoonlijkheid(Set<Persoonlijkheid> persoonlijkheden) {
-        Persoonlijkheid gemiddeldePersoonlijkheid = new Persoonlijkheid(0, 0);
-        persoonlijkheden.forEach(persoonlijkheid -> {
-            gemiddeldePersoonlijkheid.add(persoonlijkheid);
-        });
-        gemiddeldePersoonlijkheid.divide(persoonlijkheden.size());
-        return gemiddeldePersoonlijkheid;
+        if (persoonlijkheden == null) {
+            return null;
+        }
+        int gemiddeldeGoedheid = 0;
+        int gemiddeldeCreativiteit = 0;
+        for (Persoonlijkheid persoonlijkheid : persoonlijkheden) {
+            gemiddeldeGoedheid += persoonlijkheid.getGoedheid();
+            gemiddeldeCreativiteit += persoonlijkheid.getCreativiteit();
+        }
+        int size = persoonlijkheden.size();
+        gemiddeldeGoedheid /= size;
+        gemiddeldeCreativiteit /= size;
+        return new Persoonlijkheid(gemiddeldeGoedheid, gemiddeldeCreativiteit);
     }
     
+    public static Persoonlijkheid getGemiddeldePersoonlijkheid(Persoonlijkheid... persoonlijkheden) {
+        if (persoonlijkheden == null) {
+            return null;
+        }
+        return getGemiddeldePersoonlijkheid(new LinkedHashSet<>(Arrays
+                .asList(persoonlijkheden)));
+    }
+
     public static Persoonlijkheid avg(Persoonlijkheid persoonlijkheid1, Persoonlijkheid persoonlijkheid2) {
-        persoonlijkheid1.add(persoonlijkheid2);
-        persoonlijkheid1.divide(2);
+        if (persoonlijkheid1 != null) {
+            persoonlijkheid1.add(persoonlijkheid2);
+            persoonlijkheid1.divide(2);
+        }
         return persoonlijkheid1;
+    }
+
+    @Override
+    public Persoonlijkheid clone() {
+        return new Persoonlijkheid(goedheid, creativiteit);
     }
 
     public void add(Persoonlijkheid persoonlijkheid) {
@@ -143,14 +167,14 @@ public final class Persoonlijkheid {
             setCreativiteit(creativiteit * persoonlijkheid.creativiteit);
         }
     }
-    
+
     public void divide(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             setGoedheid(goedheid / persoonlijkheid.goedheid);
             setCreativiteit(creativiteit / persoonlijkheid.creativiteit);
         }
     }
-    
+
     public void divide(int waarde) {
         divide(new Persoonlijkheid(waarde, waarde));
     }
