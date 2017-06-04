@@ -1,6 +1,9 @@
 package be.howest.klooster.core;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -40,6 +43,12 @@ public class Gedachte {
             throw new IllegalArgumentException();
         }
         return new Woord(this, begeestering);
+    }
+
+    public static Set<Persoonlijkheid> mapMeningenUitGedachten(Set<Gedachte> gedachten) {
+        return gedachten.stream().map(Gedachte::getMening).collect(
+                Collectors.toCollection(() ->
+                        new TreeSet<>(new PersoonlijkheidComparator())));
     }
 
     @Override

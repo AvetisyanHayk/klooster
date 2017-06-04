@@ -2,6 +2,7 @@ package be.howest.klooster.core;
 
 import be.howest.util.Tools;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -24,12 +25,12 @@ public final class Persoonlijkheid {
 
     private Persoonlijkheid() {
     }
-    
+
     Persoonlijkheid(int goedheid, int creativiteit) {
         setGoedheid(goedheid);
         setCreativiteit(creativiteit);
     }
-    
+
     static Persoonlijkheid createRandomPersoonlijkheid() {
         Random random = new Random();
         Persoonlijkheid instance = new Persoonlijkheid();
@@ -38,7 +39,7 @@ public final class Persoonlijkheid {
                 MAX_CREATIVITEIT, random);
         return instance;
     }
-    
+
     int getGoedheid() {
         return goedheid;
     }
@@ -85,7 +86,7 @@ public final class Persoonlijkheid {
         }
         return "";
     }
-    
+
     private String creativiteitToString() {
         if (creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT_LAWFUL) {
             return Berichten.RECHTMATIG;
@@ -98,13 +99,60 @@ public final class Persoonlijkheid {
         }
         return "";
     }
-    
+
     public static boolean isValidGoedheid(int goedheid) {
         return goedheid >= MIN_GOEDHEID && goedheid <= MAX_GOEDHEID;
     }
-    
+
     public static boolean isValidCreativiteit(int creativiteit) {
         return creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT;
+    }
+
+    public static Persoonlijkheid getGemiddeldePersoonlijkheid(Set<Persoonlijkheid> persoonlijkheden) {
+        Persoonlijkheid gemiddeldePersoonlijkheid = new Persoonlijkheid(0, 0);
+        persoonlijkheden.forEach(persoonlijkheid -> {
+            gemiddeldePersoonlijkheid.add(persoonlijkheid);
+        });
+        gemiddeldePersoonlijkheid.divide(persoonlijkheden.size());
+        return gemiddeldePersoonlijkheid;
+    }
+    
+    public static Persoonlijkheid avg(Persoonlijkheid persoonlijkheid1, Persoonlijkheid persoonlijkheid2) {
+        persoonlijkheid1.add(persoonlijkheid2);
+        persoonlijkheid1.divide(2);
+        return persoonlijkheid1;
+    }
+
+    public void add(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid != null) {
+            setGoedheid(goedheid + persoonlijkheid.goedheid);
+            setCreativiteit(creativiteit + persoonlijkheid.creativiteit);
+        }
+    }
+
+    public void subtract(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid != null) {
+            setGoedheid(goedheid - persoonlijkheid.goedheid);
+            setCreativiteit(creativiteit - persoonlijkheid.creativiteit);
+        }
+    }
+
+    public void multiply(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid != null) {
+            setGoedheid(goedheid * persoonlijkheid.goedheid);
+            setCreativiteit(creativiteit * persoonlijkheid.creativiteit);
+        }
+    }
+    
+    public void divide(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid != null) {
+            setGoedheid(goedheid / persoonlijkheid.goedheid);
+            setCreativiteit(creativiteit / persoonlijkheid.creativiteit);
+        }
+    }
+    
+    public void divide(int waarde) {
+        divide(new Persoonlijkheid(waarde, waarde));
     }
 
     @Override
