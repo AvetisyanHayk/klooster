@@ -43,17 +43,11 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
         return geoptimaliseerdeGedachten;
     }
 
-    private Gedachte getGedachteVanGemiddeldeMening(List<Gedachte> gedachtenSet, int concept) {
-        int gemiddeldeGoedheid = 0;
-        int gemiddeldeCreativiteit = 0;
-        for (Gedachte gedachte : gedachtenSet) {
-            gemiddeldeGoedheid += gedachte.getGoedheid();
-            gemiddeldeCreativiteit += gedachte.getCreativiteit();
-        }
-        gemiddeldeGoedheid /= gedachtenSet.size();
-        gemiddeldeCreativiteit /= gedachtenSet.size();
-        return new Gedachte(concept,
-                new Persoonlijkheid(gemiddeldeGoedheid, gemiddeldeCreativiteit));
+    private Gedachte getGedachteVanGemiddeldeMening(List<Gedachte> gedachten, int concept) {
+        Set<Persoonlijkheid> persoonlijkheden
+                = Gedachte.mapMeningenUitGedachten(new LinkedHashSet<>(gedachten));
+        Persoonlijkheid gemiddeldePersoonlijkheid = Persoonlijkheid
+                .getGemiddeldePersoonlijkheid(persoonlijkheden);
+        return new Gedachte(concept, gemiddeldePersoonlijkheid);
     }
-
 }
