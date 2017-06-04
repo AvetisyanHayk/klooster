@@ -50,7 +50,7 @@ public class GedachteComparatorOpBasisVanConceptTest {
     public void class_implements_comparator() {
         assertTrue(Comparator.class.isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
     }
-    
+
     @Test
     public void compare_geeft_0_terug_als_beide_gedachten_null_zijn() {
         assertEquals(0, comparator.compare(null, null));
@@ -118,7 +118,6 @@ public class GedachteComparatorOpBasisVanConceptTest {
 
     @Test
     public void TreeSet_van_gedachten_wordt_correct_gesorteerd_op_basis_van_concept() {
-        int max = Inspiratie.MAX + 1;
         Set<Gedachte> gedachtenSet = new TreeSet<>(comparator);
         gedachtenSet.addAll(getGedachtenList());
         Gedachte[] gedachten
@@ -130,4 +129,17 @@ public class GedachteComparatorOpBasisVanConceptTest {
         assertNull(gedachten[gedachten.length - 1]);
     }
 
+    @Test
+    public void TreeSet_van_gedachten_wordt_correct_reversed_gesorteerd_op_basis_van_concept() {
+        int max = Inspiratie.MAX + 1;
+        Set<Gedachte> gedachtenSet = new TreeSet<>(comparator.reversed());
+        gedachtenSet.addAll(getGedachtenList());
+        Gedachte[] gedachten
+                = gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
+
+        assertNull(gedachten[0]);
+        for (int i = 1; i < gedachten.length; i++) {
+            assertEquals(max - i, gedachten[i].getConcept());
+        }
+    }
 }
