@@ -16,10 +16,10 @@ import org.junit.Before;
  */
 public class GedachteComparatorOpBasisVanConceptTest {
 
-    private Persoonlijkheid mening1;
-    private Persoonlijkheid mening2;
-    private Gedachte gedachte;
-    private GedachteComparatorOpBasisVanConcept comparator;
+    private Persoonlijkheid mening1 = null;
+    private Persoonlijkheid mening2 = null;
+    private Gedachte gedachte = null;
+    private GedachteComparatorOpBasisVanConcept comparator = null;
 
     private Gedachte[] getGedachtenArray() {
         int max = Inspiratie.MAX + 1;
@@ -58,8 +58,7 @@ public class GedachteComparatorOpBasisVanConceptTest {
 
     @Test
     public void compare_geeft_de_negatieve_waarde_van_het_concept_van_de_eerste_gedachte_als_alleen_de_tweede_gedachte_null_is() {
-        Gedachte gedachte1 = new Gedachte(7, Persoonlijkheid.createRandomPersoonlijkheid());
-        assertEquals(0 - gedachte1.getConcept(), comparator.compare(gedachte1, null));
+        assertEquals(0 - gedachte.getConcept(), comparator.compare(gedachte, null));
     }
 
     @Test
