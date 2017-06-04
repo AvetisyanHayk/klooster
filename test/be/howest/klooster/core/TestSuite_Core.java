@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
     GedachtenOptimizerOpBasisVanGoedheidTest.class,
     GedachtenOptimizerTest.class,
     InspiratieTest.class,
+    PersoonlijkheidComparatorTest.class,
     PersoonlijkheidTest.class,
     WoordTest.class
 })
