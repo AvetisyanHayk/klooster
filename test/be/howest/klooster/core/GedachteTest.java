@@ -1,6 +1,9 @@
 package be.howest.klooster.core;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -9,6 +12,23 @@ import static org.junit.Assert.*;
  * @author Hayk
  */
 public class GedachteTest {
+    
+    private Set<Gedachte>getGedachtenSet() {
+        int size = Pater.MAX_GEDACHTEN;
+        Set<Gedachte> gedachten = new LinkedHashSet<>();
+        Inspiratie inspiratie = Inspiratie.getInstance().reset();
+        int creativiteit = 67;
+        int goedheid = 12;
+        for (int i = 0; i < size; i++) {
+            if (i != 12) {
+                Persoonlijkheid mening = new Persoonlijkheid(goedheid, creativiteit);
+                creativiteit -= 2;
+                goedheid += 3;
+                gedachten.add(new Gedachte(inspiratie.inspireerMij(), mening));
+            }
+        }
+        return gedachten;
+    }
     
     @Test(expected = IllegalArgumentException.class)
     public void constructor_met_verkeerde_concept_waarde_werpt_exception() {
@@ -145,5 +165,24 @@ public class GedachteTest {
         Gedachte gedachte = new Gedachte(concept, mening);
         Woord woord = new Woord(gedachte, mening);
         assertEquals(woord, gedachte.verwoord(mening));
+    }
+    
+    @Test
+    public void mapMeningenUitGedachten_geeft_correcte_meningen_terug() {
+        Set<Gedachte> gedachten = getGedachtenSet();
+        Set<Persoonlijkheid> persoonlijkheden1 = new TreeSet<>(new PersoonlijkheidComparator());
+        gedachten.forEach(gedachte -> {
+            persoonlijkheden1.add(gedachte.getMening());
+        });
+        Set<Persoonlijkheid> persoonlijkheden2 = Gedachte.mapMeningenUitGedachten(gedachten);
+        assertEquals(persoonlijkheden1.size(), persoonlijkheden2.size());
+        for (int i = 0; i < persoonlijkheden1.size(); i++) {
+            persoonlijkheden1.containsAll(persoonlijkheden2);
+        }
+    }
+    
+    @Test
+    public void mapMeningenUitGedachten_geeft_null_terug_als_gedachten_null_zijn() {
+        assertNull(Gedachte.mapMeningenUitGedachten(null));
     }
 }

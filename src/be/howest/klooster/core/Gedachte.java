@@ -46,6 +46,9 @@ public class Gedachte {
     }
 
     public static Set<Persoonlijkheid> mapMeningenUitGedachten(Set<Gedachte> gedachten) {
+        if (gedachten == null) {
+            return null;
+        }
         return gedachten.stream().map(Gedachte::getMening).collect(
                 Collectors.toCollection(() ->
                         new TreeSet<>(new PersoonlijkheidComparator())));
