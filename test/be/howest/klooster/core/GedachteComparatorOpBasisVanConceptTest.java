@@ -58,7 +58,8 @@ public class GedachteComparatorOpBasisVanConceptTest {
 
     @Test
     public void compare_geeft_de_negatieve_waarde_van_het_concept_van_de_eerste_gedachte_als_alleen_de_tweede_gedachte_null_is() {
-        assertEquals(0 - gedachte.getConcept(), comparator.compare(gedachte, null));
+        Gedachte gedachte1 = new Gedachte(7, Persoonlijkheid.createRandomPersoonlijkheid());
+        assertEquals(0 - gedachte1.getConcept(), comparator.compare(gedachte1, null));
     }
 
     @Test
