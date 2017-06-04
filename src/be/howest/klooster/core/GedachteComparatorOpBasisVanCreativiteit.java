@@ -19,6 +19,15 @@ public class GedachteComparatorOpBasisVanCreativiteit
     
     @Override
     public int compare(Gedachte gedachte1, Gedachte gedachte2) {
+        if (gedachte1 == null && gedachte2 == null) {
+            return 0;
+        }
+        if (gedachte1 == null) {
+            return Persoonlijkheid.MAX_CREATIVITEIT + 1;
+        }
+        if (gedachte2 == null) {
+            return 0 - gedachte1.getCreativiteit();
+        }
         return gedachte1.getCreativiteit() - gedachte2.getCreativiteit();
     }
 
