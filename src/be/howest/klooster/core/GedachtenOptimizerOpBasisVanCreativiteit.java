@@ -37,14 +37,14 @@ public class GedachtenOptimizerOpBasisVanCreativiteit
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
         for (Map.Entry<Integer, List<Gedachte>> entry : gedachtenMap.entrySet()) {
             List<Gedachte> gedachtenList = entry.getValue();
-            Gedachte gedachteDichtsBijCreativiteitVanPater
-                    = getGedachteMetHoogsteCreativiteit(gedachtenList, creativiteit);
-            geoptimaliseerdeGedachten.add(gedachteDichtsBijCreativiteitVanPater);
+            Gedachte gedachteDichtstBijCreativiteitVanPater
+                    = getGedachteDichtstBijCreativiteitVanPater(gedachtenList, creativiteit);
+            geoptimaliseerdeGedachten.add(gedachteDichtstBijCreativiteitVanPater);
         }
         return geoptimaliseerdeGedachten;
     }
 
-    private Gedachte getGedachteMetHoogsteCreativiteit(List<Gedachte> gedachten, int creativiteit) {
+    private Gedachte getGedachteDichtstBijCreativiteitVanPater(List<Gedachte> gedachten, int creativiteit) {
         Collections.sort(gedachten,
                 new GedachteComparatorOpBasisVanCreativiteit(creativiteit));
         return gedachten.get(0);

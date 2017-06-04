@@ -1,6 +1,6 @@
 package be.howest.klooster.core;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -27,29 +27,26 @@ public class GedachtenOptimizerOpBasisVanGoedheid
         int aantalGedachten = pater.getAantalGedachten();
         Map<Integer, List<Gedachte>> gedachtenMap
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());
-        Set<Gedachte> gedachtenList = getGeoptimaliseerdeGedachten(gedachtenMap,
+        Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap,
                 pater.getGoedheid());
-        pater.setGedachten(gedachtenList.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
-        return aantalGedachten - gedachtenList.size();
+        pater.setGedachten(gedachtenSet.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
+        return aantalGedachten - gedachtenSet.size();
     }
     
-    private Set<Gedachte> getGeoptimaliseerdeGedachten(
-            Map<Integer, List<Gedachte>> gedachtenMap, int goedheid) {
+    private Set<Gedachte> getGeoptimaliseerdeGedachten(Map<Integer, List<Gedachte>> gedachtenMap, int goedheid) {
         Set<Gedachte> geoptimaliseerdeGedachten = new LinkedHashSet<>();
         for (Map.Entry<Integer, List<Gedachte>> entry : gedachtenMap.entrySet()) {
-            List<Gedachte> gedachtenSet = entry.getValue();
-            Gedachte gedachteDichtsBijGoedheid = getGedachteDichtsBijGoedheid(
-                    gedachtenSet, goedheid);
-            geoptimaliseerdeGedachten.add(gedachteDichtsBijGoedheid);
+            List<Gedachte> gedachtenList = entry.getValue();
+            Gedachte gedachteDichtstBijGoedheidVanPater
+                    = getGedachteDichtstBijGoedheidVanPater(gedachtenList, goedheid);
+            geoptimaliseerdeGedachten.add(gedachteDichtstBijGoedheidVanPater);
         }
         return geoptimaliseerdeGedachten;
     }
     
-    private Gedachte getGedachteDichtsBijGoedheid(
-            List<Gedachte> gedachtenSet, int goedheid) {
-        Gedachte[] gedachten = gedachtenSet
-                .toArray(new Gedachte[gedachtenSet.size()]);
-        Arrays.sort(gedachten, new GedachteComparatorOpBasisVanGoedheid(goedheid));
-        return gedachten[0];
+    private Gedachte getGedachteDichtstBijGoedheidVanPater(List<Gedachte> gedachten, int goedheid) {
+        Collections.sort(gedachten,
+                new GedachteComparatorOpBasisVanGoedheid(goedheid));
+        return gedachten.get(0);
     }
 }
