@@ -1,5 +1,6 @@
 package be.howest.klooster.core;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -48,7 +49,14 @@ public class GedachteComparatorOpBasisVanConceptTest {
 
     @Test
     public void class_implements_comparator() {
-        assertTrue(Comparator.class.isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+        assertTrue(Comparator.class
+                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+    }
+    
+    @Test
+    public void class_implements_serializable() {
+        assertTrue(Serializable.class
+                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
     }
 
     @Test
