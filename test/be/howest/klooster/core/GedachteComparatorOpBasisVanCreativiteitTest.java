@@ -77,13 +77,13 @@ public class GedachteComparatorOpBasisVanCreativiteitTest {
     @Test
     public void class_implements_comparator() {
         assertTrue(Comparator.class
-                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+                .isAssignableFrom(GedachteComparatorOpBasisVanCreativiteit.class));
     }
 
     @Test
     public void class_implements_serializable() {
         assertTrue(Serializable.class
-                .isAssignableFrom(GedachteComparatorOpBasisVanConcept.class));
+                .isAssignableFrom(GedachteComparatorOpBasisVanCreativiteit.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
