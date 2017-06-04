@@ -66,8 +66,6 @@ public class GedachteComparatorOpBasisVanConceptTest {
         assertEquals(Inspiratie.MAX + 1, comparator.compare(null, gedachte));
     }
 
-    
-
     @Test
     public void compare_geeft_0_terug_bij_twee_gedachten_over_hetzelfde_concept() {
         Gedachte andereGedachte = new Gedachte(1, mening2);
@@ -76,14 +74,14 @@ public class GedachteComparatorOpBasisVanConceptTest {
     }
 
     @Test
-    public void compare_geeft_1_of_min_1_terug_als_het_verschil_van_twee_conceptwaarden_van_twee_gedachten_1_of_min_1_zijn() {
+    public void compare_geeft_1_of_min_1_terug_als_het_verschil_van_twee_conceptwaarden_van_twee_gedachten_1_of_min_1_is() {
         Gedachte andereGedachte = new Gedachte(2, mening2);
         assertEquals(-1, comparator.compare(gedachte, andereGedachte));
         assertEquals(1, comparator.compare(andereGedachte, gedachte));
     }
 
     @Test
-    public void compare_geeft_2_of_min_2_terug_als_het_verschil_van_twee_conceptwaarden_van_twee_gedachten_2_of_min_2_zijn() {
+    public void compare_geeft_2_of_min_2_terug_als_het_verschil_van_twee_conceptwaarden_van_twee_gedachten_2_of_min_2_is() {
         Gedachte andereGedachte = new Gedachte(3, mening2);
         assertEquals(-2, comparator.compare(gedachte, andereGedachte));
         assertEquals(2, comparator.compare(andereGedachte, gedachte));
