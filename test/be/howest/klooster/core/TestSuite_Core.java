@@ -13,7 +13,8 @@ import org.junit.runners.Suite;
     PersoonlijkheidTest.class,
     WoordTest.class,
     GedachteTest.class,
-    InspiratieTest.class
+    InspiratieTest.class,
+    GedachteComparatorOpBasisVanConceptTest.class
 })
 public class TestSuite_Core {
     

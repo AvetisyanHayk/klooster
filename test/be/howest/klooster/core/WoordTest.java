@@ -1,6 +1,5 @@
 package be.howest.klooster.core;
 
-import java.util.Objects;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
