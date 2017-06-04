@@ -4,6 +4,7 @@ import be.howest.klooster.toestand.BasisToestand;
 import be.howest.klooster.toestand.HoofdZitVolMetGedachtenToestand;
 import be.howest.klooster.toestand.NormaleToestand;
 import be.howest.klooster.toestand.Toestand;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Observable;
@@ -58,8 +59,12 @@ public class Pater extends Observable {
         return naam;
     }
 
-    Gedachte[] getGedachten() {
+    public Gedachte[] getGedachten() {
         return gedachten;
+    }
+    
+    public Set<Gedachte> getSetVanGedachten() {
+        return new LinkedHashSet<>(Arrays.asList(gedachten));
     }
 
     void setGedachten(Gedachte[] gedachten) {
@@ -90,6 +95,12 @@ public class Pater extends Observable {
 
     public Persoonlijkheid getPersoonlijkheid() {
         return persoonlijkheid;
+    }
+    
+    public void setPersoonlijkheid(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid != null) {
+            this.persoonlijkheid = persoonlijkheid;
+        }
     }
 
     public int getGoedheid() {

@@ -147,36 +147,40 @@ public final class Persoonlijkheid {
         return new Persoonlijkheid(goedheid, creativiteit);
     }
 
-    public void add(Persoonlijkheid persoonlijkheid) {
+    public Persoonlijkheid add(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             setGoedheid(goedheid + persoonlijkheid.goedheid);
             setCreativiteit(creativiteit + persoonlijkheid.creativiteit);
         }
+        return this;
     }
 
-    public void subtract(Persoonlijkheid persoonlijkheid) {
+    public Persoonlijkheid subtract(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             setGoedheid(goedheid - persoonlijkheid.goedheid);
             setCreativiteit(creativiteit - persoonlijkheid.creativiteit);
         }
+        return this;
     }
 
-    public void multiply(Persoonlijkheid persoonlijkheid) {
+    public Persoonlijkheid multiply(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             setGoedheid(goedheid * persoonlijkheid.goedheid);
             setCreativiteit(creativiteit * persoonlijkheid.creativiteit);
         }
+        return this;
     }
 
-    public void divide(Persoonlijkheid persoonlijkheid) {
+    public Persoonlijkheid divide(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             setGoedheid(goedheid / persoonlijkheid.goedheid);
             setCreativiteit(creativiteit / persoonlijkheid.creativiteit);
         }
+        return this;
     }
 
-    public void divide(int waarde) {
-        divide(new Persoonlijkheid(waarde, waarde));
+    public Persoonlijkheid divide(int waarde) {
+        return divide(new Persoonlijkheid(waarde, waarde));
     }
 
     @Override

@@ -49,7 +49,8 @@ public class Gedachte {
         if (gedachten == null) {
             return null;
         }
-        return gedachten.stream().map(Gedachte::getMening).collect(
+        return gedachten.stream().filter(gedachte -> gedachte != null)
+                .map(Gedachte::getMening).collect(
                 Collectors.toCollection(() ->
                         new TreeSet<>(new PersoonlijkheidComparator())));
     }

@@ -8,6 +8,7 @@ import be.howest.klooster.core.Persoonlijkheid;
 import be.howest.klooster.core.Woord;
 import be.howest.klooster.core.GedachtenOptimizer;
 import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGoedheid;
+import java.util.Set;
 
 /**
  *
@@ -88,6 +89,12 @@ abstract class AbstracteToestand implements Toestand {
     }
     
     private void veranderPersoonlijkheid() {
-        throw new UnsupportedOperationException();
+        Set<Gedachte> gedachten = pater.getSetVanGedachten();
+        Set<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);
+        Persoonlijkheid gemiddeldeMening = Persoonlijkheid
+                .getGemiddeldePersoonlijkheid(meningen);
+        Persoonlijkheid persoonlijkheid = pater.getPersoonlijkheid();
+        persoonlijkheid.subtract(gemiddeldeMening).divide(10);
+        pater.setPersoonlijkheid(persoonlijkheid);
     }
 }
