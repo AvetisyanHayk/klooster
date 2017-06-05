@@ -1,5 +1,7 @@
 package be.howest.klooster.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 import org.junit.Test;
@@ -18,6 +20,21 @@ public class PaterTest {
     private Pater pater = null;
     private Gedachte gedachte = null;
 
+    private Gedachte[] getGedachtenArray() {
+        int size = Pater.MAX_GEDACHTEN;
+        List<Gedachte> gedachten = new ArrayList<>();
+        Inspiratie inspiratie = Inspiratie.getInstance().reset();
+        int goedheid = 24;
+        int creativiteit = 79;
+        for (int i = 0; i < size; i++) {
+            Persoonlijkheid mening = new Persoonlijkheid(goedheid, creativiteit);
+            gedachten.add(new Gedachte(inspiratie.inspireerMij(), mening));
+            goedheid += 2;
+            creativiteit -= 3;
+        }
+        return gedachten.toArray(new Gedachte[size]);
+    }
+
     @Before
     public void before() {
         naam = "Roger";
@@ -27,14 +44,14 @@ public class PaterTest {
         gedachte = new Gedachte(Inspiratie.getInstance().inspireerMij(),
                 persoonlijkheid);
     }
-    
+
     private static class DummyGedachtenOptimizer implements GedachtenOptimizer {
 
         @Override
         public int optimaliseerGedachten(Pater pater) {
             return doeNiks();
         }
-        
+
         private int doeNiks() {
             return 0;
         }
@@ -323,7 +340,7 @@ public class PaterTest {
         assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
         assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
     }
-    
+
     @Test
     public void nieuwe_pater_blijft_in_basisToestand_na_het_luisteren_na_een_null_woord() {
         pater.luister(null);
@@ -333,7 +350,7 @@ public class PaterTest {
         pater.luister(roger.spreek());
         assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
     }
-    
+
     @Test
     public void toestand_van_nieuwe_pater_verandert_naar_normaleToestand_na_het_luisteren_naar_een_woord() {
         pater.bid();
@@ -345,7 +362,7 @@ public class PaterTest {
         roger2.luister(roger.spreek());
         assertTrue(roger2.getToestand().getClass().equals(NormaleToestand.class));
     }
-    
+
     @Test
     public void pater_in_normaleToestand_blijft_in_normaleToestand_na_het_spreken() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -369,7 +386,7 @@ public class PaterTest {
         }
         assertTrue(roger.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
     }
-    
+
     @Test
     public void na_maximum_aantal_keren_bidden_verandert_de_toestand_van_pater_naar_hoofdZitVolMetGedachtenToestand() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -379,7 +396,7 @@ public class PaterTest {
         assertTrue(pater.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
         assertTrue(roger.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
     }
-    
+
     @Test
     public void in_hoofdZitVolMetGedachtenToestand_kan_pater_niet_bidden() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -388,7 +405,7 @@ public class PaterTest {
         Gedachte gebedenGedachte = pater.bid();
         assertNull(gebedenGedachte);
     }
-    
+
     @Test
     public void bidden_in_hoofdZitVolMetGedachtenToestand_zal_pater_doen_nadenken_en_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -397,7 +414,7 @@ public class PaterTest {
         pater.bid();
         assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
     }
-    
+
     @Test
     public void luisteren_in_hoofdZitVolMetGedachtenToestand_zal_pater_doen_nadenken_en_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -408,7 +425,7 @@ public class PaterTest {
         roger.luisterNaar(pater);
         assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
     }
-    
+
     @Test
     public void nadenken_in_hoofdZitVolMetGedachtenToestand_zal_toestand_van_pater_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -417,7 +434,7 @@ public class PaterTest {
         pater.denkNa();
         assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
     }
-    
+
     @Test
     public void nadenken_in_hoofdZitVolMetGedachtenToestand_zal_toestand_van_pater_veranderen_naar_normaleToestand_als_nadenken_mislukt_is() {
         DummyGedachtenOptimizer dummyOptimizer = new DummyGedachtenOptimizer();
@@ -426,6 +443,20 @@ public class PaterTest {
         }
         pater.denkNa(dummyOptimizer);
         assertTrue(pater.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
+    }
+
+    @Test
+    public void na_nadenken_bij_gedachten_over_verschillende_concepten_heeft_een_pater_nog_altijd_dezelfde_gedachten() {
+        Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
+        for (int i = 0; i < Inspiratie.MAX; i++) {
+            Gedachte gebedenGedachte = roger.bid();
+            roger2.addGedachte(gebedenGedachte);
+        }
+        roger2.setToestand(roger2.getNormaleToestand());
+        assertTrue(Objects.equals(roger, roger2));
+        roger.denkNa();
+        roger2.setToestand(roger2.getNormaleToestand());
+        assertTrue(roger.getGedachtenList().containsAll(roger2.getGedachtenList()));
     }
 
     @Test
@@ -516,5 +547,71 @@ public class PaterTest {
                     gemiddeldeMening);
             assertTrue(Objects.equals(pater.nextGedachte(), aangenomenGedachte));
         }
+    }
+
+    @Test
+    public void na_nadenken_op_basis_van_creativiteit_verandert_persoonlijkheid_van_pater_op_correcte_manier() {
+        Gedachte[] gedachten = getGedachtenArray();
+        Persoonlijkheid persoonlijkheidVanJonas = new Persoonlijkheid(5, 6);
+        Pater jonas = new Pater("Jonas", persoonlijkheidVanJonas);
+        jonas.setGedachten(gedachten);
+        jonas.setToestand(jonas.getHoofdZitVolMetGedachtenToestand());
+
+        jonas.denkNa(GedachtenOptimizerOpBasisVanCreativiteit.getInstance());
+
+        List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
+        Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
+        assertEquals(new Persoonlijkheid(54, 34), gemiddeldeMening);
+        Persoonlijkheid verschil = Persoonlijkheid
+                .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
+        assertEquals(new Persoonlijkheid(49, 28), verschil);
+        verschil.divide(10);
+        assertEquals(new Persoonlijkheid(4, 2), verschil);
+        assertEquals(jonas.getPersoonlijkheid(), verschil);
+    }
+
+    @Test
+    public void na_nadenken_op_basis_van_goedheid_verandert_persoonlijkheid_van_pater_op_correcte_manier() {
+        Gedachte[] gedachten = getGedachtenArray();
+        Persoonlijkheid persoonlijkheidVanJonas = new Persoonlijkheid(5, 6);
+        Pater jonas = new Pater("Jonas", persoonlijkheidVanJonas);
+        jonas.setGedachten(gedachten);
+        jonas.setToestand(jonas.getHoofdZitVolMetGedachtenToestand());
+
+        jonas.denkNa(GedachtenOptimizerOpBasisVanGoedheid.getInstance());
+
+        List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
+        Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
+        assertEquals(new Persoonlijkheid(32, 67), gemiddeldeMening);
+        Persoonlijkheid verschil = Persoonlijkheid
+                .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
+        assertEquals(new Persoonlijkheid(27, 61), verschil);
+        verschil.divide(10);
+        assertEquals(new Persoonlijkheid(2, 6), verschil);
+        assertEquals(jonas.getPersoonlijkheid(), verschil);
+    }
+
+    @Test
+    public void na_nadenken_op_basis_van_gemiddelde_persoonlijkheid_verandert_persoonlijkheid_van_pater_op_correcte_manier() {
+        Gedachte[] gedachten = getGedachtenArray();
+        Persoonlijkheid persoonlijkheidVanJonas = new Persoonlijkheid(5, 6);
+        Pater jonas = new Pater("Jonas", persoonlijkheidVanJonas);
+        jonas.setGedachten(gedachten);
+        jonas.setToestand(jonas.getHoofdZitVolMetGedachtenToestand());
+
+        jonas.denkNa(GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid.getInstance());
+
+        for (Gedachte item : jonas.getGedachten()) {
+            System.err.println(item.getConcept() + ": " + item.getGoedheid() + " / " + item.getCreativiteit());
+        }
+        List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
+        Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
+        assertEquals(new Persoonlijkheid(43, 50), gemiddeldeMening);
+        Persoonlijkheid verschil = Persoonlijkheid
+                .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
+        assertEquals(new Persoonlijkheid(38, 44), verschil);
+        verschil.divide(10);
+        assertEquals(new Persoonlijkheid(3, 4), verschil);
+        assertEquals(jonas.getPersoonlijkheid(), verschil);
     }
 }
