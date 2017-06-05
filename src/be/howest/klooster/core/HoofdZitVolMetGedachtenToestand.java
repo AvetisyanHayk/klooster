@@ -11,8 +11,9 @@ final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
     }
 
     @Override
-    public void bid() {
+    public Gedachte bid() {
         super.denkNa();
+        return null;
     }
 
     @Override

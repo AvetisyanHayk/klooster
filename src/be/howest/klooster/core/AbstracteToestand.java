@@ -15,12 +15,13 @@ abstract class AbstracteToestand implements Toestand {
     }
 
     @Override
-    public void bid() {
+    public Gedachte bid() {
         int concept = Inspiratie.getInstance().inspireerMij();
         Persoonlijkheid mening = pater.getPersoonlijkheid();
         Gedachte gedachte = new Gedachte(concept, mening);
         pater.addGedachte(gedachte);
         pater.setInfo(String.format(Berichten.BID, pater.getNaam(), gedachte));
+        return gedachte;
     }
 
     @Override
@@ -32,6 +33,11 @@ abstract class AbstracteToestand implements Toestand {
             );
             pater.addGedachte(new Gedachte(woord.getConcept(), gemiddeldeMening));
         }
+    }
+    
+    @Override
+    public void luisterNaar(Pater anderePater) {
+        anderePater.spreekTegen(pater);
     }
 
     @Override
@@ -61,7 +67,6 @@ abstract class AbstracteToestand implements Toestand {
         if (aantalGeoptimaliseerdeGedachten > 0 || !pater.hoofdZitVol()) {
             veranderPersoonlijkheid();
             setInfoNadenkenGelukt();
-
         } else {
             setInfoNadenkenMislukt();
         }

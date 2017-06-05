@@ -142,17 +142,11 @@ public class Pater extends Observable {
     }
 
     public int getAantalGedachten() {
-        int aantalGedachten = 0;
-        for (Gedachte gedachte : gedachten) {
-            if (gedachte != null) {
-                aantalGedachten++;
-            }
-        }
-        return aantalGedachten;
+        return getGedachtenList().size();
     }
 
-    public void bid() {
-        toestand.bid();
+    public Gedachte bid() {
+        return toestand.bid();
     }
 
     public Woord spreek() {
@@ -165,6 +159,10 @@ public class Pater extends Observable {
 
     public void luister(Woord woord) {
         toestand.luister(woord);
+    }
+    
+    public void luisterNaar(Pater anderePater) {
+        toestand.luisterNaar(anderePater);
     }
 
     public void denkNa() {
@@ -215,7 +213,7 @@ public class Pater extends Observable {
     void checkCurrentGedachteIndex() {
         int aantalGedachten = getAantalGedachten();
         if (aantalGedachten > 0) {
-            if (currentGedachteIndex >= aantalGedachten - 1) {
+            if (currentGedachteIndex > aantalGedachten - 1) {
                 currentGedachteIndex = 0;
             }
         } else {

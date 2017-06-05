@@ -6,13 +6,15 @@ package be.howest.klooster.core;
  */
 interface Toestand {
 
-    void bid();
+    Gedachte bid();
 
     Woord spreek();
     
     void spreekTegen(Pater anderePater);
 
     void luister(Woord woord);
+    
+    void luisterNaar(Pater anderePater);
 
     void denkNa();
 

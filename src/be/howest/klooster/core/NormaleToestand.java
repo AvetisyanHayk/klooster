@@ -11,11 +11,12 @@ final class NormaleToestand extends AbstracteToestand {
     }
 
     @Override
-    public void bid() {
-        super.bid();
+    public Gedachte bid() {
+        Gedachte gedachte = super.bid();
         if (pater.hoofdZitVol()) {
             pater.setToestand(pater.getHoofdZitVolMetGedachtenToestand());
         }
+        return gedachte;
     }
 
     @Override

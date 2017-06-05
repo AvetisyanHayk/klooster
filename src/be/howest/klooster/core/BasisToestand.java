@@ -11,9 +11,12 @@ final class BasisToestand extends AbstracteToestand {
     }
 
     @Override
-    public void bid() {
-        super.bid();
-        pater.setToestand(pater.getNormaleToestand());
+    public Gedachte bid() {
+        Gedachte gedachte = super.bid();
+        if (gedachte != null) {
+            pater.setToestand(pater.getNormaleToestand());
+        }
+        return gedachte;
     }
 
     @Override
@@ -26,7 +29,9 @@ final class BasisToestand extends AbstracteToestand {
     @Override
     public void luister(Woord woord) {
         super.luister(woord);
-        pater.setToestand(pater.getNormaleToestand());
+        if (woord != null) {
+            pater.setToestand(pater.getNormaleToestand());
+        }
     }
 
     @Override
