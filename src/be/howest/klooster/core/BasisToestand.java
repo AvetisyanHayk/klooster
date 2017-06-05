@@ -13,9 +13,7 @@ final class BasisToestand extends AbstracteToestand {
     @Override
     public Gedachte bid() {
         Gedachte gedachte = super.bid();
-        if (gedachte != null) {
-            pater.setToestand(pater.getNormaleToestand());
-        }
+        pater.setToestand(pater.getNormaleToestand());
         return gedachte;
     }
 
