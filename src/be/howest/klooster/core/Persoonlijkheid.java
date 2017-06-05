@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * @author Hayk
  */
-public final class Persoonlijkheid {
+public final class Persoonlijkheid implements Cloneable {
 
     public static final int MIN_GOEDHEID = 0;
     public static final int MAX_GOEDHEID = 99;
@@ -111,21 +111,28 @@ public final class Persoonlijkheid {
     }
 
     public static Persoonlijkheid combineer(Set<Persoonlijkheid> persoonlijkheden) {
-        if (persoonlijkheden == null) {
+        if (persoonlijkheden == null || persoonlijkheden.isEmpty()) {
             return null;
         }
-        int gemiddeldeGoedheid = 0;
-        int gemiddeldeCreativiteit = 0;
-        for (Persoonlijkheid persoonlijkheid : persoonlijkheden) {
-            gemiddeldeGoedheid += persoonlijkheid.getGoedheid();
-            gemiddeldeCreativiteit += persoonlijkheid.getCreativiteit();
-        }
-        int size = persoonlijkheden.size();
-        gemiddeldeGoedheid /= size;
-        gemiddeldeCreativiteit /= size;
+        int gemiddeldeGoedheid = getGemiddeldeGoedheid(persoonlijkheden);
+        int gemiddeldeCreativiteit = getGemiddeldeCreativiteit(persoonlijkheden);
         return new Persoonlijkheid(gemiddeldeGoedheid, gemiddeldeCreativiteit);
     }
-    
+
+    private static int getGemiddeldeGoedheid(Set<Persoonlijkheid> persoonlijkheden) {
+        return (int) (persoonlijkheden.stream().filter(
+                persoonlijkheid -> persoonlijkheid != null)
+                .mapToInt(Persoonlijkheid::getGoedheid)
+                .average().getAsDouble());
+    }
+
+    private static int getGemiddeldeCreativiteit(Set<Persoonlijkheid> persoonlijkheden) {
+        return (int) (persoonlijkheden.stream().filter(
+                persoonlijkheid -> persoonlijkheid != null)
+                .mapToInt(Persoonlijkheid::getCreativiteit)
+                .average().getAsDouble());
+    }
+
     public static Persoonlijkheid combineer(Persoonlijkheid... persoonlijkheden) {
         if (persoonlijkheden == null) {
             return null;
@@ -144,7 +151,11 @@ public final class Persoonlijkheid {
 
     @Override
     public Persoonlijkheid clone() {
-        return new Persoonlijkheid(goedheid, creativiteit);
+        try {
+            return (Persoonlijkheid) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
     }
 
     public Persoonlijkheid add(Persoonlijkheid persoonlijkheid) {

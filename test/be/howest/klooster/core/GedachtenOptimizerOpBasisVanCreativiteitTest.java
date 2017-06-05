@@ -54,7 +54,7 @@ public class GedachtenOptimizerOpBasisVanCreativiteitTest {
         assertEquals(37, nagedacht[6].getCreativiteit());
         assertEquals(35, nagedacht[7].getCreativiteit());
         assertEquals(33, nagedacht[8].getCreativiteit());
-        for (int index = Inspiratie.MAX; index < Pater.MAX_GEDACHTEN; index++) {
+        for (int index = Inspiratie.MAX; index < nagedacht.length; index++) {
             assertNull(nagedacht[index]);
         }
     }
@@ -80,7 +80,7 @@ public class GedachtenOptimizerOpBasisVanCreativiteitTest {
         assertEquals(37, nagedacht[6].getCreativiteit());
         assertEquals(35, nagedacht[7].getCreativiteit());
         assertEquals(33, nagedacht[8].getCreativiteit());
-        for (int index = Inspiratie.MAX; index < Pater.MAX_GEDACHTEN; index++) {
+        for (int index = Inspiratie.MAX; index < nagedacht.length; index++) {
             assertNull(nagedacht[index]);
         }
     }
@@ -106,7 +106,7 @@ public class GedachtenOptimizerOpBasisVanCreativiteitTest {
         assertEquals(55, nagedacht[6].getCreativiteit());
         assertEquals(53, nagedacht[7].getCreativiteit());
         assertEquals(51, nagedacht[8].getCreativiteit());
-        for (int index = Inspiratie.MAX; index < Pater.MAX_GEDACHTEN; index++) {
+        for (int index = Inspiratie.MAX; index < nagedacht.length; index++) {
             assertNull(nagedacht[index]);
         }
     }

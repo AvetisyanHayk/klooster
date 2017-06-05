@@ -60,7 +60,8 @@ public class Pater extends Observable {
     }
 
     public Gedachte[] getGedachten() {
-        return gedachten;
+        Set<Gedachte> gedachtenSet = getSetVanGedachten();
+        return gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
     }
     
     public Set<Gedachte> getSetVanGedachten() {

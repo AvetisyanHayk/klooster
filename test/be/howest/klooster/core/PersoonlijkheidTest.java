@@ -1,6 +1,8 @@
 package be.howest.klooster.core;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.junit.Test;
@@ -11,7 +13,7 @@ import static org.junit.Assert.*;
  * @author Hayk
  */
 public class PersoonlijkheidTest {
-    
+
     private Set<Persoonlijkheid> getPersoonlijkhedenSet() {
         int size = Pater.MAX_GEDACHTEN;
         Set<Persoonlijkheid> persoonlijkheden = new LinkedHashSet<>();
@@ -203,7 +205,7 @@ public class PersoonlijkheidTest {
                 new Persoonlijkheid(Persoonlijkheid.MIN_GOEDHEID,
                         Persoonlijkheid.MIN_CREATIVITEIT)));
     }
-    
+
     @Test
     public void multiply_doet_niks_als_null_wordt_megegeven_als_argument() {
         Persoonlijkheid persoonlijkheid1 = Persoonlijkheid.createRandomPersoonlijkheid();
@@ -224,7 +226,7 @@ public class PersoonlijkheidTest {
                 new Persoonlijkheid(Persoonlijkheid.MAX_GOEDHEID,
                         Persoonlijkheid.MAX_CREATIVITEIT)));
     }
-    
+
     @Test
     public void divide_doet_niks_als_null_wordt_megegeven_als_argument() {
         Persoonlijkheid persoonlijkheid1 = Persoonlijkheid.createRandomPersoonlijkheid();
@@ -245,7 +247,7 @@ public class PersoonlijkheidTest {
                 new Persoonlijkheid(Persoonlijkheid.MIN_GOEDHEID,
                         Persoonlijkheid.MIN_CREATIVITEIT)));
     }
-    
+
     @Test
     public void divide_deelt_persoonlijkheid_door_de_meegegeven_waarde() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(31, 21);
@@ -256,18 +258,18 @@ public class PersoonlijkheidTest {
                 new Persoonlijkheid(Persoonlijkheid.MIN_GOEDHEID,
                         Persoonlijkheid.MIN_CREATIVITEIT)));
     }
-    
+
     @Test
     public void avg_geeft_null_terug_als_beide_argumenten_null_zijn() {
         assertNull(Persoonlijkheid.avg(null, null));
     }
-    
+
     @Test
     public void avg_geeft_null_terug_als_eerste_argument_null_is() {
         assertNull(Persoonlijkheid.avg(null,
                 Persoonlijkheid.createRandomPersoonlijkheid()));
     }
-    
+
     @Test
     public void avg_geeft_gemiddeldePersoonlijkheid_van_twee_persoonlijkheden_terug() {
         Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(10, 31);
@@ -275,17 +277,25 @@ public class PersoonlijkheidTest {
         Persoonlijkheid gemiddeld = Persoonlijkheid.avg(persoonlijkheid1, persoonlijkheid2);
         assertTrue(Objects.equals(gemiddeld, new Persoonlijkheid(22, 49)));
     }
-    
+
     @Test
     public void getGemiddeldePersoonlijkheid_geeft_null_terug_als_ingegeven_set_of_reeks_van_persoonlijkheden_null_is() {
-        Set<Persoonlijkheid> persoonlijkhedenSet = null;
-        Persoonlijkheid[] persoonlijkhedenArray = null;
-        assertNull(Persoonlijkheid
-                .combineer(persoonlijkhedenSet));
-        assertNull(Persoonlijkheid
-                .combineer(persoonlijkhedenArray));
+        Map<Integer, Set<Persoonlijkheid>> map;
+        map = new HashMap<>();
+        Persoonlijkheid[] persoonlijkhedenArray;
+        persoonlijkhedenArray = null;
+        Persoonlijkheid original = Persoonlijkheid.createRandomPersoonlijkheid();
+        Persoonlijkheid clone = original.clone();
+        assertNotNull(original);
+        assertNotNull(clone);
+        original = Persoonlijkheid.combineer(map.get(0));
+        assertNull(original);
+        original = clone.clone();
+        assertNotNull(original);
+        original = Persoonlijkheid.combineer(persoonlijkhedenArray);
+        assertNull(original);
     }
-    
+
     @Test
     public void getGemiddeldePersoonlijkheid_geeft_correcte_gemiddelde_persoonlijkheid_set_of_reeks_van_persoonlijkheden() {
         Set<Persoonlijkheid> persoonlijkhedenSet = getPersoonlijkhedenSet();

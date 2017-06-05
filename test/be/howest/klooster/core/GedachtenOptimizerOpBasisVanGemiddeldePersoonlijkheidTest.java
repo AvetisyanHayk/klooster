@@ -64,7 +64,7 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheidTest {
         assertEquals(new Persoonlijkheid(43, 46), nagedacht[6].getMening());
         assertEquals(new Persoonlijkheid(46, 44), nagedacht[7].getMening());
         assertEquals(new Persoonlijkheid(49, 42), nagedacht[8].getMening());
-        for (int index = Inspiratie.MAX; index < Pater.MAX_GEDACHTEN; index++) {
+        for (int index = Inspiratie.MAX; index < nagedacht.length; index++) {
             assertNull(nagedacht[index]);
         }
     }
