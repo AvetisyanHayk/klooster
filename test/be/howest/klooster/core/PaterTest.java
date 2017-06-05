@@ -2,7 +2,6 @@ package be.howest.klooster.core;
 
 import java.util.Objects;
 import java.util.Observable;
-import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -18,7 +17,7 @@ public class PaterTest {
     private Pater roger = null;
     private Pater pater = null;
     private Gedachte gedachte = null;
-    
+
     @Before
     public void before() {
         naam = "Roger";
@@ -26,14 +25,14 @@ public class PaterTest {
         roger = new Pater(naam);
         pater = new Pater(null);
         gedachte = new Gedachte(Inspiratie.getInstance().inspireerMij(),
-            persoonlijkheid);
+                persoonlijkheid);
     }
-    
+
     @Test
     public void pater_is_Observable() {
         assertTrue(Pater.class.getSuperclass().equals(Observable.class));
     }
-    
+
     @Test
     public void nieuwe_pater_zonder_naam_krijgt_klassenaam_Pater() {
         assertEquals(Pater.class.getSimpleName(), pater.getNaam());
@@ -41,13 +40,13 @@ public class PaterTest {
         assertEquals(Pater.class.getSimpleName(), new Pater(null,
                 persoonlijkheid).getNaam());
     }
-    
+
     @Test
     public void nieuwe_pater_zonder_persoonlijkheid_krijgt_geldige_random_Persoonlijkheid() {
         assertTrue(Persoonlijkheid.isValidPersoonlijkheid(
                 pater.getPersoonlijkheid()));
     }
-    
+
     @Test
     public void nieuwe_pater_heeft_geen_gedachten() {
         assertEquals(0, pater.getAantalGedachten());
@@ -55,13 +54,13 @@ public class PaterTest {
         assertEquals(0, new Pater(null, null).getAantalGedachten());
         assertEquals(0, new Pater(null, persoonlijkheid).getAantalGedachten());
     }
-    
+
     @Test
     public void getNaam_geeft_correcte_naam_van_pater_terug() {
         assertEquals(naam, roger.getNaam());
         assertEquals(naam, new Pater(naam, persoonlijkheid).getNaam());
     }
-    
+
     @Test
     public void getPersoonlijkheid_geeft_correcte_Persoonlijkheid_van_pater_terug() {
         Pater pater1 = new Pater(naam, persoonlijkheid);
@@ -69,7 +68,7 @@ public class PaterTest {
         assertEquals(persoonlijkheid, pater1.getPersoonlijkheid());
         assertEquals(persoonlijkheid, pater2.getPersoonlijkheid());
     }
-    
+
     @Test
     public void gedGedachten_geeft_immutable_gedachten_terug() {
         pater.addGedachte(gedachte);
@@ -79,7 +78,7 @@ public class PaterTest {
         assertNotNull(pater.getGedachten()[0]);
         assertNotEquals(gedachten[0], pater.getGedachten()[0]);
     }
-    
+
     @Test
     public void gedGedachten_geeft_correct_aantal_gedachten_terug() {
         pater.addGedachte(gedachte);
@@ -87,14 +86,14 @@ public class PaterTest {
         assertEquals(1, pater.getAantalGedachten());
         assertEquals(1, gedachten.length);
     }
-    
+
     @Test
     public void gedGedachtenSet_geeft_correcte_gedachten_terug() {
         pater.addGedachte(gedachte);
-        assertArrayEquals(pater.getGedachten(), pater.getGedachtenSet()
+        assertArrayEquals(pater.getGedachten(), pater.getGedachtenList()
                 .toArray(new Gedachte[pater.getAantalGedachten()]));
     }
-    
+
     @Test
     public void setGedachten_wijzigt_gedachten_niet_als_ingegeven_argument_null_is() {
         pater.addGedachte(gedachte);
@@ -104,7 +103,7 @@ public class PaterTest {
         assertArrayEquals(gedachten, pater.getGedachten());
         assertEquals(1, pater.getAantalGedachten());
     }
-    
+
     @Test
     public void setGedachten_wijzigt_gedachten_niet_als_ingegeven_gedachtenreeks_groter_is_dan_toegelaten() {
         Gedachte[] gedachten = new Gedachte[Pater.MAX_GEDACHTEN + 1];
@@ -112,9 +111,19 @@ public class PaterTest {
         pater.setGedachten(gedachten);
         assertEquals(0, pater.getAantalGedachten());
         assertEquals(0, pater.getGedachten().length);
-        assertEquals(0, pater.getGedachtenSet().size());
+        assertEquals(0, pater.getGedachtenList().size());
     }
-    
+
+    @Test
+    public void setGedachten_wijzigt_gedachten_niet_als_ingegeven_gedachtenreeks_kleiner_is_dan_toegelaten() {
+        Gedachte[] gedachten = new Gedachte[Pater.MAX_GEDACHTEN - 1];
+        gedachten[0] = gedachte;
+        pater.setGedachten(gedachten);
+        assertEquals(0, pater.getAantalGedachten());
+        assertEquals(0, pater.getGedachten().length);
+        assertEquals(0, pater.getGedachtenList().size());
+    }
+
     @Test
     public void setGedachten_wijzigt_gedachten_als_ingegeven_gedachtenreeks_geldig_is() {
         Gedachte[] gedachten = new Gedachte[Pater.MAX_GEDACHTEN];
@@ -122,10 +131,10 @@ public class PaterTest {
         pater.setGedachten(gedachten);
         assertEquals(1, pater.getAantalGedachten());
         assertEquals(1, pater.getGedachten().length);
-        assertEquals(1, pater.getGedachtenSet().size());
+        assertEquals(1, pater.getGedachtenList().size());
         assertEquals(gedachte, pater.getGedachten()[0]);
     }
-    
+
     @Test
     public void getAantalGedachten_geeft_correct_aantal_van_gedachten_terug() {
         assertEquals(0, pater.getAantalGedachten());
@@ -134,14 +143,14 @@ public class PaterTest {
         pater.addGedachte(gedachte);
         assertEquals(2, pater.getAantalGedachten());
     }
-    
+
     @Test
     public void addGedachte_voegt_niks_toe_als_ingegeven_argument_null_is() {
         assertEquals(0, pater.getAantalGedachten());
         assertFalse(pater.addGedachte(null));
         assertEquals(0, pater.getAantalGedachten());
     }
-    
+
     @Test
     public void addGedachte_voegt_gedachten_toe() {
         assertEquals(0, pater.getAantalGedachten());
@@ -150,7 +159,7 @@ public class PaterTest {
         assertTrue(pater.addGedachte(gedachte));
         assertEquals(2, pater.getAantalGedachten());
     }
-    
+
     @Test
     public void addGedachte_voegt_geen_gedachten_toe_als_hoofd_van_pater_vol_zit() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -161,18 +170,18 @@ public class PaterTest {
         assertFalse(pater.addGedachte(gedachte));
         assertEquals(Pater.MAX_GEDACHTEN, pater.getAantalGedachten());
     }
-    
+
     @Test
     public void getVolledigeNaam_geeft_correcte_naam_terug_als_pater_geen_naam_heeft() {
         assertEquals(Pater.class.getSimpleName(), pater.getVolledigeNaam());
     }
-    
+
     @Test
     public void getVolledigeNaam_geeft_correcte_naam_terug_als_pater_wel_een_naam_heeft() {
         assertEquals(Pater.class.getSimpleName() + " " + roger.getNaam(),
                 roger.getVolledigeNaam());
     }
-    
+
     @Test
     public void hoofdZitVol_geeft_correcte_true_of_false_waarden_terug() {
         assertFalse(pater.hoofdZitVol());
@@ -185,7 +194,7 @@ public class PaterTest {
         pater.addGedachte(gedachte);
         assertTrue(pater.hoofdZitVol());
     }
-    
+
     @Test
     public void twee_pater_zijn_gelijk_als_ze_dezelfde_naam_gedachten_persoonlijkheid_hebben_en_zich_in_dezelfde_toestand_bevinden() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -194,7 +203,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertTrue(Objects.equals(roger, roger2));
     }
-    
+
     @Test
     public void twee_paters_hebben_dezelfde_hashCode_als_ze_dezelfde_naam_gedachten_persoonlijkheid_hebben_en_zich_in_dezelfde_toestand_bevinden() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -203,7 +212,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertEquals(roger.hashCode(), roger2.hashCode());
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_namen_zijn_verschillende_objecten() {
         assertFalse(Objects.equals(pater, roger));
@@ -211,7 +220,7 @@ public class PaterTest {
         roger.addGedachte(gedachte);
         assertFalse(Objects.equals(pater, roger));
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_namen_hebben_verschillende_hashCodes() {
         assertNotEquals(pater.hashCode(), roger.hashCode());
@@ -219,11 +228,11 @@ public class PaterTest {
         roger.addGedachte(gedachte);
         assertNotEquals(pater.hashCode(), roger.hashCode());
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_persoonlijkheden_zijn_verschillende_objecten() {
         Persoonlijkheid persoonlijkheid2 = Persoonlijkheid.createRandomPersoonlijkheid();
-        while(persoonlijkheid.equals(persoonlijkheid2)) {
+        while (persoonlijkheid.equals(persoonlijkheid2)) {
             persoonlijkheid2 = Persoonlijkheid.createRandomPersoonlijkheid();
         }
         Pater roger2 = new Pater(roger.getNaam(), persoonlijkheid2);
@@ -232,11 +241,11 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertFalse(Objects.equals(roger, roger2));
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_persoonlijkheden_hebben_verschillende_hashCodes() {
         Persoonlijkheid persoonlijkheid2 = Persoonlijkheid.createRandomPersoonlijkheid();
-        while(persoonlijkheid.equals(persoonlijkheid2)) {
+        while (persoonlijkheid.equals(persoonlijkheid2)) {
             persoonlijkheid2 = Persoonlijkheid.createRandomPersoonlijkheid();
         }
         Pater roger2 = new Pater(roger.getNaam(), persoonlijkheid2);
@@ -245,7 +254,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertNotEquals(roger.hashCode(), roger2.hashCode());
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_gedachten_zijn_verschillende_objecten() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -255,7 +264,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertFalse(Objects.equals(roger, roger2));
     }
-    
+
     @Test
     public void twee_paters_met_verschillende_gedachten_hebben_verschillende_hashCodes() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -265,7 +274,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertNotEquals(roger.hashCode(), roger2.hashCode());
     }
-    
+
     @Test
     public void twee_paters_in_verschillende_toestanden_zijn_verschillende_objecten() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -276,7 +285,7 @@ public class PaterTest {
         roger2.addGedachte(gedachte);
         assertFalse(Objects.equals(roger, roger2));
     }
-    
+
     @Test
     public void twee_paters_in_verschillende_toestanden_hebben_verschillende_hashCodes() {
         Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
@@ -286,5 +295,120 @@ public class PaterTest {
         roger.addGedachte(gedachte);
         roger2.addGedachte(gedachte);
         assertNotEquals(roger.hashCode(), roger2.hashCode());
+    }
+
+    /* Test toestanden en acties */
+    @Test
+    public void nieuwe_pater_is_in_basisToestand() {
+        assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
+        assertTrue(roger.getToestand().getClass().equals(BasisToestand.class));
+    }
+
+    @Test
+    public void toestand_van_nieuwe_pater_verandert_naar_normaleToestand_na_het_bidden() {
+        pater.bid();
+        roger.bid();
+        assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+        assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
+    }
+
+    @Test
+    public void na_maximum_aantal_keren_bidden_verandert_de_toestand_van_pater_naar_hoofdZitVolMetGedachtenToestand() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+            roger.bid();
+        }
+        assertTrue(pater.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
+        assertTrue(roger.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
+    }
+
+    @Test
+    public void na_maximum_aantal_keren_bidden_heeft_de_pater_maximum_aantal_gedachten() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+            roger.bid();
+        }
+        assertEquals(Pater.MAX_GEDACHTEN, pater.getAantalGedachten());
+        assertEquals(Pater.MAX_GEDACHTEN, roger.getAantalGedachten());
+    }
+
+    @Test
+    public void nextGedachte_geeft_gedachtes_op_correcte_volgorde_terug() {
+        Gedachte gebedenGedachte = roger.bid();
+        Gedachte rogerNextGedachte = roger.nextGedachte();
+        assertTrue(Objects.equals(roger.getGedachten()[0], rogerNextGedachte));
+        assertTrue(Objects.equals(gebedenGedachte, rogerNextGedachte));
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+        }
+        Gedachte[] gedachten = pater.getGedachten();
+        for (Gedachte item : gedachten) {
+            Gedachte next = pater.nextGedachte();
+            assertTrue(Objects.equals(item, next));
+        }
+    }
+
+    @Test
+    public void nextGedachte_geeft_null_terug_als_pater_geen_gedachten_heeft() {
+        assertNull(roger.nextGedachte());
+        assertNull(pater.nextGedachte());
+        roger.bid();
+        Gedachte[] gedachten = new Gedachte[Pater.MAX_GEDACHTEN];
+        roger.setGedachten(gedachten);
+        assertNull(roger.nextGedachte());
+    }
+
+    @Test
+    public void pater_spreekt_een_juiste_woord_uit() {
+        assertNull(roger.spreek());
+        Gedachte gebedenGedachte1 = roger.bid();
+        Gedachte gebedenGedachte2 = roger.bid();
+        Woord woord1 = roger.spreek();
+        Woord woord2 = roger.spreek();
+        assertNotNull(woord1);
+        assertNotNull(woord2);
+        assertFalse(Objects.equals(woord1, woord2));
+        assertEquals(woord1, gebedenGedachte1.verwoord(roger.getPersoonlijkheid()));
+        assertEquals(woord2, gebedenGedachte2.verwoord(roger.getPersoonlijkheid()));
+        woord1 = roger.spreek();
+        woord2 = roger.spreek();
+        assertNotNull(woord1);
+        assertNotNull(woord2);
+        assertFalse(Objects.equals(woord1, woord2));
+        assertEquals(woord1, gebedenGedachte1.verwoord(roger.getPersoonlijkheid()));
+        assertEquals(woord2, gebedenGedachte2.verwoord(roger.getPersoonlijkheid()));
+    }
+
+    @Test
+    public void pater_luistert_niet_naar_een_null_woord() {
+        Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
+        assertTrue(Objects.equals(roger, roger2));
+        roger.luister(null);
+        assertTrue(Objects.equals(roger, roger2));
+        assertEquals(0, roger.getAantalGedachten());
+        roger.luister(roger2.spreek());
+        assertTrue(Objects.equals(roger, roger2));
+        assertEquals(0, roger.getAantalGedachten());
+        roger2.luisterNaar(roger);
+        assertTrue(Objects.equals(roger, roger2));
+        assertEquals(0, roger.getAantalGedachten());
+    }
+
+    @Test
+    public void pater_luistert_naar_woord_op_een_correcte_manier() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            Gedachte gebedenGedachte = roger.bid();
+            pater.luister(roger.spreek());
+            assertEquals(i + 1, pater.getAantalGedachten());
+            Woord woord = gebedenGedachte.verwoord(roger.getPersoonlijkheid());
+            Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(
+                    pater.getPersoonlijkheid(),
+                    woord.getBegeestering(),
+                    woord.getGedachte().getMening()
+            );
+            Gedachte aangenomenGedachte = new Gedachte(woord.getConcept(),
+                    gemiddeldeMening);
+            assertTrue(Objects.equals(pater.nextGedachte(), aangenomenGedachte));
+        }
     }
 }
