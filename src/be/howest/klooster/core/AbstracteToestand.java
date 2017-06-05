@@ -85,13 +85,13 @@ abstract class AbstracteToestand implements Toestand {
     public void denkNa(GedachtenOptimizer optimizer) {
         setInfoVoorHetNadenken();
         int aantalGeoptimaliseerdeGedachten = optimizer.optimaliseerGedachten(pater);
-        setInfoNaHetNadenken();
         if (aantalGeoptimaliseerdeGedachten > 0 || !pater.hoofdZitVol()) {
             veranderPersoonlijkheid();
             setInfoNadenkenGelukt();
         } else {
             setInfoNadenkenMislukt();
         }
+        setInfoNaHetNadenken();
     }
 
     private void setInfoVoorHetNadenken() {
