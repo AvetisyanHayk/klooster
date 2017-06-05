@@ -9,6 +9,8 @@ interface Toestand {
     void bid();
 
     Woord spreek();
+    
+    void spreekTegen(Pater anderePater);
 
     void luister(Woord woord);
 

@@ -6,7 +6,7 @@ import java.util.Objects;
  *
  * @author Hayk
  */
-class Woord {
+public class Woord {
 
     private final Gedachte gedachte;
     private final Persoonlijkheid begeestering;

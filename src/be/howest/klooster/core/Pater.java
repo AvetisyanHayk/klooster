@@ -18,6 +18,7 @@ public class Pater extends Observable {
     private final String naam;
     private Persoonlijkheid persoonlijkheid;
     private Gedachte[] gedachten;
+    private int currentGedachteIndex = -1;
 
     private Toestand basisToestand;
     private Toestand normaleToestand;
@@ -72,6 +73,7 @@ public class Pater extends Observable {
     void setGedachten(Gedachte[] gedachten) {
         if (gedachten != null && gedachten.length == MAX_GEDACHTEN) {
             this.gedachten = gedachten;
+            currentGedachteIndex = -1;
         }
     }
 
@@ -152,8 +154,12 @@ public class Pater extends Observable {
         toestand.bid();
     }
 
-    public void spreek() {
-        toestand.spreek();
+    public Woord spreek() {
+        return toestand.spreek();
+    }
+    
+    public void spreekTegen(Pater anderePater) {
+        toestand.spreekTegen(anderePater);
     }
 
     public void luister(Woord woord) {
@@ -194,6 +200,26 @@ public class Pater extends Observable {
         setChanged();
         notifyObservers();
         info = null;
+    }
+    
+    Gedachte nextGedachte() {
+        currentGedachteIndex++;
+        checkCurrentGedachteIndex();
+        if (currentGedachteIndex >= 0) {
+            return getGedachten()[currentGedachteIndex];
+        }
+        return null;
+    }
+    
+    void checkCurrentGedachteIndex() {
+        int aantalGedachten = getAantalGedachten();
+        if (aantalGedachten > 0) {
+            if (currentGedachteIndex >= aantalGedachten - 1) {
+                currentGedachteIndex = 0;
+            }
+        } else {
+            currentGedachteIndex = -1;
+        }
     }
 
     @Override

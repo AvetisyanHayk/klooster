@@ -26,17 +26,28 @@ abstract class AbstracteToestand implements Toestand {
     @Override
     public void luister(Woord woord) {
         if (woord != null) {
-            // TODO hier komt de code anders gebeurt er niks
-            throw new UnsupportedOperationException();
+            Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(
+                    pater.getPersoonlijkheid(), woord.getBegeestering(),
+                    woord.getGedachte().getMening()
+            );
+            pater.addGedachte(new Gedachte(woord.getConcept(), gemiddeldeMening));
         }
-        throw new UnsupportedOperationException();
     }
 
     @Override
     public Woord spreek() {
-        throw new UnsupportedOperationException();
+        Gedachte nextGedachte = pater.nextGedachte();
+        if (nextGedachte != null) {
+            return nextGedachte.verwoord(pater.getPersoonlijkheid());
+        }
+        return null;
     }
 
+    @Override
+    public void spreekTegen(Pater anderePater) {
+        anderePater.luister(spreek());
+    }
+    
     @Override
     public void denkNa() {
         denkNa(GedachtenOptimizerOpBasisVanGoedheid.getInstance());
