@@ -273,6 +273,37 @@ public class PersoonlijkheidTest {
         Persoonlijkheid gemiddeld = Persoonlijkheid.avg(persoonlijkheid1, persoonlijkheid2);
         assertTrue(Objects.equals(gemiddeld, new Persoonlijkheid(22, 49)));
     }
+    
+    @Test
+    public void verschil_geeft_null_terug_als_beide_persoonlijkheden_null_zijn() {
+        assertNull(Persoonlijkheid.verschil(null, null));
+    }
+    
+    @Test
+    public void verschil_geeft_eerste_persoonlijkheid_terug_als_tweede_persoonlijkheid_null_is() {
+        Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(5, 8);
+        Persoonlijkheid verschil = Persoonlijkheid.verschil(persoonlijkheid1, null);
+        assertTrue(Objects.equals(verschil, persoonlijkheid1));
+    }
+    
+    @Test
+    public void verschil_geeft_tweede_persoonlijkheid_terug_als_eerste_persoonlijkheid_null_is() {
+        Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(34, 79);
+        Persoonlijkheid verschil = Persoonlijkheid.verschil(null, persoonlijkheid2);
+        assertTrue(Objects.equals(verschil, persoonlijkheid2));
+    }
+    
+    @Test
+    public void verschil_geeft_het_verschil_van_twee_persoonlijkheden_terug() {
+        Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(5, 8);
+        Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(34, 79);
+        Persoonlijkheid hardGecodeerdVerschil = new Persoonlijkheid(29, 71);
+        Persoonlijkheid verschil1 = Persoonlijkheid.verschil(persoonlijkheid1, persoonlijkheid2);
+        Persoonlijkheid verschil2 = Persoonlijkheid.verschil(persoonlijkheid2, persoonlijkheid1);
+        assertTrue(Objects.equals(verschil1, verschil2));
+        assertTrue(Objects.equals(verschil1, hardGecodeerdVerschil));
+        assertTrue(Objects.equals(verschil2, hardGecodeerdVerschil));
+    }
 
     @Test
     public void getGemiddeldePersoonlijkheid_geeft_null_terug_als_ingegeven_set_of_reeks_van_persoonlijkheden_null_is() {

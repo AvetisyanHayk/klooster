@@ -154,6 +154,18 @@ public final class Persoonlijkheid implements Cloneable {
         }
         return persoonlijkheid1;
     }
+    
+    public static Persoonlijkheid verschil(Persoonlijkheid persoonlijkheid1, Persoonlijkheid persoonlijkheid2) {
+        if (persoonlijkheid1 != null && persoonlijkheid2 != null) {
+            int verschilInGoedheid = Math.abs(persoonlijkheid1.goedheid - persoonlijkheid2.goedheid);
+            int verschilInCreativiteit = Math.abs(persoonlijkheid1.creativiteit - persoonlijkheid2.creativiteit);
+            return new Persoonlijkheid(verschilInGoedheid, verschilInCreativiteit);
+        }
+        if (persoonlijkheid1 == null) {
+            return persoonlijkheid2;
+        }
+        return persoonlijkheid1;
+    }
 
     @Override
     public Persoonlijkheid clone() {
