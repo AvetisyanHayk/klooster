@@ -60,11 +60,11 @@ public class Pater extends Observable {
     }
 
     public Gedachte[] getGedachten() {
-        Set<Gedachte> gedachtenSet = getSetVanGedachten();
+        Set<Gedachte> gedachtenSet = getGedachtenSet();
         return gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
     }
     
-    public Set<Gedachte> getSetVanGedachten() {
+    public Set<Gedachte> getGedachtenSet() {
         return new LinkedHashSet<>(Arrays.asList(gedachten));
     }
 
