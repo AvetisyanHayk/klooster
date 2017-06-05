@@ -307,4 +307,19 @@ public class PersoonlijkheidTest {
         assertTrue(Objects.equals(gemiddelde, Persoonlijkheid
                 .combineer(persoonlijkhedenArray)));
     }
+    
+    @Test
+    public void null_is_geen_valid_Persoonlijkheid() {
+        assertFalse(Persoonlijkheid.isValidPersoonlijkheid(null));
+    }
+    
+    @Test
+    public void Persoonlijkheid_met_geldige_goedheids_en_creativiteitswaarden_is_valid_Persoonlijkheid() {
+        Persoonlijkheid persoonlijkheid1 = new Persoonlijkheid(
+                Persoonlijkheid.MIN_GOEDHEID, Persoonlijkheid.MAX_CREATIVITEIT);
+        Persoonlijkheid persoonlijkheid2 = new Persoonlijkheid(
+                Persoonlijkheid.MAX_GOEDHEID, Persoonlijkheid.MIN_CREATIVITEIT);
+        assertTrue(Persoonlijkheid.isValidPersoonlijkheid(persoonlijkheid1));
+        assertTrue(Persoonlijkheid.isValidPersoonlijkheid(persoonlijkheid2));
+    }
 }

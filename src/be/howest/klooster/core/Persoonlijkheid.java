@@ -109,6 +109,14 @@ public final class Persoonlijkheid implements Cloneable {
     public static boolean isValidCreativiteit(int creativiteit) {
         return creativiteit >= MIN_CREATIVITEIT && creativiteit <= MAX_CREATIVITEIT;
     }
+    
+    public static boolean isValidPersoonlijkheid(Persoonlijkheid persoonlijkheid) {
+        if (persoonlijkheid == null) {
+            return false;
+        }
+        return isValidGoedheid(persoonlijkheid.getGoedheid())
+                && isValidCreativiteit(persoonlijkheid.getCreativiteit());
+    }
 
     public static Persoonlijkheid combineer(Set<Persoonlijkheid> persoonlijkheden) {
         if (persoonlijkheden == null || persoonlijkheden.isEmpty()) {
