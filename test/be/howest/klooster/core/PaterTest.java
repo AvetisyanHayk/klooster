@@ -342,7 +342,7 @@ public class PaterTest {
     }
 
     @Test
-    public void nieuwe_pater_blijft_in_basisToestand_na_het_luisteren_na_een_null_woord() {
+    public void nieuwe_pater_blijft_in_basisToestand_na_het_luisteren_naar_een_null_woord() {
         pater.luister(null);
         assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
         pater.luisterNaar(roger);
@@ -561,13 +561,13 @@ public class PaterTest {
 
         List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
-        assertEquals(new Persoonlijkheid(54, 34), gemiddeldeMening);
+        assertTrue(Objects.equals(new Persoonlijkheid(54, 34), gemiddeldeMening));
         Persoonlijkheid verschil = Persoonlijkheid
                 .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
-        assertEquals(new Persoonlijkheid(49, 28), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(49, 28), verschil));
         verschil.divide(10);
-        assertEquals(new Persoonlijkheid(4, 2), verschil);
-        assertEquals(jonas.getPersoonlijkheid(), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(4, 2), verschil));
+        assertTrue(Objects.equals(jonas.getPersoonlijkheid(), verschil));
     }
 
     @Test
@@ -582,13 +582,13 @@ public class PaterTest {
 
         List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
-        assertEquals(new Persoonlijkheid(32, 67), gemiddeldeMening);
+        assertTrue(Objects.equals(new Persoonlijkheid(32, 67), gemiddeldeMening));
         Persoonlijkheid verschil = Persoonlijkheid
                 .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
-        assertEquals(new Persoonlijkheid(27, 61), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(27, 61), verschil));
         verschil.divide(10);
-        assertEquals(new Persoonlijkheid(2, 6), verschil);
-        assertEquals(jonas.getPersoonlijkheid(), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(2, 6), verschil));
+        assertTrue(Objects.equals(jonas.getPersoonlijkheid(), verschil));
     }
 
     @Test
@@ -601,17 +601,14 @@ public class PaterTest {
 
         jonas.denkNa(GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid.getInstance());
 
-        for (Gedachte item : jonas.getGedachten()) {
-            System.err.println(item.getConcept() + ": " + item.getGoedheid() + " / " + item.getCreativiteit());
-        }
         List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(jonas.getGedachtenList());
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid.combineer(meningen);
-        assertEquals(new Persoonlijkheid(43, 50), gemiddeldeMening);
+        assertTrue(Objects.equals(new Persoonlijkheid(43, 50), gemiddeldeMening));
         Persoonlijkheid verschil = Persoonlijkheid
                 .verschil(gemiddeldeMening, persoonlijkheidVanJonas);
-        assertEquals(new Persoonlijkheid(38, 44), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(38, 44), verschil));
         verschil.divide(10);
-        assertEquals(new Persoonlijkheid(3, 4), verschil);
-        assertEquals(jonas.getPersoonlijkheid(), verschil);
+        assertTrue(Objects.equals(new Persoonlijkheid(3, 4), verschil));
+        assertTrue(Objects.equals(jonas.getPersoonlijkheid(), verschil));
     }
 }

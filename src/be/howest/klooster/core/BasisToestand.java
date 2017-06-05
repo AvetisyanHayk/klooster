@@ -34,8 +34,8 @@ final class BasisToestand extends AbstracteToestand {
 
     @Override
     public void denkNa() {
+        super.denkNa();
         pater.setInfo(String.format(Berichten.DENK_NA, pater.getNaam(),
                 pater.getAantalGedachten()));
-        super.denkNa();
     }
 }

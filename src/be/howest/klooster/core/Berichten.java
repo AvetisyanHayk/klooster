@@ -26,6 +26,7 @@ final class Berichten {
     public static final String SPREEK_BASISTOESTAND = "%n%s heeft geen gedachten. Eerst moet hij bidden of luisteren naar een woord.";
     public static final String BID = "%n%s bidt en komt tot een gedachte: %s";
 
+    public static final String DENK_NA_BASISTOESTAND = "%n%s heeft geen gedachten. Eerst moet hij bidden of luisteren naar een woord.";
     public static final String DENK_NA = "%n%s gaat alles even overdenken: %d gedachten aan zijn hoofd momenteel.";
     public static final String DENK_NA_HOOFD_ZIT_VOL = "%n%s hoofd zit vol, gedacht is niet opgeslagen. Hij gaat even nadenken.";
 

@@ -154,7 +154,7 @@ public class Pater extends Observable {
     }
     
     public void spreekTegen(Pater anderePater) {
-        toestand.spreekTegen(anderePater);
+        anderePater.luisterNaar(this);
     }
 
     public void luister(Woord woord) {
@@ -162,7 +162,7 @@ public class Pater extends Observable {
     }
     
     public void luisterNaar(Pater anderePater) {
-        toestand.luisterNaar(anderePater);
+        luister(anderePater.spreek());
     }
 
     public void denkNa() {

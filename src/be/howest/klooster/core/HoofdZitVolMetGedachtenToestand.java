@@ -18,7 +18,9 @@ final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
 
     @Override
     public void luister(Woord woord) {
-        denkNa();
+        if (woord != null) {
+            denkNa();
+        }
     }
     
     @Override

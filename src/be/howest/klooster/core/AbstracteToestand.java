@@ -9,7 +9,7 @@ import java.util.List;
 abstract class AbstracteToestand implements Toestand {
 
     protected final Pater pater;
-    
+
     private static final GedachtenOptimizer OPTIMIZER_CREATIVITEIT
             = GedachtenOptimizerOpBasisVanCreativiteit.getInstance();
     private static final GedachtenOptimizer OPTIMIZER_GEMIDDELDE_PERSOONLIJKHEID
@@ -20,9 +20,12 @@ abstract class AbstracteToestand implements Toestand {
             = OPTIMIZER_CREATIVITEIT;
 
     AbstracteToestand(Pater pater) {
+        if (pater == null) {
+            throw new IllegalArgumentException();
+        }
         this.pater = pater;
     }
-    
+
     @Override
     public Gedachte bid() {
         int concept = Inspiratie.getInstance().inspireerMij();
@@ -43,11 +46,6 @@ abstract class AbstracteToestand implements Toestand {
             pater.addGedachte(new Gedachte(woord.getConcept(), gemiddeldeMening));
         }
     }
-    
-    @Override
-    public void luisterNaar(Pater anderePater) {
-        anderePater.spreekTegen(pater);
-    }
 
     @Override
     public Woord spreek() {
@@ -59,16 +57,11 @@ abstract class AbstracteToestand implements Toestand {
     }
 
     @Override
-    public void spreekTegen(Pater anderePater) {
-        anderePater.luister(spreek());
-    }
-    
-    @Override
     public void denkNa() {
         denkNa(currentGedachtenOptimizer);
         veranderGedachtenOptimizer();
     }
-    
+
     private void veranderGedachtenOptimizer() {
         if (currentGedachtenOptimizer == OPTIMIZER_CREATIVITEIT) {
             currentGedachtenOptimizer = OPTIMIZER_GEMIDDELDE_PERSOONLIJKHEID;

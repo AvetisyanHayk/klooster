@@ -47,6 +47,12 @@ public class BerichtenTest {
         assertNotNull(BID);
         System.err.println(String.format(BID, "Roger", "neutraal neutraal"));
     }
+    
+    @Test
+    public void DENK_NA_BASISTOESTAND_bevat_correcte_formaatparameters() {
+        assertNotNull(DENK_NA_BASISTOESTAND);
+        System.err.println(String.format(DENK_NA_BASISTOESTAND, "Roger"));
+    }
 
     @Test
     public void DENK_NA_bevat_correcte_formaatparameters() {

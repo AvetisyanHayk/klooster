@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.howest.main;
 
-import be.howest.klooster.core.GedachtenOptimizerOpBasisVanCreativiteit;
-import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid;
 import be.howest.klooster.core.Pater;
 import be.howest.klooster.core.Program;
 

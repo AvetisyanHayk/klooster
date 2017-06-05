@@ -9,6 +9,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    AbstracteToestandTest.class,
+    BasisToestandTest.class,
     BerichtenTest.class,
     GedachteComparatorOpBasisVanConceptTest.class,
     GedachteComparatorOpBasisVanCreativiteitTest.class,
@@ -18,7 +20,9 @@ import org.junit.runners.Suite;
     GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheidTest.class,
     GedachtenOptimizerOpBasisVanGoedheidTest.class,
     GedachtenOptimizerTest.class,
+    HoofdZitVolMetGedachtenToestandTest.class,
     InspiratieTest.class,
+    NormaleToestandTest.class,
     PaterTest.class,
     PersoonlijkheidComparatorTest.class,
     PersoonlijkheidTest.class,
