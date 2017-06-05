@@ -2,9 +2,8 @@ package be.howest.klooster.core;
 
 import be.howest.util.Tools;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *
@@ -118,7 +117,7 @@ public final class Persoonlijkheid implements Cloneable {
                 && isValidCreativiteit(persoonlijkheid.getCreativiteit());
     }
 
-    public static Persoonlijkheid combineer(Set<Persoonlijkheid> persoonlijkheden) {
+    public static Persoonlijkheid combineer(List<Persoonlijkheid> persoonlijkheden) {
         if (persoonlijkheden == null || persoonlijkheden.isEmpty()) {
             return null;
         }
@@ -127,14 +126,14 @@ public final class Persoonlijkheid implements Cloneable {
         return new Persoonlijkheid(gemiddeldeGoedheid, gemiddeldeCreativiteit);
     }
 
-    private static int getGemiddeldeGoedheid(Set<Persoonlijkheid> persoonlijkheden) {
+    private static int getGemiddeldeGoedheid(List<Persoonlijkheid> persoonlijkheden) {
         return (int) (persoonlijkheden.stream().filter(
                 persoonlijkheid -> persoonlijkheid != null)
                 .mapToInt(Persoonlijkheid::getGoedheid)
                 .average().getAsDouble());
     }
 
-    private static int getGemiddeldeCreativiteit(Set<Persoonlijkheid> persoonlijkheden) {
+    private static int getGemiddeldeCreativiteit(List<Persoonlijkheid> persoonlijkheden) {
         return (int) (persoonlijkheden.stream().filter(
                 persoonlijkheid -> persoonlijkheid != null)
                 .mapToInt(Persoonlijkheid::getCreativiteit)
@@ -145,8 +144,7 @@ public final class Persoonlijkheid implements Cloneable {
         if (persoonlijkheden == null) {
             return null;
         }
-        return Persoonlijkheid.combineer(new LinkedHashSet<>(Arrays
-                .asList(persoonlijkheden)));
+        return Persoonlijkheid.combineer(Arrays.asList(persoonlijkheden));
     }
 
     public static Persoonlijkheid avg(Persoonlijkheid persoonlijkheid1, Persoonlijkheid persoonlijkheid2) {

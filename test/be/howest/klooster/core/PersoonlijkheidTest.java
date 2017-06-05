@@ -1,10 +1,10 @@
 package be.howest.klooster.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  */
 public class PersoonlijkheidTest {
 
-    private Set<Persoonlijkheid> getPersoonlijkhedenSet() {
+    private List<Persoonlijkheid> getPersoonlijkhedenList() {
         int size = Pater.MAX_GEDACHTEN;
-        Set<Persoonlijkheid> persoonlijkheden = new LinkedHashSet<>();
+        List<Persoonlijkheid> persoonlijkheden = new ArrayList<>();
         int creativiteit = 67;
         int goedheid = 12;
         for (int i = 0; i < size; i++) {
@@ -276,7 +276,7 @@ public class PersoonlijkheidTest {
 
     @Test
     public void getGemiddeldePersoonlijkheid_geeft_null_terug_als_ingegeven_set_of_reeks_van_persoonlijkheden_null_is() {
-        Map<Integer, Set<Persoonlijkheid>> map;
+        Map<Integer, List<Persoonlijkheid>> map;
         map = new HashMap<>();
         Persoonlijkheid[] persoonlijkhedenArray;
         persoonlijkhedenArray = null;
@@ -294,7 +294,7 @@ public class PersoonlijkheidTest {
 
     @Test
     public void getGemiddeldePersoonlijkheid_geeft_correcte_gemiddelde_persoonlijkheid_set_of_reeks_van_persoonlijkheden() {
-        Set<Persoonlijkheid> persoonlijkhedenSet = getPersoonlijkhedenSet();
+        List<Persoonlijkheid> persoonlijkhedenSet = getPersoonlijkhedenList();
         Persoonlijkheid[] persoonlijkhedenArray = persoonlijkhedenSet
                 .toArray(new Persoonlijkheid[persoonlijkhedenSet.size()]);
         Persoonlijkheid gemiddelde = new Persoonlijkheid(39, 49);

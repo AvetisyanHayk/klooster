@@ -44,7 +44,7 @@ public class GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid
     }
 
     private Gedachte getGedachteVanGemiddeldeMening(List<Gedachte> gedachten, int concept) {
-        Set<Persoonlijkheid> persoonlijkheden
+        List<Persoonlijkheid> persoonlijkheden
                 = Gedachte.mapMeningenUitGedachten(new LinkedHashSet<>(gedachten));
         Persoonlijkheid gemiddeldePersoonlijkheid = Persoonlijkheid
                 .combineer(persoonlijkheden);

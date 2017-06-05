@@ -1,8 +1,8 @@
 package be.howest.klooster.core;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -45,14 +45,13 @@ public class Gedachte {
         return new Woord(this, begeestering);
     }
 
-    static Set<Persoonlijkheid> mapMeningenUitGedachten(Set<Gedachte> gedachten) {
+    static List<Persoonlijkheid> mapMeningenUitGedachten(Collection<Gedachte> gedachten) {
         if (gedachten == null) {
             return null;
         }
         return gedachten.stream().filter(gedachte -> gedachte != null)
                 .map(Gedachte::getMening).collect(
-                Collectors.toCollection(()
-                        -> new TreeSet<>(new PersoonlijkheidComparator())));
+                Collectors.toList());
     }
 
     @Override

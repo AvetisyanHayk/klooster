@@ -1,6 +1,6 @@
 package be.howest.klooster.core;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -92,8 +92,8 @@ abstract class AbstracteToestand implements Toestand {
     }
 
     private void veranderPersoonlijkheid() {
-        Set<Gedachte> gedachten = pater.getGedachtenSet();
-        Set<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);
+        List<Gedachte> gedachten = pater.getGedachtenList();
+        List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid
                 .combineer(meningen);
         Persoonlijkheid persoonlijkheid = pater.getPersoonlijkheid();

@@ -1,6 +1,7 @@
 package be.howest.klooster.core;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -174,7 +175,7 @@ public class GedachteTest {
         gedachten.forEach(gedachte -> {
             persoonlijkheden1.add(gedachte.getMening());
         });
-        Set<Persoonlijkheid> persoonlijkheden2 = Gedachte.mapMeningenUitGedachten(gedachten);
+        List<Persoonlijkheid> persoonlijkheden2 = Gedachte.mapMeningenUitGedachten(gedachten);
         assertEquals(persoonlijkheden1.size(), persoonlijkheden2.size());
         for (int i = 0; i < persoonlijkheden1.size(); i++) {
             persoonlijkheden1.containsAll(persoonlijkheden2);

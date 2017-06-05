@@ -1,11 +1,11 @@
 package be.howest.klooster.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
 
 /**
  *
@@ -57,17 +57,18 @@ public class Pater extends Observable {
     }
 
     Gedachte[] getGedachten() {
-        return getGedachtenSet().toArray(new Gedachte[getAantalGedachten()]);
+        List<Gedachte> gedachtenList = getGedachtenList();
+        return gedachtenList.toArray(new Gedachte[gedachtenList.size()]);
     }
     
-    Set<Gedachte> getGedachtenSet() {
-        Set<Gedachte> gedachtenSet = new LinkedHashSet<>();
+    List<Gedachte> getGedachtenList() {
+        List<Gedachte> gedachtenList = new ArrayList<>();
         for (Gedachte gedachte : gedachten) {
             if (gedachte != null) {
-                gedachtenSet.add(gedachte);
+                gedachtenList.add(gedachte);
             }
         }
-        return gedachtenSet;
+        return gedachtenList;
     }
 
     void setGedachten(Gedachte[] gedachten) {
