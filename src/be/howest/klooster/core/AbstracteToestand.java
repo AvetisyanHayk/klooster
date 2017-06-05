@@ -9,11 +9,20 @@ import java.util.List;
 abstract class AbstracteToestand implements Toestand {
 
     protected final Pater pater;
+    
+    private static final GedachtenOptimizer OPTIMIZER_CREATIVITEIT
+            = GedachtenOptimizerOpBasisVanCreativiteit.getInstance();
+    private static final GedachtenOptimizer OPTIMIZER_GEMIDDELDE_PERSOONLIJKHEID
+            = GedachtenOptimizerOpBasisVanGemiddeldePersoonlijkheid.getInstance();
+    private static final GedachtenOptimizer OPTIMIZER_GOEDHEID
+            = GedachtenOptimizerOpBasisVanGoedheid.getInstance();
+    private GedachtenOptimizer currentGedachtenOptimizer
+            = OPTIMIZER_CREATIVITEIT;
 
     AbstracteToestand(Pater pater) {
         this.pater = pater;
     }
-
+    
     @Override
     public Gedachte bid() {
         int concept = Inspiratie.getInstance().inspireerMij();
@@ -56,13 +65,26 @@ abstract class AbstracteToestand implements Toestand {
     
     @Override
     public void denkNa() {
-        denkNa(GedachtenOptimizerOpBasisVanGoedheid.getInstance());
+        denkNa(currentGedachtenOptimizer);
+        veranderGedachtenOptimizer();
+    }
+    
+    private void veranderGedachtenOptimizer() {
+        if (currentGedachtenOptimizer == OPTIMIZER_CREATIVITEIT) {
+            currentGedachtenOptimizer = OPTIMIZER_GEMIDDELDE_PERSOONLIJKHEID;
+            return;
+        }
+        if (currentGedachtenOptimizer == OPTIMIZER_GEMIDDELDE_PERSOONLIJKHEID) {
+            currentGedachtenOptimizer = OPTIMIZER_GOEDHEID;
+            return;
+        }
+        currentGedachtenOptimizer = OPTIMIZER_CREATIVITEIT;
     }
 
     @Override
     public void denkNa(GedachtenOptimizer optimizer) {
         setInfoVoorHetNadenken();
-        int aantalGeoptimaliseerdeGedachten = optimaliseerGedachten(optimizer);
+        int aantalGeoptimaliseerdeGedachten = optimizer.optimaliseerGedachten(pater);
         setInfoNaHetNadenken();
         if (aantalGeoptimaliseerdeGedachten > 0 || !pater.hoofdZitVol()) {
             veranderPersoonlijkheid();
@@ -92,17 +114,14 @@ abstract class AbstracteToestand implements Toestand {
                 pater.getNaam()));
     }
 
-    private int optimaliseerGedachten(GedachtenOptimizer optimizer) {
-        return optimizer.optimaliseerGedachten(pater);
-    }
-
     private void veranderPersoonlijkheid() {
         List<Gedachte> gedachten = pater.getGedachtenList();
         List<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);
         Persoonlijkheid gemiddeldeMening = Persoonlijkheid
                 .combineer(meningen);
         Persoonlijkheid persoonlijkheid = pater.getPersoonlijkheid();
-        persoonlijkheid.subtract(gemiddeldeMening).divide(10);
+        persoonlijkheid = Persoonlijkheid.verschil(persoonlijkheid, gemiddeldeMening);
+        persoonlijkheid.divide(10);
         pater.setPersoonlijkheid(persoonlijkheid);
     }
 }

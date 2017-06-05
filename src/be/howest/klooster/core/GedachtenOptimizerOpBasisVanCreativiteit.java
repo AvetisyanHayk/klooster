@@ -29,8 +29,11 @@ public class GedachtenOptimizerOpBasisVanCreativiteit
                 = GedachtenOptimizer.getGedachtenMap(pater.getGedachten());
         Set<Gedachte> gedachtenSet = getGeoptimaliseerdeGedachten(gedachtenMap,
                 pater.getCreativiteit());
-        pater.setGedachten(gedachtenSet.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
-        return aantalGedachten - gedachtenSet.size();
+        int aantalGeoptimaliseerd = aantalGedachten - gedachtenSet.size();
+        if (aantalGeoptimaliseerd > 0) {
+            pater.setGedachten(gedachtenSet.toArray(new Gedachte[Pater.MAX_GEDACHTEN]));
+        }
+        return aantalGeoptimaliseerd;
     }
 
     private Set<Gedachte> getGeoptimaliseerdeGedachten(Map<Integer, List<Gedachte>> gedachtenMap, int creativiteit) {
