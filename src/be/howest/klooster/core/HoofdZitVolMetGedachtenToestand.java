@@ -1,16 +1,12 @@
-package be.howest.klooster.toestand;
-
-import be.howest.klooster.core.Berichten;
-import be.howest.klooster.core.Pater;
-import be.howest.klooster.core.Woord;
+package be.howest.klooster.core;
 
 /**
  *
  * @author Hayk
  */
-public final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
+final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
 
-    public HoofdZitVolMetGedachtenToestand(Pater pater) {
+    HoofdZitVolMetGedachtenToestand(Pater pater) {
         super(pater);
     }
 

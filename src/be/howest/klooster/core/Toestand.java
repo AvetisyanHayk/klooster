@@ -1,16 +1,18 @@
-package be.howest.klooster.toestand;
-
-import be.howest.klooster.core.Woord;
-import be.howest.klooster.core.GedachtenOptimizer;
+package be.howest.klooster.core;
 
 /**
  *
  * @author Hayk
  */
-public interface Toestand {
+interface Toestand {
+
     void bid();
+
     Woord spreek();
+
     void luister(Woord woord);
+
     void denkNa();
+
     void denkNa(GedachtenOptimizer optimizer);
 }

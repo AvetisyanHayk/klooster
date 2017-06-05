@@ -7,7 +7,7 @@ import java.util.Comparator;
  *
  * @author Hayk
  */
-public class GedachteComparatorOpBasisVanConcept
+class GedachteComparatorOpBasisVanConcept
         implements Comparator<Gedachte>, Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,16 +1,12 @@
-package be.howest.klooster.toestand;
-
-import be.howest.klooster.core.Berichten;
-import be.howest.klooster.core.Pater;
-import be.howest.klooster.core.Woord;
+package be.howest.klooster.core;
 
 /**
  *
  * @author Hayk
  */
-public final class BasisToestand extends AbstracteToestand {
+final class BasisToestand extends AbstracteToestand {
 
-    public BasisToestand(Pater pater) {
+    BasisToestand(Pater pater) {
         super(pater);
     }
 
@@ -32,7 +28,7 @@ public final class BasisToestand extends AbstracteToestand {
         super.luister(woord);
         pater.setToestand(pater.getNormaleToestand());
     }
-    
+
     @Override
     public void denkNa() {
         pater.setInfo(String.format(Berichten.DENK_NA, pater.getNaam(),

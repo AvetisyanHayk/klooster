@@ -7,18 +7,18 @@ import java.util.Comparator;
  *
  * @author Hayk
  */
-public class GedachteComparatorOpBasisVanGoedheid
+class GedachteComparatorOpBasisVanGoedheid
         implements Comparator<Gedachte>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final int tenOpzichteVan;
 
-    public GedachteComparatorOpBasisVanGoedheid() {
+    GedachteComparatorOpBasisVanGoedheid() {
         tenOpzichteVan = -1;
     }
 
-    public GedachteComparatorOpBasisVanGoedheid(int tenOpzichteVan) {
+    GedachteComparatorOpBasisVanGoedheid(int tenOpzichteVan) {
         if (!Persoonlijkheid.isValidGoedheid(tenOpzichteVan)) {
             throw new IllegalArgumentException();
         }
@@ -37,10 +37,9 @@ public class GedachteComparatorOpBasisVanGoedheid
             return 0 - gedachte1.getGoedheid() - 1;
         }
         if (tenOpzichteVan == -1) {
-            return gedachte1.getGoedheid()- gedachte2.getGoedheid();
+            return gedachte1.getGoedheid() - gedachte2.getGoedheid();
         }
-        return Math.abs(tenOpzichteVan - gedachte1.getGoedheid()) -
-                Math.abs(tenOpzichteVan - gedachte2.getGoedheid());
+        return Math.abs(tenOpzichteVan - gedachte1.getGoedheid())
+                - Math.abs(tenOpzichteVan - gedachte2.getGoedheid());
     }
-
 }

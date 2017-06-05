@@ -1,13 +1,5 @@
-package be.howest.klooster.toestand;
+package be.howest.klooster.core;
 
-import be.howest.klooster.core.Berichten;
-import be.howest.klooster.core.Gedachte;
-import be.howest.klooster.core.Inspiratie;
-import be.howest.klooster.core.Pater;
-import be.howest.klooster.core.Persoonlijkheid;
-import be.howest.klooster.core.Woord;
-import be.howest.klooster.core.GedachtenOptimizer;
-import be.howest.klooster.core.GedachtenOptimizerOpBasisVanGoedheid;
 import java.util.Set;
 
 /**
@@ -21,7 +13,7 @@ abstract class AbstracteToestand implements Toestand {
     AbstracteToestand(Pater pater) {
         this.pater = pater;
     }
-    
+
     @Override
     public void bid() {
         int concept = Inspiratie.getInstance().inspireerMij();
@@ -30,7 +22,7 @@ abstract class AbstracteToestand implements Toestand {
         pater.addGedachte(gedachte);
         pater.setInfo(String.format(Berichten.BID, pater.getNaam(), gedachte));
     }
-    
+
     @Override
     public void luister(Woord woord) {
         if (woord != null) {
@@ -39,17 +31,17 @@ abstract class AbstracteToestand implements Toestand {
         }
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public Woord spreek() {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     public void denkNa() {
         denkNa(GedachtenOptimizerOpBasisVanGoedheid.getInstance());
     }
-    
+
     @Override
     public void denkNa(GedachtenOptimizer optimizer) {
         setInfoVoorHetNadenken();
@@ -63,31 +55,31 @@ abstract class AbstracteToestand implements Toestand {
             setInfoNadenkenMislukt();
         }
     }
-    
+
     private void setInfoVoorHetNadenken() {
         pater.setInfo(String.format(Berichten.DENK_NA_VOORAF, pater.getNaam(),
                 pater.getPersoonlijkheid()));
     }
-    
+
     private void setInfoNaHetNadenken() {
         pater.setInfo(String.format(Berichten.DENK_NA_ACHTERAF, pater.getNaam(),
                 pater.getPersoonlijkheid()));
     }
-    
+
     private void setInfoNadenkenGelukt() {
         pater.setInfo(String.format(Berichten.DENK_NA_GELUKT, pater.getNaam(),
                 pater.getAantalGedachten()));
     }
-    
+
     private void setInfoNadenkenMislukt() {
         pater.setInfo(String.format(Berichten.DENK_NA_MISLUKT,
                 pater.getNaam()));
     }
-    
+
     private int optimaliseerGedachten(GedachtenOptimizer optimizer) {
         return optimizer.optimaliseerGedachten(pater);
     }
-    
+
     private void veranderPersoonlijkheid() {
         Set<Gedachte> gedachten = pater.getGedachtenSet();
         Set<Persoonlijkheid> meningen = Gedachte.mapMeningenUitGedachten(gedachten);

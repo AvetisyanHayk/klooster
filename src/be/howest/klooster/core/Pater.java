@@ -1,9 +1,5 @@
 package be.howest.klooster.core;
 
-import be.howest.klooster.toestand.BasisToestand;
-import be.howest.klooster.toestand.HoofdZitVolMetGedachtenToestand;
-import be.howest.klooster.toestand.NormaleToestand;
-import be.howest.klooster.toestand.Toestand;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -59,13 +55,18 @@ public class Pater extends Observable {
         return naam;
     }
 
-    public Gedachte[] getGedachten() {
-        Set<Gedachte> gedachtenSet = getGedachtenSet();
-        return gedachtenSet.toArray(new Gedachte[gedachtenSet.size()]);
+    Gedachte[] getGedachten() {
+        return getGedachtenSet().toArray(new Gedachte[getAantalGedachten()]);
     }
     
-    public Set<Gedachte> getGedachtenSet() {
-        return new LinkedHashSet<>(Arrays.asList(gedachten));
+    Set<Gedachte> getGedachtenSet() {
+        Set<Gedachte> gedachtenSet = new LinkedHashSet<>();
+        for (Gedachte gedachte : gedachten) {
+            if (gedachte != null) {
+                gedachtenSet.add(gedachte);
+            }
+        }
+        return gedachtenSet;
     }
 
     void setGedachten(Gedachte[] gedachten) {
@@ -74,23 +75,23 @@ public class Pater extends Observable {
         }
     }
 
-    public Toestand getToestand() {
+    Toestand getToestand() {
         return toestand;
     }
 
-    public Toestand getBasisToestand() {
+    Toestand getBasisToestand() {
         return basisToestand;
     }
 
-    public Toestand getNormaleToestand() {
+    Toestand getNormaleToestand() {
         return normaleToestand;
     }
 
-    public Toestand getHoofdZitVolMetGedachtenToestand() {
+    Toestand getHoofdZitVolMetGedachtenToestand() {
         return hoofdZitVolMetGedachtenToestand;
     }
 
-    public void setToestand(Toestand toestand) {
+    void setToestand(Toestand toestand) {
         this.toestand = toestand;
     }
 
@@ -98,7 +99,7 @@ public class Pater extends Observable {
         return persoonlijkheid;
     }
     
-    public void setPersoonlijkheid(Persoonlijkheid persoonlijkheid) {
+    void setPersoonlijkheid(Persoonlijkheid persoonlijkheid) {
         if (persoonlijkheid != null) {
             this.persoonlijkheid = persoonlijkheid;
         }
@@ -112,13 +113,13 @@ public class Pater extends Observable {
         return persoonlijkheid.getCreativiteit();
     }
 
-    public void setInfo(String info) {
+    void setInfo(String info) {
         this.info = info;
         triggerChange();
     }
 
-    public boolean addGedachte(Gedachte gedachte) {
-        if (!hoofdZitVol()) {
+    boolean addGedachte(Gedachte gedachte) {
+        if (gedachte != null && !hoofdZitVol()) {
             for (int i = 0; i < gedachten.length; i++) {
                 if (gedachten[i] == null) {
                     gedachten[i] = gedachte;
@@ -171,7 +172,7 @@ public class Pater extends Observable {
         triggerChange();
     }
 
-    public boolean hasGedachten() {
+    boolean hasGedachten() {
         for (Gedachte gedachte : gedachten) {
             if (gedachte != null) {
                 return true;
@@ -180,7 +181,7 @@ public class Pater extends Observable {
         return false;
     }
 
-    public boolean hoofdZitVol() {
+    boolean hoofdZitVol() {
         for (Gedachte gedachte : gedachten) {
             if (gedachte == null) {
                 return false;
@@ -189,7 +190,7 @@ public class Pater extends Observable {
         return true;
     }
 
-    public void triggerChange() {
+    void triggerChange() {
         setChanged();
         notifyObservers();
         info = null;
@@ -205,7 +206,10 @@ public class Pater extends Observable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.naam);
+        hash = 83 * hash + Objects.hashCode(this.naam);
+        hash = 83 * hash + Objects.hashCode(this.persoonlijkheid);
+        hash = 83 * hash + Arrays.deepHashCode(this.gedachten);
+        hash = 83 * hash + Objects.hashCode(this.toestand.getClass());
         return hash;
     }
 
@@ -221,7 +225,16 @@ public class Pater extends Observable {
             return false;
         }
         final Pater other = (Pater) obj;
-        return Objects.equals(this.naam, other.naam);
+        if (!Objects.equals(this.naam, other.naam)) {
+            return false;
+        }
+        if (!Objects.equals(this.persoonlijkheid, other.persoonlijkheid)) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.gedachten, other.gedachten)) {
+            return false;
+        }
+        return Objects.equals(this.toestand.getClass(), other.toestand.getClass());
     }
 
     @Override

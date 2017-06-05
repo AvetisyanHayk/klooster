@@ -7,7 +7,7 @@ import java.util.Comparator;
  *
  * @author Hayk
  */
-public class PersoonlijkheidComparator
+class PersoonlijkheidComparator
         implements Comparator<Persoonlijkheid>, Serializable {
 
     private static final long serialVersionUID = 1L;

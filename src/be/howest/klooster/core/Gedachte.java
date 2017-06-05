@@ -14,7 +14,7 @@ public class Gedachte {
     private final int concept;
     private final Persoonlijkheid mening;
 
-    public Gedachte(int concept, Persoonlijkheid mening) {
+    Gedachte(int concept, Persoonlijkheid mening) {
         if (mening == null || !Inspiratie.isValidConcept(concept)) {
             throw new IllegalArgumentException();
         }
@@ -22,37 +22,37 @@ public class Gedachte {
         this.mening = mening;
     }
 
-    public int getConcept() {
+    int getConcept() {
         return concept;
     }
 
-    public int getGoedheid() {
+    int getGoedheid() {
         return mening.getGoedheid();
     }
 
-    public int getCreativiteit() {
+    int getCreativiteit() {
         return mening.getCreativiteit();
     }
 
-    public Persoonlijkheid getMening() {
+    Persoonlijkheid getMening() {
         return mening;
     }
 
-    public Woord verwoord(Persoonlijkheid begeestering) {
+    Woord verwoord(Persoonlijkheid begeestering) {
         if (begeestering == null) {
             throw new IllegalArgumentException();
         }
         return new Woord(this, begeestering);
     }
 
-    public static Set<Persoonlijkheid> mapMeningenUitGedachten(Set<Gedachte> gedachten) {
+    static Set<Persoonlijkheid> mapMeningenUitGedachten(Set<Gedachte> gedachten) {
         if (gedachten == null) {
             return null;
         }
         return gedachten.stream().filter(gedachte -> gedachte != null)
                 .map(Gedachte::getMening).collect(
-                Collectors.toCollection(() ->
-                        new TreeSet<>(new PersoonlijkheidComparator())));
+                Collectors.toCollection(()
+                        -> new TreeSet<>(new PersoonlijkheidComparator())));
     }
 
     @Override
@@ -85,5 +85,4 @@ public class Gedachte {
         }
         return Objects.equals(this.mening, other.mening);
     }
-
 }

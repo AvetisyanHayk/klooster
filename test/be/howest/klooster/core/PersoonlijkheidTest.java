@@ -100,13 +100,9 @@ public class PersoonlijkheidTest {
     @Test
     public void createRandomPersoonlijkheid_geeft_correcte_persoonlijkheid_terug() {
         for (int i = 0; i < 1000; i++) {
-            Persoonlijkheid persoonlijkheid = Persoonlijkheid.createRandomPersoonlijkheid();
-            int goedheid = persoonlijkheid.getGoedheid();
-            int creativiteit = persoonlijkheid.getGoedheid();
-            assertTrue(goedheid >= Persoonlijkheid.MIN_GOEDHEID
-                    && goedheid <= Persoonlijkheid.MAX_GOEDHEID);
-            assertTrue(creativiteit >= Persoonlijkheid.MIN_CREATIVITEIT
-                    && creativiteit <= Persoonlijkheid.MAX_CREATIVITEIT);
+            Persoonlijkheid persoonlijkheid =
+                    Persoonlijkheid.createRandomPersoonlijkheid();
+            assertTrue(Persoonlijkheid.isValidPersoonlijkheid(persoonlijkheid));
         }
 
     }
