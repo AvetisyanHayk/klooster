@@ -12,13 +12,13 @@ final class HoofdZitVolMetGedachtenToestand extends AbstracteToestand {
 
     @Override
     public Gedachte bid() {
-        super.denkNa();
+        denkNa();
         return null;
     }
 
     @Override
     public void luister(Woord woord) {
-        super.denkNa();
+        denkNa();
     }
     
     @Override

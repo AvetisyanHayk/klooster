@@ -52,7 +52,7 @@ public class Pater extends Observable {
         toestand = basisToestand;
     }
 
-    public String getNaam() {
+    String getNaam() {
         return naam;
     }
 
@@ -98,7 +98,7 @@ public class Pater extends Observable {
         this.toestand = toestand;
     }
 
-    public Persoonlijkheid getPersoonlijkheid() {
+    Persoonlijkheid getPersoonlijkheid() {
         return persoonlijkheid;
     }
     
@@ -108,11 +108,11 @@ public class Pater extends Observable {
         }
     }
 
-    public int getGoedheid() {
+    int getGoedheid() {
         return persoonlijkheid.getGoedheid();
     }
 
-    public int getCreativiteit() {
+    int getCreativiteit() {
         return persoonlijkheid.getCreativiteit();
     }
 
@@ -133,7 +133,7 @@ public class Pater extends Observable {
         return false;
     }
 
-    public String getVolledigeNaam() {
+     String getVolledigeNaam() {
         String classNaam = getClass().getSimpleName();
         if (naam.equals(classNaam)) {
             return naam;
@@ -141,7 +141,7 @@ public class Pater extends Observable {
         return classNaam + " " + naam;
     }
 
-    public int getAantalGedachten() {
+    int getAantalGedachten() {
         return getGedachtenList().size();
     }
 

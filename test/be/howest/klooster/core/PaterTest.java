@@ -27,6 +27,18 @@ public class PaterTest {
         gedachte = new Gedachte(Inspiratie.getInstance().inspireerMij(),
                 persoonlijkheid);
     }
+    
+    private static class DummyGedachtenOptimizer implements GedachtenOptimizer {
+
+        @Override
+        public int optimaliseerGedachten(Pater pater) {
+            return doeNiks();
+        }
+        
+        private int doeNiks() {
+            return 0;
+        }
+    }
 
     @Test
     public void pater_is_Observable() {
@@ -311,7 +323,53 @@ public class PaterTest {
         assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
         assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
     }
+    
+    @Test
+    public void nieuwe_pater_blijft_in_basisToestand_na_het_luisteren_na_een_null_woord() {
+        pater.luister(null);
+        assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
+        pater.luisterNaar(roger);
+        assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
+        pater.luister(roger.spreek());
+        assertTrue(pater.getToestand().getClass().equals(BasisToestand.class));
+    }
+    
+    @Test
+    public void toestand_van_nieuwe_pater_verandert_naar_normaleToestand_na_het_luisteren_naar_een_woord() {
+        pater.bid();
+        roger.luisterNaar(pater);
+        assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
+        roger.luister(pater.spreek());
+        assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
+        Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
+        roger2.luister(roger.spreek());
+        assertTrue(roger2.getToestand().getClass().equals(NormaleToestand.class));
+    }
+    
+    @Test
+    public void pater_in_normaleToestand_blijft_in_normaleToestand_na_het_spreken() {
+        Pater roger2 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
+        Pater roger3 = new Pater(roger.getNaam(), roger.getPersoonlijkheid());
+        for (int i = 0; i < Pater.MAX_GEDACHTEN - 1; i++) {
+            pater.bid();
+            pater.spreekTegen(roger);
+            assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+            roger2.luisterNaar(pater);
+            assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+            roger3.luister(pater.spreek());
+            assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+        }
+    }
 
+    @Test
+    public void na_maximum_aantal_keren_luisteren_verandert_de_toestand_van_pater_naar_hoofdZitVolMetGedachtenToestand() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+            roger.luisterNaar(pater);
+        }
+        assertTrue(roger.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
+    }
+    
     @Test
     public void na_maximum_aantal_keren_bidden_verandert_de_toestand_van_pater_naar_hoofdZitVolMetGedachtenToestand() {
         for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
@@ -320,6 +378,54 @@ public class PaterTest {
         }
         assertTrue(pater.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
         assertTrue(roger.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
+    }
+    
+    @Test
+    public void in_hoofdZitVolMetGedachtenToestand_kan_pater_niet_bidden() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+        }
+        Gedachte gebedenGedachte = pater.bid();
+        assertNull(gebedenGedachte);
+    }
+    
+    @Test
+    public void bidden_in_hoofdZitVolMetGedachtenToestand_zal_pater_doen_nadenken_en_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+        }
+        pater.bid();
+        assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+    }
+    
+    @Test
+    public void luisteren_in_hoofdZitVolMetGedachtenToestand_zal_pater_doen_nadenken_en_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+            roger.luisterNaar(pater);
+        }
+        pater.bid();
+        roger.luisterNaar(pater);
+        assertTrue(roger.getToestand().getClass().equals(NormaleToestand.class));
+    }
+    
+    @Test
+    public void nadenken_in_hoofdZitVolMetGedachtenToestand_zal_toestand_van_pater_veranderen_naar_normaleToestand_als_nadenken_gelukt_is() {
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+        }
+        pater.denkNa();
+        assertTrue(pater.getToestand().getClass().equals(NormaleToestand.class));
+    }
+    
+    @Test
+    public void nadenken_in_hoofdZitVolMetGedachtenToestand_zal_toestand_van_pater_veranderen_naar_normaleToestand_als_nadenken_mislukt_is() {
+        DummyGedachtenOptimizer dummyOptimizer = new DummyGedachtenOptimizer();
+        for (int i = 0; i < Pater.MAX_GEDACHTEN; i++) {
+            pater.bid();
+        }
+        pater.denkNa(dummyOptimizer);
+        assertTrue(pater.getToestand().getClass().equals(HoofdZitVolMetGedachtenToestand.class));
     }
 
     @Test

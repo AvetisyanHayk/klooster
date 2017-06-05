@@ -3,13 +3,21 @@ package be.howest.klooster.core;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static be.howest.klooster.core.Berichten.*;
+import java.util.Locale;
+import org.junit.Before;
 
 /**
  *
  * @author Hayk
  */
 public class BerichtenTest {
-
+    
+    @Before
+    public void before() {
+        System.err.print("\n" + getClass().getSimpleName()
+                .toUpperCase(Locale.ENGLISH) + ":");
+    }
+    
     @Test
     public void GEDACHTE_bevat_correcte_formaatparameters() {
         assertNotNull(GEDACHTE);

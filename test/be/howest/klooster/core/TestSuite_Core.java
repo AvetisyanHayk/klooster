@@ -22,6 +22,7 @@ import org.junit.runners.Suite;
     PaterTest.class,
     PersoonlijkheidComparatorTest.class,
     PersoonlijkheidTest.class,
+    ProgramTest.class,
     WoordTest.class
 })
 public class TestSuite_Core {
